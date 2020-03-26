@@ -24,5 +24,10 @@ namespace SWE2_Projekt
         {
             InitializeComponent();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

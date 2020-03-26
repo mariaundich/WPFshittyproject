@@ -14,7 +14,7 @@
                         <DockPanel HorizontalAlignment="Stretch"/>
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
-                
+
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" />
                     <MenuItem Header="_Open" />
@@ -31,7 +31,7 @@
                     <MenuItem Header="_Exit" />
                 </MenuItem>
 
-                <MenuItem Header="_Options">
+                <MenuItem Header="_Options" Click="MenuItem_Click">
                     <MenuItem Header="_New" />
                     <MenuItem Header="_Open" />
                     <MenuItem Header="_Save" />
@@ -50,35 +50,50 @@
 
 
             <DockPanel DockPanel.Dock="Top">
-                <Button DockPanel.Dock="Right" Width="20"></Button>
-                <TextBox Text="soon to be searchbar"></TextBox>
+                <Button DockPanel.Dock="Right" Content="Search" Padding="3, 0, 3, 0"></Button>
+                <TextBox Text="soon to be searchbar" Padding="3, 1, 3, 1"></TextBox>
             </DockPanel>
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="3"></RowDefinition>
                     <RowDefinition Height="150"></RowDefinition>
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="3"></ColumnDefinition>
                     <ColumnDefinition Width="250"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
-                <Border BorderThickness="1"
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    BorderBrush="Black">
-                    <TextBlock Text="searched Picture"></TextBlock>
-                </Border>
-                
-                <Border BorderThickness="1"
+
+                <Border BorderThickness="0.2"
                     Grid.Column="1"
+                    Grid.Row="0"
+                    BorderBrush="Black" Margin="0, 4, 0, 1">
+                    <TextBlock Padding="3" Text="searched Picture"></TextBlock>
+                </Border>
+
+                <GridSplitter Grid.Column="2" Width="5" HorizontalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" >
+                    <GridSplitter.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="40.601"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="2.143"/>
+                        </TransformGroup>
+                    </GridSplitter.RenderTransform>
+                </GridSplitter>
+
+                <Border BorderThickness="0"
+                    Grid.Column="3"
                     Grid.Row="0"
                     BorderBrush="Black">
                     <Grid>
                         <TabControl>
-                            <TabItem Header="IPCT">
+                            <TabItem Header="IPCT" Margin="-2,-2,-2,0">
                                 <Label Content="Content goes here..." />
                             </TabItem>
 
@@ -88,13 +103,15 @@
                         </TabControl>
                     </Grid>
                 </Border>
-                
-                <Border BorderThickness="1"
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    BorderBrush="Black">
-                    <TextBlock>Images</TextBlock>
+
+                <GridSplitter Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" />
+
+                <Border BorderThickness="0.2"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="3"
+                    BorderBrush="Black" Margin="0,0,0,4">
+                    <TextBlock Padding="5">Images</TextBlock>
                 </Border>
             </Grid>
 
