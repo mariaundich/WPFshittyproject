@@ -7,6 +7,97 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
 
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+
+                <MenuItem Header="_Options">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+
+                <MenuItem Header="_Help" HorizontalAlignment="Right">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+            </Menu>
+
+
+            <DockPanel DockPanel.Dock="Top">
+                <Button DockPanel.Dock="Right" Width="20"></Button>
+                <TextBox Text="soon to be searchbar"></TextBox>
+            </DockPanel>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="150"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Border BorderThickness="1"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    BorderBrush="Black">
+                    <TextBlock Text="searched Picture"></TextBlock>
+                </Border>
+                
+                <Border BorderThickness="1"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    BorderBrush="Black">
+                    <Grid>
+                        <TabControl>
+                            <TabItem Header="IPCT">
+                                <Label Content="Content goes here..." />
+                            </TabItem>
+
+                            <TabItem Header="EXIF" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="38">
+                                <Label Content="More content" />
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </Border>
+                
+                <Border BorderThickness="1"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    BorderBrush="Black">
+                    <TextBlock>Images</TextBlock>
+                </Border>
+            </Grid>
+
+        </DockPanel>
     </Grid>
 </Window>
