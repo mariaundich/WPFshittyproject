@@ -23,6 +23,7 @@ namespace SWE2_Projekt
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
