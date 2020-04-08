@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWE2_Projekt"
+        xmlns:uc="clr-namespace:SWE2_Projekt.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -106,12 +107,16 @@
 
                 <GridSplitter Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" />
 
+                
+
                 <Border BorderThickness="0.2"
                     Grid.Column="1"
                     Grid.Row="2"
                     Grid.ColumnSpan="3"
                     BorderBrush="Black" Margin="0,0,0,4">
-                    <TextBlock Padding="5">Images</TextBlock>
+
+                    <uc:PictureListView />
+
                 </Border>
             </Grid>
 
