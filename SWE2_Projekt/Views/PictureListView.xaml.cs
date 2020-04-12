@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWE2_Projekt.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace SWE2_Projekt.Views
         public PictureListView()
         {
             InitializeComponent();
+            DataContext = new PictureListViewModel();
         }
     }
 }
