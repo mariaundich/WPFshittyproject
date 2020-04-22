@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace SWE2_Projekt.Views
 {
     /// <summary>
-    /// Interaktionslogik für PictureListView.xaml
+    /// Interaktionslogik für PictureView.xaml
     /// </summary>
-    public partial class PictureListView : UserControl
+    public partial class PictureView : UserControl
     {
-        public PictureListView()
+        public PictureView()
         {
             InitializeComponent();
         }
-               
     }
 }
