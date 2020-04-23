@@ -12,25 +12,32 @@ namespace SWE2_Projekt
 {
     public class MainWindowViewModel : ViewModel
     {
-        private static PictureModel picture = new PictureModel();
-        private PictureViewModel _pictureViewModel = new PictureViewModel(picture);
-        private PictureListViewModel _pictureListViewModel = new PictureListViewModel(picture);
+
+        public MainWindowViewModel()
+        {
+            pictureListViewModel.PropertyChanged += (s, e) => {
+
+                switch (e.PropertyName) {
+                    case nameof(PictureListViewModel.SelectedImage):
+
+                        OnPropertyChanged(nameof(pictureViewModel));
+                        break;
+                        
+                    
+                    }
+            };
+
+        }
 
         public PictureViewModel pictureViewModel
         {
             get
             {
-                return _pictureViewModel;
+                return pictureListViewModel.SelectedImage;
             }
         }
 
-        public PictureListViewModel pictureListViewModel
-        {
-            get
-            {
-                return _pictureListViewModel;
-            }
-        }
+        public PictureListViewModel pictureListViewModel { get; } = new PictureListViewModel();
 
     }
 }

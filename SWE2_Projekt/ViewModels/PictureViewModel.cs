@@ -9,13 +9,14 @@ namespace SWE2_Projekt.ViewModels
     public class PictureViewModel : ViewModel
     {
         private PictureModel _picture;
-        
-        private string _testString = "u ho!!";
+
 
         public PictureViewModel(PictureModel picture)
         {
             this._picture = picture;
         }
+
+
 
         public PictureModel Picture
         {
@@ -24,20 +25,14 @@ namespace SWE2_Projekt.ViewModels
                 return _picture;
             }
         }
-        public string TestPath { 
+        public string TestPath
+        {
             get
             {
                 return _picture.ImagePath;
             }
 
-            set
-            {
-                if(_testString != value)
-                {
-                    _testString = value;
-                    OnPropertyChanged("TestPath");
-                }
-            } 
         }
+
     }
 }

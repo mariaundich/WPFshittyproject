@@ -15,10 +15,10 @@
                       x:Name="ImageListView" 
                       x:FieldModifier="public"
                       ItemsSource="{Binding pictureListViewModel.ImageList}"
-                      SelectedItem="{Binding pictureListViewModel.Picture.ImagePath, UpdateSourceTrigger=PropertyChanged}">
+                      SelectedItem="{Binding pictureListViewModel.SelectedImage}">
 
                 <ListView.ItemsPanel>
-                    
+
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>
                     </ItemsPanelTemplate>
@@ -26,12 +26,12 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Image Height="100" Margin="5 0" Source="{Binding}" />
+                        <Image Height="100" Margin="5 0" Source="{Binding TestPath}" />
                     </DataTemplate>
-                </ListView.ItemTemplate>                    
-                    
+                </ListView.ItemTemplate>
+
             </ListView>
-                
+
         </Border>
     </Grid>
 </UserControl>

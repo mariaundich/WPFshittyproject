@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using static System.Net.Mime.MediaTypeNames;
@@ -13,33 +14,49 @@ namespace SWE2_Projekt.ViewModels
     public class PictureListViewModel : ViewModel, INotifyPropertyChanged
     {
 
-        private PictureModel _picture;
+        private PictureViewModel _picture;
+        private ObservableCollection<PictureViewModel> _results;
 
-        public PictureListViewModel(PictureModel picture)
-        {
-            this._picture = picture;
-        }
 
-        public PictureModel Picture
+
+        public PictureViewModel SelectedImage
         {
             get
             {
                 return _picture;
             }
+            set
+            {
+                if (_picture != value)
+                {
+                    _picture = value;
+                    OnPropertyChanged(nameof(SelectedImage));
+                }
+            }
         }
 
-        public ObservableCollection<string> ImageList
+        public ObservableCollection<PictureViewModel> ImageList
         {
             get
             {
-                var results = new ObservableCollection<string>();
-                foreach (var image in Directory.GetFiles("../../../images"))
+                if (_results == null)
                 {
-                    var trueimage = Path.GetFullPath(image);
-                    results.Add(trueimage);
+                    _results = new ObservableCollection<PictureViewModel>();
+                    /*foreach (var image in Directory.GetFiles("../../../images"))
+                    {
+                        var trueimage = Path.GetFullPath(image);
+                        _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage  }));
+                    }*/
+
+                    _results = new ObservableCollection<PictureViewModel>(Directory.GetFiles("../../../images")
+                        .Select(i => new PictureViewModel(new PictureModel() { ImagePath = Path.GetFullPath(i) })));
+
                 }
-                return results;
+                return _results;
             }
         }
+
+
+
     }
 }
