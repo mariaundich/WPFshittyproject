@@ -18,8 +18,11 @@ namespace SWE2_Projekt.Models
             }
             set
             {
-                _imagePath = value;
-                NotifyPropertyChanged("SelectedImagePath");
+                if(_imagePath != value)
+                {
+                    _imagePath = value;
+                    NotifyPropertyChanged("ImagePath");
+                }
             }
         }
 
@@ -30,7 +33,5 @@ namespace SWE2_Projekt.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
-
-
 }
 

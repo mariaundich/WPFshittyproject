@@ -7,7 +7,7 @@ using System.Text;
 namespace SWE2_Projekt.ViewModels
 {
     public class PictureViewModel : ViewModel
-    {        
+    {
         private PictureModel _picture;
         
         private string _testString = "u ho!!";
@@ -32,9 +32,12 @@ namespace SWE2_Projekt.ViewModels
 
             set
             {
-                _testString = value;
+                if(_testString != value)
+                {
+                    _testString = value;
+                    OnPropertyChanged("TestPath");
+                }
             } 
         }
-
     }
 }

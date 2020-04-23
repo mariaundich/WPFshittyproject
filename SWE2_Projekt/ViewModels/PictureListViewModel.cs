@@ -31,7 +31,7 @@ namespace SWE2_Projekt.ViewModels
         public ObservableCollection<string> ImageList
         {
             get
-            {                
+            {
                 var results = new ObservableCollection<string>();
                 foreach (var image in Directory.GetFiles("../../../images"))
                 {
@@ -41,8 +41,5 @@ namespace SWE2_Projekt.ViewModels
                 return results;
             }
         }
-
-        
-      
     }
 }
