@@ -17,8 +17,6 @@ namespace SWE2_Projekt.ViewModels
         private PictureViewModel _picture;
         private ObservableCollection<PictureViewModel> _results;
 
-
-
         public PictureViewModel SelectedImage
         {
             get
@@ -50,13 +48,9 @@ namespace SWE2_Projekt.ViewModels
 
                     _results = new ObservableCollection<PictureViewModel>(Directory.GetFiles("../../../images")
                         .Select(i => new PictureViewModel(new PictureModel() { ImagePath = Path.GetFullPath(i) })));
-
                 }
                 return _results;
             }
         }
-
-
-
     }
 }

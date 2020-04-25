@@ -12,21 +12,16 @@ namespace SWE2_Projekt
 {
     public class MainWindowViewModel : ViewModel
     {
-
         public MainWindowViewModel()
         {
             pictureListViewModel.PropertyChanged += (s, e) => {
-
                 switch (e.PropertyName) {
                     case nameof(PictureListViewModel.SelectedImage):
 
                         OnPropertyChanged(nameof(pictureViewModel));
                         break;
-                        
-                    
                     }
             };
-
         }
 
         public PictureViewModel pictureViewModel

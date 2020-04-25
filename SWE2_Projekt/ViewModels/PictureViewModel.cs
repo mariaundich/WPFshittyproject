@@ -10,13 +10,10 @@ namespace SWE2_Projekt.ViewModels
     {
         private PictureModel _picture;
 
-
         public PictureViewModel(PictureModel picture)
         {
             this._picture = picture;
         }
-
-
 
         public PictureModel Picture
         {
@@ -25,6 +22,7 @@ namespace SWE2_Projekt.ViewModels
                 return _picture;
             }
         }
+
         public string TestPath
         {
             get
@@ -33,6 +31,5 @@ namespace SWE2_Projekt.ViewModels
             }
 
         }
-
     }
 }
