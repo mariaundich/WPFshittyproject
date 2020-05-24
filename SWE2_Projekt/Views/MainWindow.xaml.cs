@@ -24,6 +24,7 @@ namespace SWE2_Projekt
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+            BusinessLayer _BusinessLayer = new BusinessLayer();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

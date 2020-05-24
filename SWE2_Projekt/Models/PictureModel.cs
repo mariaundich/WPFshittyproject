@@ -8,8 +8,7 @@ namespace SWE2_Projekt.Models
 {
     public class PictureModel : INotifyPropertyChanged
     {
-
-        private string _imagePath = Path.GetFullPath("../../../images/hats-for-cats1-300x250.jpg");
+        private string _imagePath = Path.GetFullPath("../../../images/hats-for-cats.jpg");
 
         public string ImagePath {
             get
