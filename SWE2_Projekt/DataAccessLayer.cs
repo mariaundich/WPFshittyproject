@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using MetadataExtractor;
 
+
 namespace SWE2_Projekt
 {
     public class DataAccessLayer
@@ -14,13 +15,16 @@ namespace SWE2_Projekt
         private static string PicFolderPath = Path.GetFullPath("../../../images");
         private string _connectionstring;
         private SqlCommand command;
-        private decimal[] PicIDs = new decimal[20];
+        private int[] PicIDs = new int[30];
+        List<string> PictureNames;
+        List<string> EXIF;
+        List<string> IPTC;
+        Dictionary<int, List<string>> AllPhotographers;
 
         public DataAccessLayer()
         {
             var file = File.ReadAllText(configfile, Encoding.UTF8);
             _connectionstring = file.ToString();
-            //Console.WriteLine(_connectionstring);
         }
 
         public void DeleteAllData()
@@ -74,15 +78,21 @@ namespace SWE2_Projekt
                         if (segment.Contains("."))
                         {
                             title = segment;
-                            
-                            command = new SqlCommand("INSERT INTO Bilder(Titel) VALUES(@Titel)" + "Select Scope_Identity()", connection);
 
-                            //command.Parameters.AddWithValue("@ID_Bild", id);
+                            command = new SqlCommand("INSERT INTO Bilder(Titel) VALUES(@Titel)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
                             command.Parameters.AddWithValue("@Titel", title);
 
-                            var PicID = command.ExecuteScalar();
-                            PicIDs.SetValue(PicID, idx);
-                            //Console.WriteLine(PicID);
+                            using (SqlDataReader rd = command.ExecuteReader())
+                            {
+                                while (rd.Read())
+                                {
+                                    // Added this, then it worked
+                                    if (!rd.IsDBNull(0))
+                                    {
+                                        PicIDs[idx] = rd.GetInt32(0);
+                                    }
+                                }
+                            }
                         }
                     }
                     idx += 1;
@@ -91,10 +101,149 @@ namespace SWE2_Projekt
             }
         }
 
+        public List<string> returnAllPicNames()
+        {
+            PictureNames = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT Titel FROM Bilder", connection);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // Added this, then it worked
+                        if (!rd.IsDBNull(0))
+                        {
+                            PictureNames.Add(rd.GetString(0));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return PictureNames;
+        }
+
+        public List<string> AllEXIFInfoFromOnePic(string title)
+        {
+            EXIF = new List<string>();
+            int fk_EXIF = -1;
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT fk_EXIF_ID FROM Bilder WHERE Titel = @title", connection);
+                command.Parameters.AddWithValue("@title", title);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // Added this, then it worked
+                        if (!rd.IsDBNull(0))
+                        {
+                            fk_EXIF = rd.GetInt32(0);
+                        }
+                    }
+                }
+                //Console.WriteLine(fk_EXIF);
+
+                command = new SqlCommand("SELECT Kameramodell, Auflösung, Datum, Ort, Land FROM EXIF WHERE ID_EXIF = @id", connection);
+                command.Parameters.AddWithValue("@id", fk_EXIF);
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // Added this, then it worked
+                        if (!rd.IsDBNull(0))
+                        {
+                            EXIF.Add(rd.GetString(0));
+                            EXIF.Add(rd.GetString(1));
+                            EXIF.Add(rd.GetDateTime(2).ToString());
+                            EXIF.Add(rd.GetString(3));
+                            EXIF.Add(rd.GetString(4));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return EXIF;
+        }
+
+        public List<string> AllIPTCInfoFromOnePic(string title)
+        {
+            IPTC = new List<string>();
+            int fk_IPTC = -1;
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT fk_ITPC_ID FROM Bilder WHERE Titel = @title", connection);
+                command.Parameters.AddWithValue("@title", title);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // Added this, then it worked
+                        if (!rd.IsDBNull(0))
+                        {
+                            fk_IPTC = rd.GetInt32(0);
+                        }
+                    }
+                }
+                //Console.WriteLine(fk_EXIF);
+
+                command = new SqlCommand("SELECT titel, Urheber, Beschreibung FROM ITPC WHERE ID_ITPC = @id", connection);
+                command.Parameters.AddWithValue("@id", fk_IPTC);
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // Added this, then it worked
+                        if (!rd.IsDBNull(0))
+                        {
+                            IPTC.Add(rd.GetString(0));
+                        }
+                        if (!rd.IsDBNull(1))
+                        {
+                            IPTC.Add(rd.GetString(1));
+                        }
+                        else
+                        {
+                            IPTC.Add("");
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            IPTC.Add(rd.GetString(2));
+                        }
+                        else
+                        {
+                            IPTC.Add("");
+                        }
+                    }
+                }
+                connection.Close();
+            }
+
+            return IPTC;
+        }
+
         public void InsertAllEXIFData()
         { 
             int idx = 0;
             string title = "";
+            int ID = -1;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -111,7 +260,6 @@ namespace SWE2_Projekt
                         if (segment.Contains("."))
                         {
                             title = segment;
-                            //Console.WriteLine(title); 
                         }
                     }
                     
@@ -120,34 +268,43 @@ namespace SWE2_Projekt
 
                     string[] RandomOrtLand = rand.GetRandomCityAndCountry();
 
-                    command = new SqlCommand("INSERT INTO EXIF(Kameramodell, Auflösung, Datum, Ort, Land) VALUES(@Kameramodell, @Auflösung, @Datum, @Ort, @Land)" + "Select Scope_Identity()", connection);
+                    command = new SqlCommand("INSERT INTO EXIF(Kameramodell, Auflösung, Datum, Ort, Land) VALUES(@Kameramodell, @Auflösung, @Datum, @Ort, @Land)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
 
-                    //command.Parameters.AddWithValue("@ID_EXIF", id);
                     command.Parameters.AddWithValue("@Kameramodell", rand.GetRandomCamera());
                     command.Parameters.AddWithValue("@Auflösung", "240x240");
                     command.Parameters.AddWithValue("@Datum", date.Next());
                     command.Parameters.AddWithValue("@Ort", RandomOrtLand[0]);
                     command.Parameters.AddWithValue("@Land", RandomOrtLand[1]);
 
-                    var ID = command.ExecuteScalar();
-                    Console.WriteLine(ID);
+                    //var ID = command.ExecuteScalar();
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            // Added this, then it worked
+                            if (!rd.IsDBNull(0))
+                            {
+                                ID = rd.GetInt32(0);
+                            }
+                        }
+                    }
 
-                    command = new SqlCommand("UPATE [Bilder] SET fk_EXIF_ID = @fk_EXIF_ID WHERE [ID_Bild] IS @ID_Bild", connection);
-                    command.Parameters.AddWithValue("@fk_EXIF_ID", Convert.ToInt32(ID));
-                    command.Parameters.AddWithValue("@ID_Bild", Convert.ToInt32(PicIDs[idx]));
+                    command = new SqlCommand("UPDATE [Bilder] SET fk_EXIF_ID = @fk_EXIF_ID WHERE ID_Bild = @ID_Bild", connection);
+                    command.Parameters.AddWithValue("@fk_EXIF_ID", ID);
+                    command.Parameters.AddWithValue("@ID_Bild", PicIDs[idx]);
 
                     command.ExecuteNonQuery();
-
                     idx += 1;
                 }
                 connection.Close();
             }
         }
 
-        public void InsertAllITPCData()
+        public void InsertAllIPTCData()
         {
             int idx = 0;
             string title = "";
+            int ID = -1;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -164,16 +321,24 @@ namespace SWE2_Projekt
                             title = segment;
                         }
                     }
-
-                    command = new SqlCommand("INSERT INTO ITPC(Titel) VALUES(@Titel)" + "Select Scope_Identity()", connection);
+                    command = new SqlCommand("INSERT INTO ITPC(Titel) VALUES(@Titel)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
                     command.Parameters.AddWithValue("@Titel", title);
 
-                    var ID = command.ExecuteScalar();
-                    //Console.WriteLine(ID);
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            // Added this, then it worked
+                            if (!rd.IsDBNull(0))
+                            {
+                                ID = rd.GetInt32(0);
+                            }
+                        }
+                    }
 
-                    command = new SqlCommand("UPATE Bilder SET fk_ITPC_ID = @fk_ITPC_ID WHERE ID_Bild = @ID_Bild", connection);
-                    command.Parameters.AddWithValue("@fk_ITPC_ID", Convert.ToInt32(ID));
-                    command.Parameters.AddWithValue("@ID_Bild", Convert.ToInt32(PicIDs[idx]));
+                    command = new SqlCommand("UPDATE Bilder SET fk_ITPC_ID = @fk_ITPC_ID WHERE ID_Bild = @ID_Bild", connection);
+                    command.Parameters.AddWithValue("@fk_ITPC_ID", ID);
+                    command.Parameters.AddWithValue("@ID_Bild", PicIDs[idx]);
 
                     command.ExecuteNonQuery();
 
@@ -236,19 +401,62 @@ namespace SWE2_Projekt
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
-
             }
         }
 
-        public void ListPhotagraphers()
+        public Dictionary<int, List<string>> GetAllPhotographers()
         {
+            AllPhotographers = new Dictionary<int, List<string>>();
+            List<string> helper = new List<string>();
+            int helperID = -1;
+
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
+                command = new SqlCommand("SELECT * FROM FotografInnen", connection);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // Added this, then it worked
+                        if (!rd.IsDBNull(0))
+                        {
+                            helperID = rd.GetInt32(0);
+                        }
+                        if (!rd.IsDBNull(1))
+                        {
+                            helper.Add(rd.GetString(1));
+                        }
+                        else
+                        {
+                            helper.Add("");
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            helper.Add(rd.GetString(2));
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            helper.Add(rd.GetDateTime(3).ToString());
+                        }
+                        if (!rd.IsDBNull(4))
+                        {
+                            helper.Add(rd.GetString(4));
+                        }
+                        else
+                        {
+                            helper.Add("");
+                        }
+                    }
+                    AllPhotographers.Add(helperID, helper);
+                }
+                connection.Close();
             }
+            return AllPhotographers;
         }
 
         public void EditEXIF()
@@ -262,7 +470,7 @@ namespace SWE2_Projekt
             }
         }
 
-        public void EditITPC()
+        public void EditIPTC()
         {
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -272,7 +480,8 @@ namespace SWE2_Projekt
 
             }
         }
-        public void AddTags()
+
+        public void AddTagsToPic(int picID, string Tag)
         {
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -349,7 +558,7 @@ namespace SWE2_Projekt
             }
         }
 
-        public void SearchForPicturesWithITPCinfo(string itpc_info)
+        public void SearchForPicturesWithIPTCinfo(string itpc_info)
         {
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {

@@ -20,11 +20,14 @@ namespace SWE2_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        Dictionary<int, List<string>> AllPhotographers = new Dictionary<int, List<string>>();
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
             BusinessLayer _BusinessLayer = new BusinessLayer();
+            AllPhotographers = _BusinessLayer.GetAllPhotographersInfo();
+            
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
