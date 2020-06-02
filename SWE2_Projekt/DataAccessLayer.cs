@@ -120,7 +120,7 @@ namespace SWE2_Projekt
                         // Added this, then it worked
                         if (!rd.IsDBNull(0))
                         {
-                            PictureNames.Add(rd.GetString(0));
+                            PictureNames.Add("../../../images/" + rd.GetString(0));
                         }
                     }
                 }

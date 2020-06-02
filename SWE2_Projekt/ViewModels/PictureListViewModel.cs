@@ -16,6 +16,7 @@ namespace SWE2_Projekt.ViewModels
 
         private PictureViewModel _picture;
         private ObservableCollection<PictureViewModel> _results;
+        private BusinessLayer _businessLayer = new BusinessLayer();
 
         public PictureViewModel SelectedImage
         {
@@ -40,14 +41,14 @@ namespace SWE2_Projekt.ViewModels
                 if (_results == null)
                 {
                     _results = new ObservableCollection<PictureViewModel>();
-                    /*foreach (var image in Directory.GetFiles("../../../images"))
+                    foreach (var image in _businessLayer.AllPictureNames())
                     {
                         var trueimage = Path.GetFullPath(image);
                         _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage  }));
-                    }*/
+                    }
 
-                    _results = new ObservableCollection<PictureViewModel>(Directory.GetFiles("../../../images")
-                        .Select(i => new PictureViewModel(new PictureModel() { ImagePath = Path.GetFullPath(i) })));
+                    /*_results = new ObservableCollection<PictureViewModel>(_businessLayer.AllPictureNames())
+                        .Select(i => new PictureViewModel(new PictureModel() { ImagePath = Path.GetFullPath(i) })));*/
                 }
                 return _results;
             }

@@ -94,7 +94,7 @@
                     BorderBrush="Black">
                     <Grid>
                         <TabControl>
-                            <TabItem Header="IPCT" Margin="-2,-2,-2,0">
+                            <TabItem Header="IPTC" Margin="-2,-2,-2,0">
                                 <Label Content="Content goes here..." />
                             </TabItem>
 
