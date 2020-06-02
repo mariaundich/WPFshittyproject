@@ -15,6 +15,7 @@ namespace SWE2_Projekt.ViewModels
     {
 
         private PictureViewModel _picture;
+        //private PictureInfoViewModel _info;
         private ObservableCollection<PictureViewModel> _results;
         private BusinessLayer _businessLayer = new BusinessLayer();
 

@@ -23,6 +23,14 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
+        public string Title
+        {
+            get
+            {
+                return _picture.Title;
+            }
+        }
+
         public string TestPath
         {
             get

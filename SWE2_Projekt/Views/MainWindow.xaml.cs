@@ -27,7 +27,7 @@ namespace SWE2_Projekt
             DataContext = new MainWindowViewModel();
             BusinessLayer _BusinessLayer = new BusinessLayer();
             AllPhotographers = _BusinessLayer.GetAllPhotographersInfo();
-            
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

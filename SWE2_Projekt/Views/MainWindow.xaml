@@ -92,17 +92,7 @@
                     Grid.Column="3"
                     Grid.Row="0"
                     BorderBrush="Black">
-                    <Grid>
-                        <TabControl>
-                            <TabItem Header="IPTC" Margin="-2,-2,-2,0">
-                                <Label Content="Content goes here..." />
-                            </TabItem>
-
-                            <TabItem Header="EXIF" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="38">
-                                <Label Content="More content" />
-                            </TabItem>
-                        </TabControl>
-                    </Grid>
+                    <uc:PictureInfoView />
                 </Border>
 
                 <GridSplitter Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" />

@@ -19,7 +19,7 @@ namespace SWE2_Projekt
             //_DataAccessLayer.InsertAllPictures();
             //_DataAccessLayer.InsertAllEXIFData();
             //_DataAccessLayer.InsertAllIPTCData();
-            RefreshPictureData();
+            // RefreshPictureData();
         }
 
         public void RefreshPictureData()

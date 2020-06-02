@@ -1,0 +1,4 @@
+Quellen zu Software Engineering 2
+
+INotifyPropertyChanged
+https://www.codingfreaks.de/wpf-mvvm-02/
