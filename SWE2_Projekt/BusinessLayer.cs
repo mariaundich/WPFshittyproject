@@ -8,17 +8,13 @@ namespace SWE2_Projekt
     {
         public DataAccessLayer _DataAccessLayer;
         List<string> PictureList;
-        List<string> EXIF;
-        List<string> IPTC;
+        Dictionary<int, List<string>> EXIF;
+        Dictionary<int, List<string>> IPTC;
         Dictionary<int, List<string>> AllPhotograpersInfo;
 
         public BusinessLayer()
         {
             _DataAccessLayer = new DataAccessLayer();
-            //_DataAccessLayer.DeleteAllData();
-            //_DataAccessLayer.InsertAllPictures();
-            //_DataAccessLayer.InsertAllEXIFData();
-            //_DataAccessLayer.InsertAllIPTCData();
         }
 
         public void RefreshPictureData()
@@ -36,16 +32,16 @@ namespace SWE2_Projekt
             return PictureList;
         }
 
-        public List<string> AllEXIFInfoForOnePic(string name)
+        public Dictionary<int, List<string>> AllEXIFInfoForOnePic(string name)
         {
-            EXIF = new List<string>();
+            EXIF = new Dictionary<int, List<string>>();
             EXIF = _DataAccessLayer.AllEXIFInfoFromOnePic(name);
             return EXIF;
         }
 
-        public List<string> AllIPTCInfoForOnePic(string name)
+        public Dictionary<int, List<string>> AllIPTCInfoForOnePic(string name)
         {
-            IPTC = new List<string>();
+            IPTC = new Dictionary<int, List<string>>();
             IPTC = _DataAccessLayer.AllIPTCInfoFromOnePic(name);
             return IPTC;
         }
