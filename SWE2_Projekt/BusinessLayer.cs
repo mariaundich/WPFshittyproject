@@ -21,6 +21,14 @@ namespace SWE2_Projekt
             //_DataAccessLayer.InsertAllIPTCData();
         }
 
+        public void RefreshPictureData()
+        {
+            _DataAccessLayer.DeleteAllData();
+            _DataAccessLayer.InsertAllPictures();
+            _DataAccessLayer.InsertAllEXIFData();
+            _DataAccessLayer.InsertAllIPTCData();
+        }
+
         public List<string> AllPictureNames()
         {
             PictureList = new List<string>();
