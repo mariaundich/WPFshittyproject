@@ -25,11 +25,11 @@ namespace SWE2_Projekt
             _DataAccessLayer.InsertAllIPTCData();
         }
 
-        public List<string> AllPictureNames()
+        public string[] AllPictureNames()
         {
             PictureList = new List<string>();
             PictureList = _DataAccessLayer.returnAllPicNames();
-            return PictureList;
+            return PictureList.ToArray();
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoForOnePic(string name)

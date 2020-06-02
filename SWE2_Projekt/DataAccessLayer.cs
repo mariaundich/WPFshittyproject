@@ -118,7 +118,7 @@ namespace SWE2_Projekt
                     {
                         if (!rd.IsDBNull(0))
                         {
-                            PictureNames.Add(rd.GetString(0));
+                            PictureNames.Add("../../../images/" + rd.GetString(0));
                         }
                     }
                 }

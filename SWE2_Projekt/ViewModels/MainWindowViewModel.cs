@@ -34,5 +34,7 @@ namespace SWE2_Projekt
 
         public PictureListViewModel pictureListViewModel { get; } = new PictureListViewModel();
 
+        public PictureInfoViewModel pictureInfoViewModel { get; } = new PictureInfoViewModel();
+
     }
 }
