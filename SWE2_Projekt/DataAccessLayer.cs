@@ -72,6 +72,7 @@ namespace SWE2_Projekt
                 {
                     string[] segments = image.Split("\\");
                     string title;
+                   
                     foreach (string segment in segments)
                     {
                         if (segment.ToLower().Contains(".png") || segment.ToLower().Contains(".jpg") || segment.ToLower().Contains(".jpeg"))
@@ -168,15 +169,15 @@ namespace SWE2_Projekt
                         {
                             helper.Add(rd.GetString(1));
                         }
-                        if(!rd.IsDBNull(2))
+                        if (!rd.IsDBNull(2))
                         {
-                            helper.Add(rd.GetDateTime(2).ToString());
+                            helper.Add(rd.GetString(2));
                         }
                         if (!rd.IsDBNull(3))
                         {
-                            helper.Add(rd.GetString(3));
+                            helper.Add(Convert.ToString(rd.GetDateTime(3)));
                         }
-                        if(!rd.IsDBNull(4))
+                        if (!rd.IsDBNull(4))
                         {
                             helper.Add(rd.GetString(4));
                         }
@@ -237,6 +238,14 @@ namespace SWE2_Projekt
                         if (!rd.IsDBNull(2))
                         {
                             helper.Add(rd.GetString(2));
+                        }
+                        else
+                        {
+                            helper.Add("");
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            helper.Add(rd.GetString(3));
                         }
                         else
                         {
@@ -313,6 +322,8 @@ namespace SWE2_Projekt
         {
             int idx = 0;
             string title = "";
+            string creator = "Unbekannt";
+            string description = "Nicht gegeben";
             int ID = -1;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
@@ -330,8 +341,10 @@ namespace SWE2_Projekt
                             title = segment;
                         }
                     }
-                    command = new SqlCommand("INSERT INTO ITPC(Titel) VALUES(@Titel)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
+                    command = new SqlCommand("INSERT INTO ITPC(Titel,Urheber,Beschreibung) VALUES(@Titel,@Creator,@Description)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
                     command.Parameters.AddWithValue("@Titel", title);
+                    command.Parameters.AddWithValue("@Creator", creator);
+                    command.Parameters.AddWithValue("@Description", description);
 
                     using (SqlDataReader rd = command.ExecuteReader())
                     {

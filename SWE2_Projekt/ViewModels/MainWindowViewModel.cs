@@ -19,6 +19,7 @@ namespace SWE2_Projekt
                     case nameof(PictureListViewModel.SelectedImage):
 
                         OnPropertyChanged(nameof(pictureViewModel));
+                        pictureInfoViewModel.LoadData(pictureViewModel.Title);
                         break;
                     }
             };
