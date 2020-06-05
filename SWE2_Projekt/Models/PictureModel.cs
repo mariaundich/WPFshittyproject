@@ -25,8 +25,6 @@ namespace SWE2_Projekt.Models
                 {        
                     _imagePath = value;
                     _title = _imagePath.Split("\\").Last();
-                    NotifyPropertyChanged("ImagePath");
-                    NotifyPropertyChanged("Title");
                 }
             }
         }

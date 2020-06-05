@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWE2_Projekt.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,13 @@ namespace SWE2_Projekt
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Searchbutton_Click(object sender, RoutedEventArgs e)
+        {
+            string search = SearchField.Text;
+
+            ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
     }
 }

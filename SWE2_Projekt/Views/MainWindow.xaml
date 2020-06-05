@@ -51,8 +51,8 @@
 
 
             <DockPanel DockPanel.Dock="Top">
-                <Button DockPanel.Dock="Right" Content="Search" Padding="3, 0, 3, 0"></Button>
-                <TextBox Text="soon to be searchbar" Padding="3, 1, 3, 1"></TextBox>
+                <Button DockPanel.Dock="Right" Content="Search" Padding="3, 0, 3, 0" Click="Searchbutton_Click"></Button>
+                <TextBox x:Name="SearchField" Text="soon to be searchbar" Padding="3, 1, 3, 1"></TextBox>
             </DockPanel>
 
             <Grid>
