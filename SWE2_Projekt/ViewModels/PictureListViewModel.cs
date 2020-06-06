@@ -38,14 +38,17 @@ namespace SWE2_Projekt.ViewModels
 
         public void UpdateImageList(string search)
         {
-
+            _results.Clear();
             List<string> searchResults = _businessLayer.SearchAllPictures(search);
 
-            foreach(string item in searchResults)
+            if (searchResults.Count > 0)
             {
-                Console.Write(item);
+                foreach (string item in searchResults)
+                {
+                    var trueimage = Path.GetFullPath("../../../images/" + item);
+                    _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage }));
+                }
             }
-            _results.Clear();
         }
 
         public ObservableCollection<PictureViewModel> ImageList

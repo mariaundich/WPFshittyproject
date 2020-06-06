@@ -15,7 +15,7 @@ namespace SWE2_Projekt
         public BusinessLayer()
         {
             _DataAccessLayer = new DataAccessLayer();
-            RefreshPictureData();
+            //RefreshPictureData();
         }
 
         public void RefreshPictureData()

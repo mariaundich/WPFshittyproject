@@ -38,7 +38,7 @@ namespace SWE2_Projekt
 
         private void Searchbutton_Click(object sender, RoutedEventArgs e)
         {
-            string search = SearchField.Text;
+            string search = SearchField.Text.ToLower();
 
             ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
