@@ -28,21 +28,21 @@ namespace SWE2_Projekt
         public string[] AllPictureNames()
         {
             PictureList = new List<string>();
-            PictureList = _DataAccessLayer.returnAllPicNames();
+            PictureList = _DataAccessLayer.returnAllPictureNames();
             return PictureList.ToArray();
         }
 
-        public Dictionary<int, List<string>> AllEXIFInfoForOnePic(string name)
+        public Dictionary<int, List<string>> AllEXIFInfoForOnePicture(string name)
         {
             EXIF = new Dictionary<int, List<string>>();
-            EXIF = _DataAccessLayer.AllEXIFInfoFromOnePic(name);
+            EXIF = _DataAccessLayer.AllEXIFInfoFromOnePicture(name);
             return EXIF;
         }
 
         public Dictionary<int, List<string>> AllIPTCInfoForOnePic(string name)
         {
             IPTC = new Dictionary<int, List<string>>();
-            IPTC = _DataAccessLayer.AllIPTCInfoFromOnePic(name);
+            IPTC = _DataAccessLayer.AllIPTCInfoFromOnePicture(name);
             return IPTC;
         }
 

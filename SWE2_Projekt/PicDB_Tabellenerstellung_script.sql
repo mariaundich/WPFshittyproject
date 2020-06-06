@@ -14,7 +14,7 @@ CREATE TABLE dbo.ITPC
 (
     ID_ITPC int IDENTITY (1, 1) NOT NULL,
     Titel varchar(100) NOT NULL,
-    Urheber varchar(150) NOT NULL,
+    Urheber varchar(150),
     Beschreibung text,
     PRIMARY KEY CLUSTERED (ID_ITPC ASC)
 );

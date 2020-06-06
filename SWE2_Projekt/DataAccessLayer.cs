@@ -5,11 +5,13 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using MetadataExtractor;
+using SWE2_Projekt.Models;
 
 namespace SWE2_Projekt
 {
     public class DataAccessLayer
     {
+        //PictureModel PictureModel = new PictureModel();
         private static string configfile = Path.GetFullPath("../../../config.txt");
         private static string PicFolderPath = Path.GetFullPath("../../../images");
         private string _connectionstring;
@@ -170,15 +172,19 @@ namespace SWE2_Projekt
                         }
                         if(!rd.IsDBNull(2))
                         {
-                            helper.Add(rd.GetDateTime(2).ToString());
+                            helper.Add(rd.GetString(2));
                         }
                         if (!rd.IsDBNull(3))
                         {
-                            helper.Add(rd.GetString(3));
+                            helper.Add(Convert.ToString(rd.GetDateTime(3)));
                         }
                         if(!rd.IsDBNull(4))
                         {
                             helper.Add(rd.GetString(4));
+                        }
+                        else
+                        {
+                            helper.Add("");
                         }
                     }
                     EXIF.Add(EXIFID, helper);
@@ -239,6 +245,13 @@ namespace SWE2_Projekt
                             helper.Add(rd.GetString(2));
                         }
                         else
+                        {
+                            helper.Add("");
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            helper.Add(rd.GetString(3));
+                        } else
                         {
                             helper.Add("");
                         }
