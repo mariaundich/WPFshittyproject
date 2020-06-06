@@ -27,8 +27,8 @@ namespace SWE2_Projekt
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            BusinessLayer BusinessLayer = new BusinessLayer();
-            Test = BusinessLayer.AllEXIFInfoForOnePicture("hacker-cat.png");
+            //BusinessLayer BusinessLayer = new BusinessLayer();
+            //Test = BusinessLayer.AllEXIFInfoForOnePicture("hacker-cat.png");
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

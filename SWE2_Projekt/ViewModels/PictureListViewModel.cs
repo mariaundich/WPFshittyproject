@@ -41,7 +41,10 @@ namespace SWE2_Projekt.ViewModels
 
             List<string> searchResults = _businessLayer.SearchAllPictures(search);
 
-            Console.Write(searchResults.ToString());
+            foreach(string item in searchResults)
+            {
+                Console.Write(item);
+            }
             _results.Clear();
         }
 

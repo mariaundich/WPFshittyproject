@@ -615,20 +615,26 @@ namespace SWE2_Projekt
                 command.Parameters.AddWithValue("@Titel", PicTitle);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        PicID = rd.GetInt32(0);
-                    }
+                        if (!rd.IsDBNull(0))
+                        {
+                            PicID = rd.GetInt32(0);
+                        }
+                    }  
                 }
 
                 command = new SqlCommand("SELECT ID_Tag FROM Tags WHERE Bezeichnung IS @Bezeichnung", connection);
                 command.Parameters.AddWithValue("@Bezeichnung", TagTitle);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        TagID = rd.GetInt32(0);
-                    }
+                        if (!rd.IsDBNull(0))
+                        {
+                            TagID = rd.GetInt32(0);
+                        }
+                    } 
                 }
 
                 command = new SqlCommand("DELETE FROM Bild_Tag WHERE fk_Bild_ID IS @fk_Bild_ID AND fk_Tag_ID IS @fk_Tag_ID", connection);
@@ -653,9 +659,12 @@ namespace SWE2_Projekt
                 command.Parameters.AddWithValue("@Titel", Title);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        PicID = rd.GetInt32(0);
+                        if (!rd.IsDBNull(0))
+                        {
+                            PicID = rd.GetInt32(0);
+                        }
                     }
                 }
 
@@ -682,9 +691,12 @@ namespace SWE2_Projekt
                 command.Parameters.AddWithValue("@nachname", Nachname);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        photographerID = rd.GetInt32(0);
+                        if (!rd.IsDBNull(0))
+                        {
+                            photographerID = rd.GetInt32(0);
+                        }
                     }
                 }
 
@@ -694,9 +706,12 @@ namespace SWE2_Projekt
                     command.Parameters.AddWithValue("@fk_FotografIn_ID", photographerID);
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
-                        if (!rd.IsDBNull(0))
+                        while (rd.Read())
                         {
-                            PicturesOfPhotographers.Add(rd.GetString(0));
+                            if (!rd.IsDBNull(0))
+                            {
+                                PicturesOfPhotographers.Add(rd.GetString(0));
+                            }
                         }
                     }
                 }
@@ -720,9 +735,12 @@ namespace SWE2_Projekt
                 command.Parameters.AddWithValue("@Tag", Tag);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        TagID = rd.GetInt32(0);
+                        if (!rd.IsDBNull(0))
+                        {
+                            TagID = rd.GetInt32(0);
+                        }
                     }
                 }
 
@@ -730,9 +748,12 @@ namespace SWE2_Projekt
                 command.Parameters.AddWithValue("@fk_Tag_ID", TagID);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        PicIDList.Add(rd.GetInt32(0));
+                        if (!rd.IsDBNull(0))
+                        {
+                            PicIDList.Add(rd.GetInt32(0));
+                        }
                     }
                 }
 
@@ -742,9 +763,12 @@ namespace SWE2_Projekt
                     command.Parameters.AddWithValue("@ID_Bild", ID);
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
-                        if (!rd.IsDBNull(0))
+                        while (rd.Read())
                         {
-                            Pictures.Add(rd.GetString(0));
+                            if (!rd.IsDBNull(0))
+                            {
+                                Pictures.Add(rd.GetString(0));
+                            }
                         }
                     }
                 }
@@ -772,14 +796,17 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("SELECT Titel FROM Bilder", connection); //Bilder
+                command = new SqlCommand("SELECT ID_Bild, Titel FROM Bilder", connection); //Bilder
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(1))
+                    while (rd.Read())
                     {
-                        if (rd.GetString(1).ToLower().Contains(value))
+                        if (!rd.IsDBNull(0))
                         {
-                            PicIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(1).ToLower().Contains(value))
+                            {
+                                PicIDList.Add(rd.GetInt32(0));
+                            }
                         }
                     }
                 }
@@ -787,32 +814,35 @@ namespace SWE2_Projekt
                 command = new SqlCommand("SELECT * FROM FotografInnen", connection); //FotografIn
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(1) || !rd.IsDBNull(2))
+                    while (rd.Read())
                     {
-                        FullName = rd.GetString(1) + ' ';
-                        FullName = rd.GetString(2);
-                        FullName.ToLower();
-
-                        if (FullName.Contains(value))
+                        if (!rd.IsDBNull(1) || !rd.IsDBNull(2))
                         {
-                            PhotographerIDList.Add(rd.GetInt32(0));
+                            FullName = rd.GetString(1) + ' ';
+                            FullName = rd.GetString(2);
+                            FullName.ToLower();
+
+                            if (FullName.Contains(value))
+                            {
+                                PhotographerIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
 
-                    if (!rd.IsDBNull(3))
-                    {
-                        string date = rd.GetDateTime(3).ToString();
-                        if (date.Contains(value))
+                        if (!rd.IsDBNull(3))
                         {
-                            PhotographerIDList.Add(rd.GetInt32(0));
+                            string date = rd.GetDateTime(3).ToString();
+                            if (date.Contains(value))
+                            {
+                                PhotographerIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
 
-                    if (!rd.IsDBNull(4))
-                    {
-                        if (rd.GetString(4).ToLower().Contains(value))
+                        if (!rd.IsDBNull(4))
                         {
-                            PhotographerIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(4).ToLower().Contains(value))
+                            {
+                                PhotographerIDList.Add(rd.GetInt32(0));
+                            }
                         }
                     }
                 }
@@ -820,25 +850,28 @@ namespace SWE2_Projekt
                 command = new SqlCommand("SELECT * FROM ITPC", connection); //IPTC
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(1))
+                    while (rd.Read())
                     {
-                        if (rd.GetString(1).ToLower().Contains(value))
+                        if (!rd.IsDBNull(1))
                         {
-                            IPTCIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(1).ToLower().Contains(value))
+                            {
+                                IPTCIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
-                    if (!rd.IsDBNull(2))
-                    {
-                        if (rd.GetString(2).ToLower().Contains(value))
+                        if (!rd.IsDBNull(2))
                         {
-                            IPTCIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(2).ToLower().Contains(value))
+                            {
+                                IPTCIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
-                    if (!rd.IsDBNull(3))
-                    {
-                        if (rd.GetString(3).ToLower().Contains(value))
+                        if (!rd.IsDBNull(3))
                         {
-                            IPTCIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(3).ToLower().Contains(value))
+                            {
+                                IPTCIDList.Add(rd.GetInt32(0));
+                            }
                         }
                     }
                 }
@@ -846,99 +879,118 @@ namespace SWE2_Projekt
                 command = new SqlCommand("SELECT * FROM EXIF", connection); //EXIF
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(1))
+                    while (rd.Read())
                     {
-                        if (rd.GetString(1).ToLower().Contains(value))
+                        if (!rd.IsDBNull(1))
                         {
-                            EXIFIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(1).ToLower().Contains(value))
+                            {
+                                EXIFIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
-                    if (!rd.IsDBNull(2))
-                    {
-                        if (rd.GetString(2).ToLower().Contains(value))
+                        if (!rd.IsDBNull(2))
                         {
-                            EXIFIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(2).ToLower().Contains(value))
+                            {
+                                EXIFIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
-                    if (!rd.IsDBNull(3))
-                    {
-                        if (rd.GetString(3).ToLower().Contains(value))
+                        if (!rd.IsDBNull(3))
                         {
-                            EXIFIDList.Add(rd.GetInt32(0));
+                            string date = rd.GetDateTime(3).ToString();
+                            if (date.Contains(value))
+                            {
+                                EXIFIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
-                    if (!rd.IsDBNull(4))
-                    {
-                        if (rd.GetString(4).ToLower().Contains(value))
+                        if (!rd.IsDBNull(4))
                         {
-                            EXIFIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(4).ToLower().Contains(value))
+                            {
+                                EXIFIDList.Add(rd.GetInt32(0));
+                            }
                         }
-                    }
-                    if (!rd.IsDBNull(5))
-                    {
-                        if (rd.GetString(5).ToLower().Contains(value))
+                        if (!rd.IsDBNull(5))
                         {
-                            EXIFIDList.Add(rd.GetInt32(0));
+                            if (rd.GetString(5).ToLower().Contains(value))
+                            {
+                                EXIFIDList.Add(rd.GetInt32(0));
+                            }
                         }
                     }
                 }
 
                 foreach(int ID in PicIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE ID_Bild IS @ID_Bild", connection);
+                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE ID_Bild = @ID_Bild", connection);
                     command.Parameters.AddWithValue("@ID_Bild", ID);
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
-                        if (!rd.IsDBNull(0))
+                        while (rd.Read())
                         {
-                            if (!Pictures.Contains(rd.GetString(0)))
+                            if (!rd.IsDBNull(0))
                             {
-                                Pictures.Add(rd.GetString(0));
+                                if (!Pictures.Contains(rd.GetString(0)))
+                                {
+                                    Pictures.Add(rd.GetString(0));
+                                }
                             }
                         }
                     }
                 }
+
                 foreach (int ID in PhotographerIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_FotografIn_ID IS @fk_FotografIn_ID", connection);
+                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_FotografIn_ID = @fk_FotografIn_ID", connection);
                     command.Parameters.AddWithValue("@fk_FotografIn_ID", ID);
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
-                        if (!rd.IsDBNull(0))
+                        while (rd.Read())
                         {
-                            if (!Pictures.Contains(rd.GetString(0)))
+                            if (!rd.IsDBNull(0))
                             {
-                                Pictures.Add(rd.GetString(0));
+                                if (!Pictures.Contains(rd.GetString(0)))
+                                {
+                                    Pictures.Add(rd.GetString(0));
+                                }
                             }
                         }
                     }
                 }
+
                 foreach(int ID in EXIFIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_EXIF_ID IS @fk_EXIF_ID", connection);
+                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_EXIF_ID = @fk_EXIF_ID", connection);
                     command.Parameters.AddWithValue("@fk_EXIF_ID", ID);
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
-                        if (!rd.IsDBNull(0))
+                        while (rd.Read())
                         {
-                            if (!Pictures.Contains(rd.GetString(0)))
+                            if (!rd.IsDBNull(0))
                             {
-                                Pictures.Add(rd.GetString(0));
+                                if (!Pictures.Contains(rd.GetString(0)))
+                                {
+                                    Pictures.Add(rd.GetString(0));
+                                }
                             }
                         }
                     }
                 }
+
                 foreach(int ID in IPTCIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_ITPC_ID IS @fk_ITPC_ID", connection);
+                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_ITPC_ID = @fk_ITPC_ID", connection);
                     command.Parameters.AddWithValue("@fk_ITPC_ID", ID);
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
-                        if (!rd.IsDBNull(0))
+                        while (rd.Read())
                         {
-                            if (!Pictures.Contains(rd.GetString(0)))
+                            if (!rd.IsDBNull(0))
                             {
-                                Pictures.Add(rd.GetString(0));
+                                if (!Pictures.Contains(rd.GetString(0)))
+                                {
+                                    Pictures.Add(rd.GetString(0));
+                                }
                             }
                         }
                     }
