@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SWE2_Projekt.ViewModels
@@ -35,6 +36,15 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
+        public void UpdateImageList(string search)
+        {
+
+            List<string> searchResults = _businessLayer.SearchAllPictures(search);
+
+            Console.Write(searchResults.ToString());
+            _results.Clear();
+        }
+
         public ObservableCollection<PictureViewModel> ImageList
         {
             get
@@ -54,5 +64,6 @@ namespace SWE2_Projekt.ViewModels
                 return _results;
             }
         }
+
     }
 }

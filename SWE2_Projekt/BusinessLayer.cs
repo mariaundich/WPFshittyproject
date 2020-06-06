@@ -15,6 +15,7 @@ namespace SWE2_Projekt
         public BusinessLayer()
         {
             _DataAccessLayer = new DataAccessLayer();
+            RefreshPictureData();
         }
 
         public void RefreshPictureData()
@@ -51,6 +52,11 @@ namespace SWE2_Projekt
             AllPhotograpersInfo = new Dictionary<int, List<string>>();
             AllPhotograpersInfo = _DataAccessLayer.GetAllPhotographers();
             return AllPhotograpersInfo;
+        }
+
+        public List<string> SearchAllPictures(string search)
+        {
+            return _DataAccessLayer.SearchForPictures(search);
         }
     }
 }
