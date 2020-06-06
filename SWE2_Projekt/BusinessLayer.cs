@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWE2_Projekt.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,9 +8,9 @@ namespace SWE2_Projekt
     class BusinessLayer
     {
         public DataAccessLayer _DataAccessLayer;
-        List<string> PictureList;
+        List<PictureModel> PictureList;
+        List<IPTCModel> IPTCList;
         Dictionary<int, List<string>> EXIF;
-        Dictionary<int, List<string>> IPTC;
         Dictionary<int, List<string>> AllPhotograpersInfo;
 
         public BusinessLayer()
@@ -26,11 +27,11 @@ namespace SWE2_Projekt
             _DataAccessLayer.InsertAllIPTCData();
         }
 
-        public string[] AllPictureNames()
+        public List<PictureModel> AllPictureModels()
         {
-            PictureList = new List<string>();
-            PictureList = _DataAccessLayer.returnAllPictureNames();
-            return PictureList.ToArray();
+            PictureList = new List<PictureModel>();
+            PictureList = _DataAccessLayer.ReturnAllPictureModels();
+            return PictureList;
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoForOnePic(string name)
@@ -40,11 +41,11 @@ namespace SWE2_Projekt
             return EXIF;
         }
 
-        public Dictionary<int, List<string>> AllIPTCInfoForOnePic(string name)
+        public List<IPTCModel> AllIPTCModels()
         {
-            IPTC = new Dictionary<int, List<string>>();
-            IPTC = _DataAccessLayer.AllIPTCInfoFromOnePicture(name);
-            return IPTC;
+            IPTCList = new List<IPTCModel>();
+            IPTCList = _DataAccessLayer.ReturnAllIPTCModels();
+            return IPTCList;
         }
 
         public Dictionary<int, List<string>> GetAllPhotographersInfo()

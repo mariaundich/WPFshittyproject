@@ -14,8 +14,9 @@
                       ScrollViewer.PanningMode="HorizontalOnly" 
                       x:Name="ImageListView" 
                       x:FieldModifier="public"
-                      ItemsSource="{Binding pictureListViewModel.ImageList}"
-                      SelectedItem="{Binding pictureListViewModel.SelectedImage}">
+                      ItemsSource="{Binding pictureListViewModel.PictureViewModelList}"
+                      SelectedItem="{Binding pictureListViewModel.SelectedImage}"
+                      >
 
                 <ListView.ItemsPanel>
 
@@ -26,7 +27,8 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Image Height="100" Margin="5 0" Source="{Binding TestPath}" />
+
+                        <Image Height="100" Margin="5 0" Source="{Binding PicturePath}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
 

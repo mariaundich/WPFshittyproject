@@ -40,5 +40,10 @@ namespace SWE2_Projekt
 
             ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
+
+        private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
