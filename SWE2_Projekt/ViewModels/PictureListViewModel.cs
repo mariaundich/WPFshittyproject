@@ -41,14 +41,21 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
-        public void UpdateImageList(string search)
+       /* public void UpdateImageList(string search)
         {
-
-            List<string> searchResults = _businessLayer.SearchAllPictures(search);
-
-            Console.Write(searchResults.ToString());
             _pictureViewModelList.Clear();
-        }
+            List<string> searchResults = _businessLayer.SearchAllPictures(search);
+;
+
+            if (searchResults.Count > 0)
+            {
+                foreach (string item in searchResults)
+                {
+                    var trueimage = Path.GetFullPath("../../../images/" + item);
+                    _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage }));
+                }
+            }
+        }*/
 
         public List<IPTCModel> IPTCModelList
         {

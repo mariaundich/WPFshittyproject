@@ -16,7 +16,7 @@ namespace SWE2_Projekt
         public BusinessLayer()
         {
             _DataAccessLayer = new DataAccessLayer();
-            RefreshPictureData();
+            //RefreshPictureData();
         }
 
         public void RefreshPictureData()
@@ -34,7 +34,7 @@ namespace SWE2_Projekt
             return PictureList;
         }
 
-        public Dictionary<int, List<string>> AllEXIFInfoForOnePic(string name)
+        public Dictionary<int, List<string>> AllEXIFInfoForOnePicture(string name)
         {
             EXIF = new Dictionary<int, List<string>>();
             EXIF = _DataAccessLayer.AllEXIFInfoFromOnePicture(name);

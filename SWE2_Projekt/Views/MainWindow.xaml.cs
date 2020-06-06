@@ -21,12 +21,14 @@ namespace SWE2_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        Dictionary<int, List<string>> AllPhotographers = new Dictionary<int, List<string>>();
+        Dictionary<int, List<string>> Test = new Dictionary<int, List<string>>();
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            BusinessLayer BusinessLayer = new BusinessLayer();
+            //BusinessLayer BusinessLayer = new BusinessLayer();
+            //Test = BusinessLayer.AllEXIFInfoForOnePicture("hacker-cat.png");
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -36,7 +38,7 @@ namespace SWE2_Projekt
 
         private void Searchbutton_Click(object sender, RoutedEventArgs e)
         {
-            string search = SearchField.Text;
+            string search = SearchField.Text.ToLower();
 
             ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
