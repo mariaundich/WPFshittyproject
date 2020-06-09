@@ -1,11 +1,12 @@
 using NUnit.Framework;
 using SWE2_Projekt;
 using System;
+using System.Collections.Generic;
 
-namespace SWE2_Projekt.Tests
+namespace SWE2_Projekt
 {
     [TestFixture]
-    public class Tests
+    public class Tests : AbstractTestFixture<UnitTestAufrufe>   
     {
         [Test]
         public void HelloWorldTest()
@@ -16,14 +17,15 @@ namespace SWE2_Projekt.Tests
         [Test]
         public void StringTest()
         {
-            string teststring = "henlo";
-            Assert.That(teststring, Is.EqualTo("henlo"));
+            string teststring = "testing";
+            Assert.That(teststring, Is.EqualTo("testing"));
         } 
 
         [Test]
-        public void ViewModelTest()
+        public void TestPictureData()
         {
-            MainWindowViewModel testModel = new MainWindowViewModel();
+            var obj = CreateInstance().GetString("hello there");
+            Assert.That(obj.getConnectionstring(), Is.EqualTo("hello there"));
         }
     }
 }

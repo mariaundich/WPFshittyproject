@@ -5,15 +5,15 @@ using SWE2_Projekt;
 
 namespace SWE2_Projekt
 {
-    class UnitTestAufrufe
+    public class UnitTestAufrufe
     {
         public void HelloWorld()
         {
         }
 
-        public MainWindowViewModel ViewModelTest()
+        public MockDAL GetString(string input)
         {
-            return new MainWindowViewModel();
+            return new MockDAL(input);
         }
     }
 }

@@ -88,7 +88,6 @@ namespace SWE2_Projekt
                             {
                                 while (rd.Read())
                                 {
-                                    // Added this, then it worked
                                     if (!rd.IsDBNull(0))
                                     {
                                         PicIDs[idx] = rd.GetInt32(0);
@@ -1090,12 +1089,9 @@ namespace SWE2_Projekt
             keyList = new List<string>(Ort_Land.Keys);
             RandomKey = keyList[random.Next(keyList.Count)];
             Ort_Land.TryGetValue(RandomKey, out RandomValue);
-            //Console.WriteLine(RandomKey);
-            //Console.WriteLine(RandomValue);
+
             pair.SetValue(RandomKey, 0);
             pair.SetValue(RandomValue, 1);
-            //Console.WriteLine(pair[0]);
-            //Console.WriteLine(pair[1]);
 
             return pair;
         }
