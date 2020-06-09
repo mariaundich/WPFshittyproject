@@ -19,12 +19,19 @@ namespace SWE2_Projekt
                     case nameof(PictureListViewModel.SelectedImage):
 
                         OnPropertyChanged(nameof(pictureViewModel));
-                        pictureInfoViewModel.LoadData(pictureViewModel.Title);
+                        //OnPropertyChanged(nameof(iptcViewModel));
                         break;
                     }
             };
         }
 
+        /*public IPTCViewModel iptcViewModel
+        {
+            get
+            { 
+                return pictureInfoViewModel.SelectedIPTC; 
+            }
+        }*/
         public PictureViewModel pictureViewModel
         {
             get

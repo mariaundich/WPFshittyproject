@@ -14,11 +14,16 @@ namespace SWE2_Projekt.ViewModels
 {
     public class PictureListViewModel : ViewModel, INotifyPropertyChanged
     {
-
         private PictureViewModel _picture;
-        //private PictureInfoViewModel _info;
-        private ObservableCollection<PictureViewModel> _results;
+        private ObservableCollection<PictureViewModel> _pictureViewModelList;
+        private List<IPTCModel> _iptcModelList;
         private BusinessLayer _businessLayer = new BusinessLayer();
+
+        public PictureListViewModel()
+        {
+            IPTCModelList = new List<IPTCModel>();
+            PictureViewModelList = new ObservableCollection<PictureViewModel>();
+        }
 
         public PictureViewModel SelectedImage
         {
@@ -36,36 +41,53 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
-        public void UpdateImageList(string search)
+       /* public void UpdateImageList(string search)
         {
-
+            _pictureViewModelList.Clear();
             List<string> searchResults = _businessLayer.SearchAllPictures(search);
+;
 
-            foreach(string item in searchResults)
+            if (searchResults.Count > 0)
             {
-                Console.Write(item);
+                foreach (string item in searchResults)
+                {
+                    var trueimage = Path.GetFullPath("../../../images/" + item);
+                    _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage }));
+                }
             }
-            _results.Clear();
+        }*/
+
+        public List<IPTCModel> IPTCModelList
+        {
+            set
+            {
+                _iptcModelList = _businessLayer.AllIPTCModels();
+            }
         }
 
-        public ObservableCollection<PictureViewModel> ImageList
+        public ObservableCollection<PictureViewModel> PictureViewModelList
         {
-            get
+            set
             {
-                if (_results == null)
+                if (_pictureViewModelList == null)
                 {
-                    _results = new ObservableCollection<PictureViewModel>();
-                    foreach (var image in _businessLayer.AllPictureNames())
+                    _pictureViewModelList = new ObservableCollection<PictureViewModel>();
+                    foreach (var pictureModel in _businessLayer.AllPictureModels())
                     {
-                        var trueimage = Path.GetFullPath(image);
-                        _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage  }));
+                        IPTCModel auxIPTCModel = null;
+                        foreach (var iptcModel in _iptcModelList)
+                        {
+                            if(iptcModel.ID == pictureModel.IPTC)
+                            {
+                                auxIPTCModel = iptcModel;                             
+                            }
+                        }
+                        _pictureViewModelList.Add(new PictureViewModel(pictureModel, auxIPTCModel));
                     }
 
-                    /*_results = new ObservableCollection<PictureViewModel>(_businessLayer.AllPictureNames())
-                        .Select(i => new PictureViewModel(new PictureModel() { ImagePath = Path.GetFullPath(i) })));*/
                 }
-                return _results;
             }
+            get { return _pictureViewModelList; }
         }
 
     }

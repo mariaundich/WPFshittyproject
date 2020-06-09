@@ -1,78 +1,37 @@
-﻿using SWE2_Projekt.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Windows.Automation.Peers;
+using System.Collections.ObjectModel;
 
 namespace SWE2_Projekt.ViewModels
-
 {
-    public class PictureInfoViewModel: INotifyPropertyChanged
+    public class PictureInfoViewModel:ViewModel
     {
-        private string _title;
-        private string _creator;
-        private string _description;
-        private Dictionary <int, List<string>> _iptc = new Dictionary<int, List<string>>();
+        private ObservableCollection<IPTCViewModel> _iptcViewModelList;
         private BusinessLayer _businessLayer = new BusinessLayer();
-        
-       public void LoadData(string title)
+
+        public PictureInfoViewModel()
         {
-            _iptc = _businessLayer.AllIPTCInfoForOnePic(title);
-
-            List<string> _info = _iptc[_iptc.Keys.ElementAt(0)];
-
-            Title = _info[0];
-            Creator = _info[1];
-            Description = _info[2];
+            IPTCViewModelList = new ObservableCollection<IPTCViewModel>();
         }
-        public string Title
+
+        public ObservableCollection<IPTCViewModel> IPTCViewModelList
         {
-            get
-            {
-                return _title;
-            }
             set
             {
-                _title = value;
-                NotifyPropertyChanged(nameof(Title));
-
+                if (_iptcViewModelList == null)
+                {
+                    _iptcViewModelList = new ObservableCollection<IPTCViewModel>();
+                    Console.WriteLine("Number of Models in the list from the businesslayer: " + _businessLayer.AllIPTCModels().Count);
+                    foreach (var iptcModel in _businessLayer.AllIPTCModels())
+                    {
+                        Console.WriteLine("Adding the IPTCViewModel with Title " + new IPTCViewModel(iptcModel).Title);
+                        _iptcViewModelList.Add(new IPTCViewModel(iptcModel));
+                    }
+                    Console.WriteLine("The list of IPTCViewModels has elements: " + _iptcViewModelList.Count);
+                }
             }
-        }
-        public string Creator
-        {
-            get
-            {
-                return _creator;
-            }
-            set
-            {
-                _creator = value;
-                NotifyPropertyChanged(nameof(Creator));
-
-            }
-        }
-        public string Description
-        {
-            get
-            {
-                return _description;
-            }
-            set
-            {
-                _description = value;
-                NotifyPropertyChanged(nameof(Description));
-
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            get { return _iptcViewModelList; }
         }
     }
 }

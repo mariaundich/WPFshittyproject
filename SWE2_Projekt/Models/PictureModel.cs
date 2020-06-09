@@ -7,25 +7,37 @@ using System.Text;
 
 namespace SWE2_Projekt.Models
 {
-    public class PictureModel : INotifyPropertyChanged
+    public class PictureModel //: INotifyPropertyChanged
     {
-        private string _imagePath;
+        private int _id;
         private string _title;
-        private string _creator;
-        private string _description;
+        private int _photographer;
+        private int _exif;
+        private int _iptc;
+        private string _picturePath; 
+        //ImagePath is not part of the data of a picture but is constructed out of the name and the file structure to load the picture
 
-        public string ImagePath {
+        public PictureModel(int id, string title, int photographer, int exif, int iptc)
+        {
+            ID = id;
+            Title = title;
+            Photographer = photographer;
+            EXIF = exif;
+            IPTC = iptc;
+
+            string auxPath = "../../../images/" + Title;
+            PicturePath = Path.GetFullPath(auxPath); 
+        }
+
+        public int ID
+        {
             get
             {
-                return _imagePath;
+                return _id;
             }
             set
             {
-                if(_imagePath != value)
-                {        
-                    _imagePath = value;
-                    _title = _imagePath.Split("\\").Last();
-                }
+                _id = value;
             }
         }
 
@@ -35,14 +47,69 @@ namespace SWE2_Projekt.Models
             {
                 return _title;
             }
+            set
+            {
+                _title = value;
+            }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public int Photographer
+        {
+            get
+            {
+                return _photographer;
+            }
+            set
+            {
+                _photographer = value;
+            }
+        }
+
+        public int EXIF
+        {
+            get
+            {
+                return _exif;
+            }
+            set
+            {
+                _exif = value;
+            }
+        }
+
+        public int IPTC
+        {
+            get
+            {
+                return _iptc;
+            }
+            set
+            {    
+                _iptc = value;
+            }
+        }
+
+        public string PicturePath
+        {
+            get
+            {
+                return _picturePath;
+            }
+            set
+            {   
+                if(_title != null)
+                {
+                    _picturePath = value;
+                }
+            }
+        }
+
+        /*public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
+        }*/
     }
 }
 

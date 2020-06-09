@@ -17,9 +17,9 @@ namespace SWE2_Projekt
         private string _connectionstring;
         private SqlCommand command;
         private int[] PicIDs = new int[30];
-        List<string> PictureNames;
+        List<PictureModel> PictureModelList;
+        List<IPTCModel> IPTCModelList;
         Dictionary<int, List<string>> EXIF;
-        Dictionary<int, List<string>> IPTC;
         Dictionary<int, List<string>> AllPhotographers;
         List<string> Pictures;
 
@@ -102,9 +102,9 @@ namespace SWE2_Projekt
             }
         }
 
-        public List<string> returnAllPictureNames()
+        public List<PictureModel> ReturnAllPictureModels()
         {
-            PictureNames = new List<string>();
+            PictureModelList = new List<PictureModel>();
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -112,7 +112,13 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("SELECT Titel FROM Bilder", connection);
+                int ID = 0;
+                string Title = "";
+                int Photographer = 0;
+                int EXIF = 0;
+                int ITPC = 0;
+
+                command = new SqlCommand("SELECT * FROM Bilder", connection);
 
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
@@ -120,13 +126,32 @@ namespace SWE2_Projekt
                     {
                         if (!rd.IsDBNull(0))
                         {
-                            PictureNames.Add("../../../images/" + rd.GetString(0));
+                            ID = rd.GetInt32(0);
                         }
+                        if (!rd.IsDBNull(1))
+                        {
+                            Title = rd.GetString(1);
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            Photographer = rd.GetInt32(2);
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            EXIF = rd.GetInt32(3);
+                        }
+                        if (!rd.IsDBNull(4))
+                        {
+                            ITPC = rd.GetInt32(4);
+                        }
+
+                        PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, ITPC);
+                        PictureModelList.Add(auxModel);
                     }
                 }
                 connection.Close();
             }
-            return PictureNames;
+            return PictureModelList;
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title)
@@ -194,12 +219,13 @@ namespace SWE2_Projekt
             return EXIF;
         }
 
-        public Dictionary<int, List<string>> AllIPTCInfoFromOnePicture(string title)
+        public List<IPTCModel> ReturnAllIPTCModels()
         {
-            IPTC = new Dictionary<int, List<string>>();
-            List<string> helper = new List<string>();
-            int fk_IPTC = -1;
-            int IPTCID = -1;
+            IPTCModelList = new List<IPTCModel>();
+            int ID = 0;
+            string Title = "";
+            string Creator = "";
+            string Description = "";
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -207,22 +233,7 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("SELECT fk_ITPC_ID FROM Bilder WHERE Titel = @title", connection);
-                command.Parameters.AddWithValue("@title", title);
-
-                using (SqlDataReader rd = command.ExecuteReader())
-                {
-                    while (rd.Read())
-                    {
-                        if (!rd.IsDBNull(0))
-                        {
-                            fk_IPTC = rd.GetInt32(0);
-                        }
-                    }
-                }
-
-                command = new SqlCommand("SELECT * FROM ITPC WHERE ID_ITPC = @id", connection);
-                command.Parameters.AddWithValue("@id", fk_IPTC);
+                command = new SqlCommand("SELECT * FROM ITPC", connection);
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
                     while (rd.Read())
@@ -230,38 +241,28 @@ namespace SWE2_Projekt
                         // Added this, then it worked
                         if (!rd.IsDBNull(0))
                         {
-                            IPTCID = rd.GetInt32(0);
+                            ID = rd.GetInt32(0);
                         }
                         if (!rd.IsDBNull(1))
                         {
-                            helper.Add(rd.GetString(1));
-                        }
-                        else
-                        {
-                            helper.Add("");
+                            Title = rd.GetString(1);
                         }
                         if (!rd.IsDBNull(2))
                         {
-                            helper.Add(rd.GetString(2));
-                        }
-                        else
-                        {
-                            helper.Add("");
+                            Creator = rd.GetString(2);
                         }
                         if (!rd.IsDBNull(3))
                         {
-                            helper.Add(rd.GetString(3));
+                            Description = rd.GetString(3);
                         }
-                        else
-                        {
-                            helper.Add("");
-                        }
+                        IPTCModel auxModel = new IPTCModel(ID, Title, Creator, Description);
+                        IPTCModelList.Add(auxModel);
                     }
-                    IPTC.Add(IPTCID, helper);
+                    
                 }
                 connection.Close();
             }
-            return IPTC;
+            return IPTCModelList;
         }
 
         public void InsertAllEXIFData()

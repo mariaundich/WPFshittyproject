@@ -33,7 +33,7 @@
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
                             </Label>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Title, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Content= "{Binding pictureViewModel.IPTC.Title, UpdateSourceTrigger=PropertyChanged}"
                                 Grid.Column="0"
                                 Grid.Row="1"
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
@@ -46,7 +46,7 @@
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
                             </Label>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Creator, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Content= "{Binding pictureViewModel.IPTC.Creator, UpdateSourceTrigger=PropertyChanged}"
                                 Grid.Column="0"
                                 Grid.Row="3"
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
@@ -59,7 +59,7 @@
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
                             </Label>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Description, UpdateSourceTrigger=PropertyChanged}"
+                            <Label Content= "{Binding pictureViewModel.IPTC.Description, UpdateSourceTrigger=PropertyChanged}"
                                 Grid.Column="0"
                                 Grid.Row="5"
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
