@@ -7,32 +7,37 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SWE2_Projekt
 {
     public class MainWindowViewModel : ViewModel
     {
+        private BusinessLayer businessLayer = new BusinessLayer();
+        ICommand _editIPTC;
+
         public MainWindowViewModel()
         {
             pictureListViewModel.PropertyChanged += (s, e) => {
                 switch (e.PropertyName) {
                     case nameof(PictureListViewModel.SelectedImage):
-
                         OnPropertyChanged(nameof(pictureViewModel));
-                        //OnPropertyChanged(nameof(iptcViewModel));
+                        OnPropertyChanged(nameof(pictureInfoViewModel));
                         break;
                     }
+           
             };
+
+            //_editIPTC = new EditCommand
         }
 
-        /*public IPTCViewModel iptcViewModel
-        {
-            get
-            { 
-                return pictureInfoViewModel.SelectedIPTC; 
-            }
-        }*/
-        public PictureViewModel pictureViewModel
+        public ICommand EditIPTC 
+        { 
+            get { return _editIPTC; }
+            set { _editIPTC = value; }
+        }
+        
+        public PictureModel pictureViewModel
         {
             get
             {
@@ -43,6 +48,8 @@ namespace SWE2_Projekt
         public PictureListViewModel pictureListViewModel { get; } = new PictureListViewModel();
 
         public PictureInfoViewModel pictureInfoViewModel { get; } = new PictureInfoViewModel();
+  
+
 
     }
 }

@@ -14,7 +14,7 @@
                       ScrollViewer.PanningMode="HorizontalOnly" 
                       x:Name="ImageListView" 
                       x:FieldModifier="public"
-                      ItemsSource="{Binding pictureListViewModel.PictureViewModelList}"
+                      ItemsSource="{Binding pictureListViewModel.PictureModelList}"
                       SelectedItem="{Binding pictureListViewModel.SelectedImage}"
                       >
 

@@ -2,36 +2,35 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
+using SWE2_Projekt.Models;
 
 namespace SWE2_Projekt.ViewModels
 {
     public class PictureInfoViewModel:ViewModel
     {
-        private ObservableCollection<IPTCViewModel> _iptcViewModelList;
+        private IPTCModel _iptcModel;
+        private EXIFModel _exifModel;
         private BusinessLayer _businessLayer = new BusinessLayer();
 
         public PictureInfoViewModel()
         {
-            IPTCViewModelList = new ObservableCollection<IPTCViewModel>();
         }
 
-        public ObservableCollection<IPTCViewModel> IPTCViewModelList
+        public EXIFModel EXIFModel
         {
-            set
-            {
-                if (_iptcViewModelList == null)
-                {
-                    _iptcViewModelList = new ObservableCollection<IPTCViewModel>();
-                    Console.WriteLine("Number of Models in the list from the businesslayer: " + _businessLayer.AllIPTCModels().Count);
-                    foreach (var iptcModel in _businessLayer.AllIPTCModels())
-                    {
-                        Console.WriteLine("Adding the IPTCViewModel with Title " + new IPTCViewModel(iptcModel).Title);
-                        _iptcViewModelList.Add(new IPTCViewModel(iptcModel));
-                    }
-                    Console.WriteLine("The list of IPTCViewModels has elements: " + _iptcViewModelList.Count);
-                }
-            }
-            get { return _iptcViewModelList; }
+            get { return _exifModel; }
+            set { _exifModel = value; }
+        }
+
+        public IPTCModel IPTCModel
+        {
+            get { return _iptcModel; }
+            set { _iptcModel = value; }
+        }
+        
+        public void EditIPTC()
+        {
+
         }
     }
 }

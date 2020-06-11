@@ -38,7 +38,7 @@ namespace SWE2_Projekt.Models
                 if (_title != value)
                 {
                     _title = value;
-                    NotifyPropertyChanged("Title");
+                    NotifyPropertyChanged(nameof(Title));
                 }
             }
         }
@@ -52,7 +52,11 @@ namespace SWE2_Projekt.Models
         public string Description
         {
             get { return _description; }
-            set { _description = value; }
+            set 
+            { 
+                _description = value;
+                NotifyPropertyChanged(nameof(Description));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

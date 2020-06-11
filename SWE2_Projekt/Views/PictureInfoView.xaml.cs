@@ -1,4 +1,5 @@
-﻿using SWE2_Projekt.ViewModels;using System;
+﻿using SWE2_Projekt.Models;
+using SWE2_Projekt.ViewModels;using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,13 @@ namespace SWE2_Projekt.Views
         public PictureInfoView()
         {
             InitializeComponent();
+            //this.DataContext = PictureViewModel(); // I couldn't manage to put the info models into the InfoViewModel so I had to keep using the PictureViewModel
+            //this.DataContext = new PictureViewModel();
+        }
+
+        private void Savebutton_Click(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }
