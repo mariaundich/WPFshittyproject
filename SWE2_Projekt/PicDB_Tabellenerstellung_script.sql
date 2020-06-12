@@ -3,12 +3,12 @@
     ID_FotografIn int IDENTITY (1, 1) NOT NULL,  
     Vorname varchar(100) NOT NULL,  
     Nachname varchar(50) NOT NULL,
-    Geburtsdatum datetime NOT NULL,
+    Geburtsdatum date NOT NULL,
     Notiz text,
     PRIMARY KEY CLUSTERED (ID_FotografIn ASC)
 ); 
 
-ALTER TABLE FotografInnen ADD CONSTRAINT Geburtsdatum CHECK (Geburtsdatum BETWEEN '1930-01-01' AND '2020-05-23');
+ALTER TABLE FotografInnen ADD CONSTRAINT Geburtsdatumscheck CHECK (Geburtsdatum BETWEEN '1930-01-01' AND '2020-05-23');
 
 CREATE TABLE dbo.ITPC
 (

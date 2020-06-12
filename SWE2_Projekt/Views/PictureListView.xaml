@@ -19,7 +19,6 @@
                       >
 
                 <ListView.ItemsPanel>
-
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>
                     </ItemsPanelTemplate>
@@ -27,7 +26,6 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-
                         <Image Height="100" Margin="5 0" Source="{Binding PicturePath}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>

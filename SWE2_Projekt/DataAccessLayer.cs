@@ -18,6 +18,7 @@ namespace SWE2_Projekt
         private SqlCommand command;
         private int[] PicIDs = new int[30];
         List<PictureModel> PictureModelList;
+        List<PhotographerModel> PhotographerModelList;
         List<IPTCModel> IPTCModelList;
         Dictionary<int, List<string>> EXIF;
         Dictionary<int, List<string>> AllPhotographers;
@@ -155,6 +156,58 @@ namespace SWE2_Projekt
             return PictureModelList;
         }
 
+        public List<PhotographerModel> ReturnAllPhotographerModels()
+        {
+            PhotographerModelList = new List<PhotographerModel>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                int ID = 0;
+                string FirstName = "";
+                string LastName = "";
+                string Birthday = "";
+                string Note = "";
+
+                command = new SqlCommand("SELECT * FROM FotografInnen", connection);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            ID = rd.GetInt32(0);
+                        }
+                        if (!rd.IsDBNull(1))
+                        {
+                            FirstName = rd.GetString(1);
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            LastName = rd.GetString(2);
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            Birthday = Convert.ToString(rd.GetDateTime(3));
+                        }
+                        if (!rd.IsDBNull(4))
+                        {
+                            Note = rd.GetString(4);
+                        }
+
+                        PhotographerModel auxModel = new PhotographerModel(ID, FirstName, LastName, Birthday, Note);
+                        PhotographerModelList.Add(auxModel);
+                    }
+                }
+                connection.Close();
+            }
+            return PhotographerModelList;
+        }
+
         public EXIFModel GetEXIFInfoByID(int id)
         {
             string Camera = "";
@@ -193,13 +246,12 @@ namespace SWE2_Projekt
                         }
                         if (!rd.IsDBNull(4))
                         {
-                            Place = rd.GetString(2);
+                            Place = rd.GetString(4);
                         }
                         if (!rd.IsDBNull(5))
                         {
-                            Country = rd.GetString(2);
+                            Country = rd.GetString(5);
                         }
-
                         auxEXIFModel = new EXIFModel(id, Camera, Resolution, Date, Place, Country);
                     }
                 }
@@ -233,7 +285,6 @@ namespace SWE2_Projekt
                         if (!rd.IsDBNull(1))
                         {
                             Title = rd.GetString(1);
-                            Console.WriteLine("I have found the title " + Title + "in the database");
                         }
                         if (!rd.IsDBNull(2))
                         {

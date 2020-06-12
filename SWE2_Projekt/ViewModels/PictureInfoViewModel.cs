@@ -36,14 +36,39 @@ namespace SWE2_Projekt.ViewModels
             get { return _iptcModel.Title; }
         }
 
+        public string Creator
+        {
+            get { return _iptcModel.Creator; }
+        }
+
         public string Description
         {
             get { return _iptcModel.Description; } 
         }
 
-        public void EditIPTC()
+        public string Camera
         {
+            get { return _exifModel.Camera; }
+        }
 
+        public string Resolution
+        {
+            get { return _exifModel.Resolution; }
+        }
+
+        public string Date
+        {
+            get { return _exifModel.Date; }
+        }
+
+        public string Place
+        {
+            get { return _exifModel.Place; }
+        }
+
+        public string Country
+        {
+            get { return _exifModel.Country; }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SWE2_Projekt.ViewModels;
+using SWE2_Projekt.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -46,6 +48,12 @@ namespace SWE2_Projekt
         private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void FotografInnenPopup(object sender, RoutedEventArgs e)
+        {
+            PhotographerListView photographerList = new PhotographerListView(((MainWindowViewModel)DataContext));
+            photographerList.Show();
         }
     }
 }
