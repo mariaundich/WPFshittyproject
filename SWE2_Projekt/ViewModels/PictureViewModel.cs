@@ -9,20 +9,26 @@ namespace SWE2_Projekt.ViewModels
 {
     public class PictureViewModel : ViewModel
     {
-        private PictureInfoViewModel pictureInfoViewModel = new PictureInfoViewModel();
+        private BusinessLayer _businessLayer = new BusinessLayer();
         private PictureModel _picture;
         private IPTCModel _iptc;
+        private EXIFModel _exif;
 
-        public PictureViewModel(PictureModel picture, IPTCModel iptc)
+        public PictureViewModel()
         {
-            Picture = picture;
-            IPTC = iptc; 
+            Picture = _businessLayer.SelectedPicture;
+            IPTC = Picture.IPTC;
+            EXIF = Picture.EXIF;
         }
 
         public PictureModel Picture
         {
             get { return _picture; }
-            set { _picture = value; }
+            set { 
+                _picture = value;
+                IPTC = _picture.IPTC;
+                EXIF = _picture.EXIF;
+            }
         }
 
         public IPTCModel IPTC
@@ -30,7 +36,12 @@ namespace SWE2_Projekt.ViewModels
             get { return _iptc; }
             set { _iptc = value; }
         }
-        
+
+        public EXIFModel EXIF
+        {
+            get { return _exif; }
+            set { _exif = value; }
+        }
 
         public string Title
         {

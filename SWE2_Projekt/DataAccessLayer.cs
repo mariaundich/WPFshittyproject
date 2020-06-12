@@ -634,7 +634,7 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("INSERT INTO ITPC (titel, Urheber, Beschreibung) VALUES (@titel, @Urheber, @Beschreibung) WHERE ID_ITPC IS @ID_ITPC", connection);
+                command = new SqlCommand("UPDATE ITPC SET Titel=@titel, Urheber=@Urheber, Beschreibung=@Beschreibung WHERE ID_ITPC = @ID_ITPC", connection);
                 command.Parameters.AddWithValue("@titel", data[0]);
                 command.Parameters.AddWithValue("@Urheber", data[1]);
                 command.Parameters.AddWithValue("@Beschreibung", data[2]);

@@ -22,9 +22,9 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Row="0" Text ="{Binding pictureViewModel.IPTC.Title, UpdateSourceTrigger=PropertyChanged}" Name = "creator" Margin="5"/>
-                            <TextBox Grid.Row="1" Text ="{Binding pictureViewModel.IPTC.Description, UpdateSourceTrigger=PropertyChanged}" Name="description" Margin="5" TextWrapping="Wrap" />
-                            <Button Grid.Row="2" Content="Save" Margin="5" Click="Savebutton_Click"/>
+                            <TextBox Grid.Row="0" Text ="{Binding Path=pictureInfoViewModel.Title,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "TitleField" Margin="5"/>
+                            <TextBox Grid.Row="1" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" Margin="5" TextWrapping="Wrap" />
+                            <Button Grid.Row="2" Name ="SaveButton" Content="Save" Margin="5" Click="Savebutton_Click"/>
 
                             <!--
                             <Label Content= "Titel"
