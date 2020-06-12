@@ -19,16 +19,28 @@ namespace SWE2_Projekt.Views
     /// </summary>
     public partial class PictureInfoView : UserControl
     {
+        private BusinessLayer _businessLayer = new BusinessLayer();
         public PictureInfoView()
         {
             InitializeComponent();
-            //this.DataContext = PictureViewModel(); // I couldn't manage to put the info models into the InfoViewModel so I had to keep using the PictureViewModel
-            //this.DataContext = new PictureViewModel();
+            //this.DataContext = new PictureInfoViewModel();     
         }
 
         private void Savebutton_Click(object sender, RoutedEventArgs e)
         {
-           
+            List<string> data = new List<string>();
+            string NewCreator = "Unbekannt";
+            string NewTitle = TitleField.Text;
+            string NewDescription = DescriptionField.Text;
+            int id = ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.ID;
+            ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.Title = NewTitle;
+            ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.Description = NewDescription;
+
+            data.Add(NewTitle);
+            data.Add(NewCreator);
+            data.Add(NewDescription);
+            _businessLayer.EditIPTC(id, data);
+
         }
     }
 }

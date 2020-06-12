@@ -16,8 +16,8 @@ namespace SWE2_Projekt.Models
         private int _iptcID;
         private string _picturePath;
         // ImagePath is not part of the data of a picture but is constructed out of the name and the file structure to load the picture
-        private IPTCModel _iptc;
-        private EXIFModel _exif;
+        private IPTCModel _iptc = null;
+        private EXIFModel _exif = null;
         // The IPTCModel and EXIFModel are set in the Business Layer where the model with the correct ID is added to the PictureModel
 
         public PictureModel(int id, string title, int photographer, int exif, int iptc)

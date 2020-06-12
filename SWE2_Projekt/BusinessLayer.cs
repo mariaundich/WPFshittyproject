@@ -11,6 +11,7 @@ namespace SWE2_Projekt
         public DataAccessLayer _DataAccessLayer;
         //private ObservableCollection<IPTCModel> _iptcModelList;
         private ObservableCollection<PictureModel> _pictureModelList;
+        private PictureModel _selectedPicture;
 
         List<PictureModel> PictureList;
         List<IPTCModel> IPTCList;
@@ -21,7 +22,15 @@ namespace SWE2_Projekt
         {
             _DataAccessLayer = new DataAccessLayer();
             PictureModelList = CreatePictureModelList();
-            
+            _selectedPicture = PictureModelList[0];
+
+
+        }
+
+        public PictureModel SelectedPicture
+        {
+            get { return _selectedPicture; }
+            set { _selectedPicture = value; }
         }
 
         public void RefreshPictureData()
@@ -58,6 +67,11 @@ namespace SWE2_Projekt
             }
             Console.Write("\n\n There are "+auxPictureModelList.Count+" pictures in the list" );
             return auxPictureModelList;
+        }
+
+        public void EditIPTC(int id, List<string> data)
+        {
+            _DataAccessLayer.EditIPTC(id, data);
         }
 
         public List<PictureModel> AllPictureModels()
