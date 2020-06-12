@@ -9,7 +9,7 @@ using SWE2_Projekt.Models;
 
 namespace SWE2_Projekt
 {
-    public class DataAccessLayer
+    public class DataAccessLayer : IDataAccessLayer
     {
         //PictureModel PictureModel = new PictureModel();
         private static string configfile = Path.GetFullPath("../../../config.txt");
@@ -61,6 +61,7 @@ namespace SWE2_Projekt
             }
         }
 
+
         public void InsertAllPictures()
         {
             int idx = 0;
@@ -102,7 +103,7 @@ namespace SWE2_Projekt
             }
         }
 
-        public List<PictureModel> ReturnAllPictureModels()
+        private List<PictureModel> returnAllPictureModels()
         {
             PictureModelList = new List<PictureModel>();
 
@@ -153,6 +154,8 @@ namespace SWE2_Projekt
             }
             return PictureModelList;
         }
+
+        public List<PictureModel> ReturnAllPictureModels() => returnAllPictureModels();
 
         public EXIFModel GetEXIFInfoByID(int id)
         {

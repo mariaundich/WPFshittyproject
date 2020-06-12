@@ -12,19 +12,10 @@ namespace SWE2_Projekt
 
     // To Do: interface für DAL und BL schreiben, für den Mock ableiten und alle
     // abgeleiteten Funktionen statt SQL Statements auf Liste mit Model-Objects ausführen
-    public class MockDAL
+    public class MockDAL : IDataAccessLayer
     {
-        private string _connectionstring;
 
-        public MockDAL(string connectionstring)
-        {
-            _connectionstring = connectionstring;
-        }
-
-        public string getConnectionstring()
-        {
-            return _connectionstring;
-        }
+        
     }
 
     public abstract class AbstractTestFixture<T> where T : class, new()
