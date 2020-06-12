@@ -14,18 +14,19 @@
                         <Grid Margin = "5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
+                            <TextBox Grid.Row="0" Text ="{Binding pictureViewModel.IPTC.Title, UpdateSourceTrigger=PropertyChanged}" Name = "creator" Margin="5"/>
+                            <TextBox Grid.Row="1" Text ="{Binding pictureViewModel.IPTC.Description, UpdateSourceTrigger=PropertyChanged}" Name="description" Margin="5" TextWrapping="Wrap" />
+                            <Button Grid.Row="2" Content="Save" Margin="5" Click="Savebutton_Click"/>
+
+                            <!--
                             <Label Content= "Titel"
                                 FontWeight="Bold"
                                 Grid.Column="0"
@@ -64,7 +65,7 @@
                                 Grid.Row="5"
                                 BorderBrush="Black" Margin="0, 4, 0, 1">
                             </Label>
-
+                            -->
                         </Grid>
                     </TabItem>
 

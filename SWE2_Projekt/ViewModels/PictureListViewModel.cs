@@ -8,34 +8,39 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SWE2_Projekt.ViewModels
 {
     public class PictureListViewModel : ViewModel, INotifyPropertyChanged
     {
-        private PictureViewModel _picture;
-        private ObservableCollection<PictureViewModel> _pictureViewModelList;
-        private List<IPTCModel> _iptcModelList;
+        private PictureModel _pictureModel;
+        private ObservableCollection<PictureModel> _pictureModelList;
         private BusinessLayer _businessLayer = new BusinessLayer();
 
         public PictureListViewModel()
         {
-            IPTCModelList = new List<IPTCModel>();
-            PictureViewModelList = new ObservableCollection<PictureViewModel>();
+            PictureModelList = _businessLayer.PictureModelList;
         }
 
-        public PictureViewModel SelectedImage
+        public ObservableCollection<PictureModel> PictureModelList
+        {
+            get { return _pictureModelList; }
+            set { _pictureModelList = value; }
+        }
+
+        public PictureModel SelectedImage
         {
             get
             {
-                return _picture;
+                return _pictureModel;
             }
             set
             {
-                if (_picture != value)
+                if (_pictureModel != value)
                 {
-                    _picture = value;
+                    _pictureModel = value;
                     OnPropertyChanged(nameof(SelectedImage));
                 }
             }
@@ -57,15 +62,15 @@ namespace SWE2_Projekt.ViewModels
             }
         }*/
 
-        public List<IPTCModel> IPTCModelList
+        /*public List<IPTCModel> IPTCModelList
         {
             set
             {
                 _iptcModelList = _businessLayer.AllIPTCModels();
             }
-        }
+        }*/
 
-        public ObservableCollection<PictureViewModel> PictureViewModelList
+        /*public ObservableCollection<PictureViewModel> PictureViewModelList
         {
             set
             {
@@ -79,7 +84,8 @@ namespace SWE2_Projekt.ViewModels
                         {
                             if(iptcModel.ID == pictureModel.IPTC)
                             {
-                                auxIPTCModel = iptcModel;                             
+                                auxIPTCModel = iptcModel;
+                                break;
                             }
                         }
                         _pictureViewModelList.Add(new PictureViewModel(pictureModel, auxIPTCModel));
@@ -88,7 +94,7 @@ namespace SWE2_Projekt.ViewModels
                 }
             }
             get { return _pictureViewModelList; }
-        }
+        }*/
 
     }
 }

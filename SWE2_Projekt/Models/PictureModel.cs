@@ -12,18 +12,21 @@ namespace SWE2_Projekt.Models
         private int _id;
         private string _title;
         private int _photographer;
-        private int _exif;
-        private int _iptc;
-        private string _picturePath; 
-        //ImagePath is not part of the data of a picture but is constructed out of the name and the file structure to load the picture
+        private int _exifID;
+        private int _iptcID;
+        private string _picturePath;
+        // ImagePath is not part of the data of a picture but is constructed out of the name and the file structure to load the picture
+        private IPTCModel _iptc;
+        private EXIFModel _exif;
+        // The IPTCModel and EXIFModel are set in the Business Layer where the model with the correct ID is added to the PictureModel
 
         public PictureModel(int id, string title, int photographer, int exif, int iptc)
         {
             ID = id;
             Title = title;
             Photographer = photographer;
-            EXIF = exif;
-            IPTC = iptc;
+            EXIF_ID = exif;
+            IPTC_ID = iptc;
 
             string auxPath = "../../../images/" + Title;
             PicturePath = Path.GetFullPath(auxPath); 
@@ -65,27 +68,27 @@ namespace SWE2_Projekt.Models
             }
         }
 
-        public int EXIF
+        public int EXIF_ID
         {
             get
             {
-                return _exif;
+                return _exifID;
             }
             set
             {
-                _exif = value;
+                _exifID = value;
             }
         }
 
-        public int IPTC
+        public int IPTC_ID
         {
             get
             {
-                return _iptc;
+                return _iptcID;
             }
             set
             {    
-                _iptc = value;
+                _iptcID = value;
             }
         }
 
@@ -102,6 +105,18 @@ namespace SWE2_Projekt.Models
                     _picturePath = value;
                 }
             }
+        }
+
+        public EXIFModel EXIF
+        {
+            get { return _exif; }
+            set { _exif = value; }
+        }
+
+        public IPTCModel IPTC
+        {
+            get { return _iptc; }
+            set { _iptc = value; }
         }
 
         /*public event PropertyChangedEventHandler PropertyChanged;

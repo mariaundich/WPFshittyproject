@@ -116,7 +116,7 @@ namespace SWE2_Projekt
                 string Title = "";
                 int Photographer = 0;
                 int EXIF = 0;
-                int ITPC = 0;
+                int IPTC = 0;
 
                 command = new SqlCommand("SELECT * FROM Bilder", connection);
 
@@ -142,16 +142,113 @@ namespace SWE2_Projekt
                         }
                         if (!rd.IsDBNull(4))
                         {
-                            ITPC = rd.GetInt32(4);
+                            IPTC = rd.GetInt32(4);
                         }
 
-                        PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, ITPC);
+                        PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
                         PictureModelList.Add(auxModel);
                     }
                 }
                 connection.Close();
             }
             return PictureModelList;
+        }
+
+        public EXIFModel GetEXIFInfoByID(int id)
+        {
+            string Camera = "";
+            string Resolution = "";
+            string Date = "";
+            string Place = "";
+            string Country = "";
+    
+            EXIFModel auxEXIFModel = null;
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT * FROM EXIF WHERE ID_EXIF = @id", connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // skipping rd.GetInt32(0) because that's the ID which we already have stored
+                        if (!rd.IsDBNull(1))
+                        {
+                            Camera = rd.GetString(1);
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            Resolution = rd.GetString(2);
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            Date = Convert.ToString(rd.GetDateTime(3));
+                        }
+                        if (!rd.IsDBNull(4))
+                        {
+                            Place = rd.GetString(2);
+                        }
+                        if (!rd.IsDBNull(5))
+                        {
+                            Country = rd.GetString(2);
+                        }
+
+                        auxEXIFModel = new EXIFModel(id, Camera, Resolution, Date, Place, Country);
+                    }
+                }
+                connection.Close();
+            }
+            return auxEXIFModel;
+        }
+
+        public IPTCModel GetIPTCInfoByID(int id)
+        {
+            string Title = "";
+            string Creator = "";
+            string Description = "";
+
+            IPTCModel auxIPTCModel = null;
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT * FROM ITPC WHERE ID_ITPC = @id", connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // skipping rd.GetInt32(0) because that's the ID which we already have stored
+                        if (!rd.IsDBNull(1))
+                        {
+                            Title = rd.GetString(1);
+                            Console.WriteLine("I have found the title " + Title + "in the database");
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            Creator = rd.GetString(2);
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            Description = rd.GetString(3);
+                        }
+
+                        auxIPTCModel = new IPTCModel(id, Title, Creator, Description);
+                    }
+                }
+                connection.Close();
+            }
+            return auxIPTCModel;
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title)
