@@ -29,11 +29,12 @@ namespace SWE2_Projekt.Views
         private void Savebutton_Click(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
-            string NewCreator = "Unbekannt";
+            string NewCreator = CreatorField.Text;
             string NewTitle = TitleField.Text;
             string NewDescription = DescriptionField.Text;
             int id = ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.ID;
             ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.Title = NewTitle;
+            ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.Creator = NewCreator;
             ((MainWindowViewModel)DataContext).pictureInfoViewModel.IPTCModel.Description = NewDescription;
 
             data.Add(NewTitle);

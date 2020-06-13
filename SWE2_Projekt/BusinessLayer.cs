@@ -9,9 +9,10 @@ namespace SWE2_Projekt
     class BusinessLayer : IBusinessLayer
     {
         public DataAccessLayer _DataAccessLayer;
-        //private ObservableCollection<IPTCModel> _iptcModelList;
         private ObservableCollection<PictureModel> _pictureModelList;
+        private ObservableCollection<PhotographerModel> _photographerModelList;
         private PictureModel _selectedPicture;
+        private PhotographerModel _selectedPhotographer;
 
         List<PictureModel> PictureList;
         List<IPTCModel> IPTCList;
@@ -23,12 +24,21 @@ namespace SWE2_Projekt
             _DataAccessLayer = new DataAccessLayer();
             PictureModelList = CreatePictureModelList();
             _selectedPicture = PictureModelList[0];
+            PhotographerModelList = CreatePhotographerModelList();
+            SelectedPicture = PictureModelList[0];
+            SelectedPhotographer = PhotographerModelList[0];
         }
 
         public PictureModel SelectedPicture
         {
             get { return _selectedPicture; }
             set { _selectedPicture = value; }
+        }
+
+        public PhotographerModel SelectedPhotographer
+        {
+            get { return _selectedPhotographer; }
+            set { _selectedPhotographer = value; }
         }
 
         public void RefreshPictureData()
@@ -45,6 +55,12 @@ namespace SWE2_Projekt
             set { _pictureModelList = value; }
         }
 
+        public ObservableCollection<PhotographerModel> PhotographerModelList
+        {
+            get { return _photographerModelList; }
+            set { _photographerModelList = value; }
+        }
+
         public ObservableCollection<PictureModel> CreatePictureModelList()
         {
             ObservableCollection<PictureModel> auxPictureModelList = new ObservableCollection<PictureModel>();
@@ -56,8 +72,6 @@ namespace SWE2_Projekt
                 IPTCModel auxIPTCModel =_DataAccessLayer.GetIPTCInfoByID(pictureModel.IPTC_ID);
                 pictureModel.IPTC = auxIPTCModel;
 
-                if (auxIPTCModel == null) { Console.WriteLine("The IPTCmodel of Pic " + pictureModel.Title + " is null :(("); }
-
                 EXIFModel auxEXIFModel = _DataAccessLayer.GetEXIFInfoByID(pictureModel.EXIF_ID);
                 pictureModel.EXIF = auxEXIFModel;
 
@@ -65,6 +79,17 @@ namespace SWE2_Projekt
             }
             Console.Write("\n\n There are "+auxPictureModelList.Count+" pictures in the list" );
             return auxPictureModelList;
+        }
+
+        public ObservableCollection<PhotographerModel> CreatePhotographerModelList()
+        {
+            ObservableCollection<PhotographerModel> auxPhotographerModelList = new ObservableCollection<PhotographerModel>();
+            List<PhotographerModel> PhotographerList = _DataAccessLayer.ReturnAllPhotographerModels();
+            foreach(var photographer in PhotographerList)
+            {
+                auxPhotographerModelList.Add(photographer);
+            }
+            return auxPhotographerModelList;
         }
 
         public void EditIPTC(int id, List<string> data)

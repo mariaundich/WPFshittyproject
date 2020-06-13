@@ -17,6 +17,7 @@ namespace SWE2_Projekt
         private PictureListViewModel _pictureListViewModel;
         private PictureInfoViewModel _pictureInfoViewModel;
         private PictureViewModel _pictureViewModel;
+        private PhotographerListViewModel _photographerListViewModel;
 
         private BusinessLayer _businessLayer;
 
@@ -36,6 +37,8 @@ namespace SWE2_Projekt
 
             pictureListViewModel = new PictureListViewModel();
 
+            photographerListViewModel = new PhotographerListViewModel();
+
 
             pictureListViewModel.PropertyChanged += (s, e) => {
                 switch (e.PropertyName)
@@ -44,6 +47,7 @@ namespace SWE2_Projekt
                         pictureViewModel.Picture = pictureListViewModel.SelectedImage;
                         OnPropertyChanged(nameof(pictureViewModel));
                         pictureInfoViewModel.IPTCModel = pictureListViewModel.SelectedImage.IPTC;
+                        pictureInfoViewModel.EXIFModel = pictureListViewModel.SelectedImage.EXIF;
                         OnPropertyChanged(nameof(pictureInfoViewModel));
                         break;
                 }
@@ -62,6 +66,12 @@ namespace SWE2_Projekt
         { 
             get { return _pictureListViewModel; } 
             set { _pictureListViewModel = value; }
+        }
+
+        public PhotographerListViewModel photographerListViewModel
+        {
+            get { return _photographerListViewModel; }
+            set { _photographerListViewModel = value; }
         }
 
         public PictureInfoViewModel pictureInfoViewModel
