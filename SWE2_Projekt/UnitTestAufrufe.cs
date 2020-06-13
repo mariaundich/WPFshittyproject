@@ -11,9 +11,9 @@ namespace SWE2_Projekt
         {
         }
 
-        public MockDAL GetString(string input)
+        /*public MockDAL GetString(string input)
         {
-            return new MockDAL(input);
-        }
+            
+        }*/
     }
 }

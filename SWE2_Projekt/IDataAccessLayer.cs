@@ -9,21 +9,49 @@ namespace SWE2_Projekt
 {
     public interface IDataAccessLayer
     {
-        void DeleteAllData() {  }
+        void DeleteAllData();
 
-        void InsertAllPictures() { }
+        void InsertAllPictures();
 
-        List<PictureModel> ReturnAllPictureModels() { }
+        void InsertAllEXIFData();
 
-        EXIFModel GetEXIFInfoByID(int id) { }
+        void InsertAllIPTCData();
 
-        EXIFModel GetEXIFInfoByID(int id) { }
+        List<PictureModel> ReturnAllPictureModels();
 
-        IPTCModel GetIPTCInfoByID(int id) { }
+        EXIFModel GetEXIFInfoByID(int id);
 
-        Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title) { }
+        IPTCModel GetIPTCInfoByID(int id);
 
+        Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title);
 
+        List<IPTCModel> ReturnAllIPTCModels();
+
+        void DeletePicture(string titel);
+
+        void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen);
+
+        void EditPhotagrapher(int ID, List<string> Data);
+
+        void DeletePhotographer(string Vorname, string Nachname);
+
+        Dictionary<int, List<string>> GetAllPhotographers();
+
+        void EditEXIF(int ID, List<string> Data);
+
+        void EditIPTC(int ID, List<string> Data);
+
+        void AddTagToPicture(string PicTitle, string Tag);
+
+        void DeleteTagofPicture(string PicTitle, string TagTitle);
+
+        void AssignPhotographertoPicture(int PhotographerID, string Title);
+
+        List<string> ListPicturesOfPhotographer(string Vorname, string Nachname);
+
+        List<string> SearchForPicturesWithTag(string Tag);
+
+        List<string> SearchForPictures(string value);
 
     }
 }

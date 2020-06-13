@@ -61,7 +61,6 @@ namespace SWE2_Projekt
             }
         }
 
-
         public void InsertAllPictures()
         {
             int idx = 0;
@@ -103,7 +102,7 @@ namespace SWE2_Projekt
             }
         }
 
-        private List<PictureModel> returnAllPictureModels()
+        public List<PictureModel> ReturnAllPictureModels()
         {
             PictureModelList = new List<PictureModel>();
 
@@ -154,8 +153,6 @@ namespace SWE2_Projekt
             }
             return PictureModelList;
         }
-
-        public List<PictureModel> ReturnAllPictureModels() => returnAllPictureModels();
 
         public EXIFModel GetEXIFInfoByID(int id)
         {

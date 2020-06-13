@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SWE2_Projekt
 {
-    class BusinessLayer
+    class BusinessLayer : IBusinessLayer
     {
         public DataAccessLayer _DataAccessLayer;
         //private ObservableCollection<IPTCModel> _iptcModelList;
@@ -23,8 +23,6 @@ namespace SWE2_Projekt
             _DataAccessLayer = new DataAccessLayer();
             PictureModelList = CreatePictureModelList();
             _selectedPicture = PictureModelList[0];
-
-
         }
 
         public PictureModel SelectedPicture
@@ -106,5 +104,6 @@ namespace SWE2_Projekt
         {
             return _DataAccessLayer.SearchForPictures(search);
         }
+
     }
 }
