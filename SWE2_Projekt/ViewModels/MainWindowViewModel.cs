@@ -53,6 +53,15 @@ namespace SWE2_Projekt
                 }
             };
 
+            /*photographerListViewModel.PropertyChanged += (s, e) => {
+                switch (e.PropertyName)
+                {
+                    case nameof(PhotographerListViewModel.SelectedPhotographer):
+                        photographerListViewModel.SelectedPhotographer = 
+                        break;
+                }
+            };*/
+
             //_editIPTC = new EditCommand
         }
 

@@ -26,7 +26,7 @@ namespace SWE2_Projekt
             _selectedPicture = PictureModelList[0];
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
-            //SelectedPhotographer = PhotographerModelList[0];
+            SelectedPhotographer = PhotographerModelList[0];
         }
 
         public PictureModel SelectedPicture
