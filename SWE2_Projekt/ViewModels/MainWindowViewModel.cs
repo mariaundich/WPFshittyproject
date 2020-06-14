@@ -29,6 +29,31 @@ namespace SWE2_Projekt
         {
             _businessLayer = new BusinessLayer();
 
+            /*_businessLayer.AddTagToPicture("astro-cat.png", "Katze");
+            _businessLayer.AddTagToPicture("astro-cat.png", "Emoji");
+            _businessLayer.AddTagToPicture("astro-cat.png", "Astronaut");
+            _businessLayer.AddTagToPicture("basilhat.jpg", "Katze");
+            _businessLayer.AddTagToPicture("basilhat.jpg", "Hut");
+            _businessLayer.AddTagToPicture("dino-cat.png", "Katze");
+            _businessLayer.AddTagToPicture("dino-cat.png", "Emoji");
+            _businessLayer.AddTagToPicture("dino-cat.png", "Dino");
+            _businessLayer.AddTagToPicture("hacker-cat.png", "Katze");
+            _businessLayer.AddTagToPicture("hacker-cat.png", "Emoji");
+            _businessLayer.AddTagToPicture("hacker-cat.png", "Hacker");
+            _businessLayer.AddTagToPicture("hats-for-cats.jpg", "Katze");
+            _businessLayer.AddTagToPicture("hats-for-cats.jpg", "Hut");
+            _businessLayer.AddTagToPicture("hipster-cat.png", "Katze");
+            _businessLayer.AddTagToPicture("hipster-cat.png", "Emoji");
+            _businessLayer.AddTagToPicture("hipster-cat.png", "Tee");
+            _businessLayer.AddTagToPicture("hipster-cat.png", "Buch");
+            _businessLayer.AddTagToPicture("ninja-cat.png", "Katze");
+            _businessLayer.AddTagToPicture("ninja-cat.png", "Emoji");
+            _businessLayer.AddTagToPicture("ninja-cat.png", "Hipster");
+            _businessLayer.AddTagToPicture("stunt-cat.png", "Katze");
+            _businessLayer.AddTagToPicture("stunt-cat.png", "Emoji");
+            _businessLayer.AddTagToPicture("stunt-cat.png", "Stunt");
+            _businessLayer.AddTagToPicture("stunt-cat.png", "Cape");*/
+
             SelectedPicture = _businessLayer.SelectedPicture;
 
             pictureInfoViewModel = new PictureInfoViewModel();

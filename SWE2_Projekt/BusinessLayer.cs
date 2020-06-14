@@ -69,7 +69,7 @@ namespace SWE2_Projekt
 
             foreach (PictureModel pictureModel in PictureList)
             {
-                IPTCModel auxIPTCModel =_DataAccessLayer.GetIPTCInfoByID(pictureModel.IPTC_ID);
+                IPTCModel auxIPTCModel = _DataAccessLayer.GetIPTCInfoByID(pictureModel.IPTC_ID);
                 pictureModel.IPTC = auxIPTCModel;
 
                 EXIFModel auxEXIFModel = _DataAccessLayer.GetEXIFInfoByID(pictureModel.EXIF_ID);
@@ -77,7 +77,7 @@ namespace SWE2_Projekt
 
                 auxPictureModelList.Add(pictureModel);
             }
-            Console.Write("\n\n There are "+auxPictureModelList.Count+" pictures in the list" );
+            Console.Write("\n\n There are " + auxPictureModelList.Count + " pictures in the list");
             return auxPictureModelList;
         }
 
@@ -85,7 +85,7 @@ namespace SWE2_Projekt
         {
             ObservableCollection<PhotographerModel> auxPhotographerModelList = new ObservableCollection<PhotographerModel>();
             List<PhotographerModel> PhotographerList = _DataAccessLayer.ReturnAllPhotographerModels();
-            foreach(var photographer in PhotographerList)
+            foreach (var photographer in PhotographerList)
             {
                 auxPhotographerModelList.Add(photographer);
             }
@@ -128,7 +128,7 @@ namespace SWE2_Projekt
         public ObservableCollection<PictureModel> SearchAllPictures(string search)
         {
             var results = new ObservableCollection<PictureModel>();
-                
+
             var resultList = _DataAccessLayer.SearchForPictures(search);
 
             foreach (PictureModel pictureModel in resultList)
@@ -145,5 +145,14 @@ namespace SWE2_Projekt
             return results;
         }
 
+        public void AddTagToPicture(string title, string tag)
+        {
+            _DataAccessLayer.AddTagToPicture(title, tag);
+        }
+
+        public Dictionary<string, int> returnAllTagsWithCount()
+        {
+            return _DataAccessLayer.getAllTagsWithPicCount();
+        }
     }
 }

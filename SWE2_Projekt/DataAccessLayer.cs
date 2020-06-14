@@ -698,13 +698,16 @@ namespace SWE2_Projekt
         {
             int tagID = -1;
             int picID = -1;
+            SqlCommand com;
+            bool exists = true;
+
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("SELECT ID_Tag FROM Tags WHERE Bezeichnung IS @bezeichnung", connection);
+                command = new SqlCommand("SELECT ID_Tag FROM Tags WHERE Bezeichnung = @bezeichnung", connection);
                 command.Parameters.AddWithValue("@bezeichnung", Tag);
 
                 using (SqlDataReader rd = command.ExecuteReader())
@@ -716,26 +719,38 @@ namespace SWE2_Projekt
                             tagID = rd.GetInt32(0);
                         } else
                         {
-                            command = new SqlCommand("INSERT INTO Tags (Bezeichnung) VALUES (@bezeichnung)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
-                            command.Parameters.AddWithValue("@bezeichnung", Tag);
-                            using(SqlDataReader r = command.ExecuteReader())
+                            exists = false;
+                        }
+                    }
+                }
+
+                if (!exists)
+                {
+                    com = new SqlCommand("INSERT INTO Tags (Bezeichnung) VALUES (@bezeichnung)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
+                    com.Parameters.AddWithValue("@bezeichnung", Tag);
+                    using (SqlDataReader r = com.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            if (!r.IsDBNull(0))
                             {
-                                if (!r.IsDBNull(0))
-                                {
-                                    tagID = r.GetInt32(0);
-                                }
+                                tagID = r.GetInt32(0);
                             }
                         }
                     }
                 }
 
-                command = new SqlCommand("SELECT ID_Bild FROM Bilder WHERE Titel IS @titel");
+                command = new SqlCommand("SELECT ID_Bild FROM Bilder WHERE Titel = @titel", connection);
                 command.Parameters.AddWithValue("@titel", PicTitle);
+
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
-                    if (!rd.IsDBNull(0))
+                    while (rd.Read())
                     {
-                        picID = rd.GetInt32(0);
+                        if (!rd.IsDBNull(0))
+                        {
+                            picID = rd.GetInt32(0);
+                        }
                     }
                 }
 
@@ -755,9 +770,7 @@ namespace SWE2_Projekt
             List<string> tags = new List<string>();
             SqlCommand com;
             string tag = "";
-            int id_tag = 0;
-            int id_pic = 0;
-            int count = 0;
+            List<int> id_tag = new List<int>();
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -772,25 +785,29 @@ namespace SWE2_Projekt
                     {
                         if (!rd.IsDBNull(0))
                         {
-                            id_tag = rd.GetInt32(0);
-                            com = new SqlCommand("SELECT Bezeichnung FROM Tags WHERE ID_Tag IS @ID_Tag", connection);
-                            com.Parameters.AddWithValue("@ID_Tag", id_tag);
-
-                            using (SqlDataReader r = command.ExecuteReader())
-                            {
-                                while (r.Read())
-                                {
-                                    if (!r.IsDBNull(0))
-                                    {
-                                        tag = r.GetString(0);
-                                    }
-                                }
-                            }
-                            tags.Add(tag);
+                            id_tag.Add(rd.GetInt32(0));
                         }
                     }
                 }
 
+                foreach(int id in id_tag)
+                {
+                    com = new SqlCommand("SELECT Bezeichnung FROM Tags WHERE ID_Tag = @ID_Tag", connection);
+                    com.Parameters.AddWithValue("@ID_Tag", id);
+
+                    using (SqlDataReader r = com.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            if (!r.IsDBNull(0))
+                            {
+                                tag = r.GetString(0);
+                                tags.Add(tag);
+                            }
+                        }
+                    }
+                }
+                
                 var g = tags.GroupBy(i => i.ToString());
                 foreach (var grp in g)
                 {
