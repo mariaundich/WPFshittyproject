@@ -270,14 +270,14 @@ namespace SWE2_Projekt
             return PictureList;
         }
 
-        public List<string> SearchForPictures(string value)
+        public List<PictureModel> SearchForPictures(string value)
         {
-            List<string> results = new List<string>();
+            List<PictureModel> results = new List<PictureModel>();
 
             for(int i = 0; i < PictureList.Count; i++)
             {
                 if (PictureList[i].Title.Contains(value)){
-                    results.Add(PictureList[i].Title);
+                    results.Add(PictureList[i]);
                 }
             }
 
@@ -285,30 +285,30 @@ namespace SWE2_Projekt
             {
                 if (IPTCList[i].Title.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 } 
                 else if (IPTCList[i].Creator.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 } 
                 else if (IPTCList[i].Creator.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 } 
                 else if (IPTCList[i].Description.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 }
             }
@@ -317,37 +317,37 @@ namespace SWE2_Projekt
             {
                 if (EXIFList[i].Camera.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 }
                 else if (EXIFList[i].Resolution.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 }
                 else if (EXIFList[i].Date.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 }
                 else if (EXIFList[i].Place.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 }
                 else if (EXIFList[i].Country.Contains(value))
                 {
-                    if (!results.Contains(PictureList[i].Title))
+                    if (!results.Contains(PictureList[i]))
                     {
-                        results.Add(PictureList[i].Title);
+                        results.Add(PictureList[i]);
                     }
                 }
             }

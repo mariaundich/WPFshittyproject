@@ -43,7 +43,7 @@ namespace SWE2_Projekt
         {
             string search = SearchField.Text.ToLower();
 
-            //((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
+            ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
 
         private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
