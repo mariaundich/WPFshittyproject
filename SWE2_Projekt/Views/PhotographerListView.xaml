@@ -9,7 +9,14 @@
         >
     
     <Grid>
-        <Border Background="White">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="White" Grid.Column="0" BorderBrush="Black" Margin="20,20,20,20">
             <ListView ScrollViewer.CanContentScroll="False" 
                       ScrollViewer.VerticalScrollBarVisibility="Auto" 
                       ScrollViewer.PanningMode="VerticalOnly" 
@@ -18,22 +25,54 @@
                       ItemsSource="{Binding photographerListViewModel.PhotographerModelList}"
                       SelectedItem="{Binding photographerListViewModel.SelectedPhotographer}"
                       >
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"></StackPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Label Content= "{Binding FirstName}"></Label>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Vorname" DisplayMemberBinding="{Binding FirstName}"></GridViewColumn>
+                        <GridViewColumn Header="Nachname" DisplayMemberBinding="{Binding LastName}"></GridViewColumn>
+                        <GridViewColumn Header="Geburtsdatum" DisplayMemberBinding="{Binding Birthday}"></GridViewColumn>
+                        <GridViewColumn Header="Notiz" DisplayMemberBinding="{Binding Notes}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
             </ListView>
-
         </Border>
 
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" >
+            <GridSplitter.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="40.601"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="2.143"/>
+                </TransformGroup>
+            </GridSplitter.RenderTransform>
+        </GridSplitter>
+
+        <Border Background="White" Grid.Column="2" BorderBrush="Black" Margin="20,20,20,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <TextBlock Grid.Row="0" FontWeight="Bold">Vorname</TextBlock>
+                <TextBlock Grid.Row="1" Text="{Binding photographerListViewModel.SelectedPhotographer.FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+                <TextBlock Grid.Row="2" FontWeight="Bold">Nachname</TextBlock>
+                <TextBlock Grid.Row="3" Text="{Binding photographerListViewModel.SelectedPhotographer.LastName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+                <TextBlock Grid.Row="4" FontWeight="Bold">Geburtstag</TextBlock>
+                <TextBlock Grid.Row="5" Text="{Binding photographerListViewModel.SelectedPhotographer.Birthday, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+                <TextBlock Grid.Row="6" FontWeight="Bold">Notiz</TextBlock>
+                <TextBlock Grid.Row="7" Text="{Binding photographerListViewModel.SelectedPhotographer.Notes, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>

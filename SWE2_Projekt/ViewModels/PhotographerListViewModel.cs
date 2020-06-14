@@ -22,6 +22,7 @@ namespace SWE2_Projekt.ViewModels
         {
             PhotographerModelList = _businessLayer.PhotographerModelList;
             Photographer = _businessLayer.SelectedPhotographer;
+            //Console.WriteLine(SelectedPhotographer.FirstName);
         }
 
         public ObservableCollection<PhotographerModel> PhotographerModelList
@@ -47,6 +48,7 @@ namespace SWE2_Projekt.ViewModels
                 if (_photographer != value)
                 {
                     _photographer = value;
+                    //Console.WriteLine(SelectedPhotographer.FirstName);
                     OnPropertyChanged(nameof(SelectedPhotographer));
                 }
             }
