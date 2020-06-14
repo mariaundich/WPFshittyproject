@@ -64,9 +64,27 @@ namespace SWE2_Projekt
 
         private void BerichtErstellen(object sender, RoutedEventArgs e)
         {
+            bool created = false;
             PictureModel Picture = ((MainWindowViewModel)DataContext).pictureListViewModel.SelectedImage;
             PDFCreator creator = new PDFCreator();
-            creator.Create(Picture);
+            created = creator.CreateReport(Picture);
+
+            if (created)
+            {
+                MessageBox.Show("Bericht wurde erstellt und gespeichert.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }   
+        }
+
+        private void TagBerichtErstellen(object sender, RoutedEventArgs e)
+        {
+            bool created = false;
+            PDFCreator creator = new PDFCreator();
+            created = creator.TagReport();
+
+            if (created)
+            {
+                MessageBox.Show("Bericht wurde erstellt und gespeichert.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

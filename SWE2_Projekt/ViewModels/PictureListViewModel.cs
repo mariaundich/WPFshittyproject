@@ -22,6 +22,7 @@ namespace SWE2_Projekt.ViewModels
         public PictureListViewModel()
         {
             PictureModelList = _businessLayer.PictureModelList;
+            SelectedImage = _businessLayer.SelectedPicture;
         }
 
         public ObservableCollection<PictureModel> PictureModelList

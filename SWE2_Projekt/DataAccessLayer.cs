@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using MetadataExtractor;
 using SWE2_Projekt.Models;
+using System.Linq;
 
 namespace SWE2_Projekt
 {
@@ -749,6 +750,63 @@ namespace SWE2_Projekt
             }
         }
 
+        public Dictionary<string, int> getAllTagsWithPicID()
+        {
+            Dictionary<string, int> allTags = new Dictionary<string, int>();
+            List<string> tags = new List<string>();
+            SqlCommand com;
+            string tag = "";
+            int id_tag = 0;
+            int id_pic = 0;
+            int count = 0;
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT fk_Tag_ID FROM Bild_Tag", connection);
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            id_tag = rd.GetInt32(0);
+                            com = new SqlCommand("SELECT Bezeichnung FROM Tags WHERE ID_Tag IS @ID_Tag", connection);
+                            com.Parameters.AddWithValue("@ID_Tag", id_tag);
+
+                            using (SqlDataReader r = command.ExecuteReader())
+                            {
+                                while (r.Read())
+                                {
+                                    if (!r.IsDBNull(0))
+                                    {
+                                        tag = r.GetString(0);
+                                    }
+                                }
+                            }
+                            tags.Add(tag);
+                        }
+                    }
+                }
+
+                var g = tags.GroupBy(i => i.ToString());
+                foreach (var grp in g)
+                {
+                    string t = grp.ToString();
+                    if (!allTags.ContainsKey(grp.Key))
+                    {
+                        allTags.Add(grp.Key, grp.Count());
+                    }
+                    //Console.WriteLine("{0} {1}", grp.Key, grp.Count());
+                }
+
+            }
+            return allTags;
+        }
+
         public void DeleteTagofPicture(string PicTitle, string TagTitle)
         {
             int PicID = -1;
@@ -1147,36 +1205,9 @@ namespace SWE2_Projekt
             }
             return Pictures;
         }
-
-        /*public List<string> SearchForPicturesWithEXIFinfo(string exif_info)
-        {
-            Pictures = new List<string>();
-            using (SqlConnection connection = new SqlConnection(_connectionstring))
-            {
-                Console.WriteLine("Opening PicDB Connection!");
-                connection.Open();
-                Console.WriteLine("Connected to PicDB!\n");
-
-            }
-
-            return Pictures;
-        }
-
-        public List<string> SearchForPicturesWithIPTCinfo(string itpc_info)
-        {
-            Pictures = new List<string>();
-            using (SqlConnection connection = new SqlConnection(_connectionstring))
-            {
-                Console.WriteLine("Opening PicDB Connection!");
-                connection.Open();
-                Console.WriteLine("Connected to PicDB!\n");
-                
-            }
-
-            return Pictures;
-        }*/
     }
 
+    // Source: https://stackoverflow.com/questions/194863/random-date-in-c-sharp
     class RandomDateTime
     {
         DateTime start;
@@ -1196,7 +1227,6 @@ namespace SWE2_Projekt
         }
     }
 
-    // Source: https://stackoverflow.com/questions/194863/random-date-in-c-sharp
     class SelectRandomValues
     {
         private List<string> Kameramodelle = new List<string> { "Canon EOS 650", "Sony Alpha 58", "Nikon D3200", "Canon T80", "Sony A7R IV", "Sony Alpha 350", "Nikon Z 6", "Sony Mavica", "Leica S", "Panasonic Lumix DC-GH5", "Canon EOS 200D" };
