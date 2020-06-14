@@ -749,7 +749,7 @@ namespace SWE2_Projekt
             }
         }
 
-        public Dictionary<string, int> getAllTagsWithPicID()
+        public Dictionary<string, int> getAllTagsWithPicCount()
         {
             Dictionary<string, int> allTags = new Dictionary<string, int>();
             List<string> tags = new List<string>();
@@ -794,14 +794,12 @@ namespace SWE2_Projekt
                 var g = tags.GroupBy(i => i.ToString());
                 foreach (var grp in g)
                 {
-                    string t = grp.ToString();
                     if (!allTags.ContainsKey(grp.Key))
                     {
                         allTags.Add(grp.Key, grp.Count());
                     }
                     //Console.WriteLine("{0} {1}", grp.Key, grp.Count());
                 }
-
             }
             return allTags;
         }

@@ -117,7 +117,7 @@ namespace SWE2_Projekt
         [Test]
         public void SearchForPictures()
         {
-            List<string> results = new List<string>();
+            List<PictureModel> results = new List<PictureModel>();
             MockDAL mock = new MockDAL();
             mock.InsertAllPictures();
             mock.InsertAllEXIFData();

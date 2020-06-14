@@ -149,6 +149,11 @@ namespace SWE2_Projekt
             throw new NotImplementedException();
         }
 
+        public Dictionary<string, int> getAllTagsWithPicCount()
+        {
+            throw new NotImplementedException();
+        }
+
         public EXIFModel GetEXIFInfoByID(int id)
         {
             int index = EXIFList.FindIndex(i => i.ID == id);

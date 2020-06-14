@@ -53,7 +53,7 @@ namespace SWE2_Projekt
 
         List<PictureModel> SearchForPictures(string value);
 
-        Dictionary<string, int> getAllTagsWithPicID();
+        Dictionary<string, int> getAllTagsWithPicCount();
 
     }
 }
