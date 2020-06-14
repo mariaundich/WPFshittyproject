@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -47,21 +48,66 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
-       /* public void UpdateImageList(string search)
+       public void UpdateImageList(string search)
         {
-            _pictureViewModelList.Clear();
-            List<string> searchResults = _businessLayer.SearchAllPictures(search);
-;
 
-            if (searchResults.Count > 0)
+            /*
+             If the search button was pressed while the search field is empty, show all images.
+             The selected image remains the same and is placed to the front of the list.
+             */
+
+            if (search.Length == 0)
             {
-                foreach (string item in searchResults)
+                foreach (var entry in _pictureModelList.ToList())
                 {
-                    var trueimage = Path.GetFullPath("../../../images/" + item);
-                    _results.Add(new PictureViewModel(new PictureModel() { ImagePath = trueimage }));
+                    if (entry != SelectedImage)
+                    {
+                        _pictureModelList.Remove(entry);
+                    }
+                }
+
+                foreach (var entry in _businessLayer.CreatePictureModelList())
+                {                    
+                    if (entry.Title != SelectedImage.Title)
+                    {
+                        _pictureModelList.Add(entry);
+                    }
                 }
             }
-        }*/
+                        
+            else
+            {
+                var searchResults = _businessLayer.SearchAllPictures(search);
+
+                if (searchResults.Count > 0)
+                {
+                    _pictureModelList.Add(searchResults.First());
+
+                    searchResults.Remove(searchResults.First());
+
+                    SelectedImage = _pictureModelList.Last();
+
+                    for (var i = _pictureModelList.Count - 2; i >= 0; i--)
+                    {
+                        _pictureModelList.RemoveAt(i);
+                    }
+
+                    if (searchResults.Count > 1)
+                    {
+                        for (var i = 1; i < searchResults.Count; i++)
+                        {
+
+                            _pictureModelList.Add(searchResults[i]);
+                        }
+                    }
+                }
+
+                else
+                {
+                    MessageBox.Show("Keine Ergebnisse zu diesem Suchbegriff!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
 
         /*public List<IPTCModel> IPTCModelList
         {

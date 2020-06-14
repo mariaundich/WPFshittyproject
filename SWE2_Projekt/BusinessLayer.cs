@@ -26,7 +26,7 @@ namespace SWE2_Projekt
             _selectedPicture = PictureModelList[0];
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
-            //SelectedPhotographer = PhotographerModelList[0];
+            SelectedPhotographer = PhotographerModelList[0];
         }
 
         public PictureModel SelectedPicture
@@ -125,9 +125,24 @@ namespace SWE2_Projekt
             return AllPhotograpersInfo;
         }
 
-        public List<string> SearchAllPictures(string search)
+        public ObservableCollection<PictureModel> SearchAllPictures(string search)
         {
-            return _DataAccessLayer.SearchForPictures(search);
+            var results = new ObservableCollection<PictureModel>();
+                
+            var resultList = _DataAccessLayer.SearchForPictures(search);
+
+            foreach (PictureModel pictureModel in resultList)
+            {
+                IPTCModel auxIPTCModel = _DataAccessLayer.GetIPTCInfoByID(pictureModel.IPTC_ID);
+                pictureModel.IPTC = auxIPTCModel;
+
+                EXIFModel auxEXIFModel = _DataAccessLayer.GetEXIFInfoByID(pictureModel.EXIF_ID);
+                pictureModel.EXIF = auxEXIFModel;
+
+                results.Add(pictureModel);
+            }
+
+            return results;
         }
 
     }

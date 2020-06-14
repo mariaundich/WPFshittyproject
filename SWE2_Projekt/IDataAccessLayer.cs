@@ -51,7 +51,7 @@ namespace SWE2_Projekt
 
         List<string> SearchForPicturesWithTag(string Tag);
 
-        List<string> SearchForPictures(string value);
+        List<PictureModel> SearchForPictures(string value);
 
         Dictionary<string, int> getAllTagsWithPicID();
 

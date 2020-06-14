@@ -23,7 +23,6 @@ namespace SWE2_Projekt
         List<IPTCModel> IPTCModelList;
         Dictionary<int, List<string>> EXIF;
         Dictionary<int, List<string>> AllPhotographers;
-        List<string> Pictures;
 
         public DataAccessLayer()
         {
@@ -930,7 +929,7 @@ namespace SWE2_Projekt
         {
             int TagID = -1;
             List<int> PicIDList = new List<int>(); 
-            Pictures = new List<string>();
+            var Pictures = new List<string>();
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
                 Console.WriteLine("Opening PicDB Connection!");
@@ -984,7 +983,7 @@ namespace SWE2_Projekt
             return Pictures;
         }
 
-        public List<string> SearchForPictures(string value)
+        public List<PictureModel> SearchForPictures(string value)
         {
             value.ToLower();
 
@@ -994,7 +993,7 @@ namespace SWE2_Projekt
             List<int> EXIFIDList = new List<int>();
             List<int> IPTCIDList = new List<int>();
             Dictionary<int, List<string>> AllData = new Dictionary<int, List<string>>();
-            Pictures = new List<string>();
+            var Pictures = new List<PictureModel>();
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -1128,76 +1127,169 @@ namespace SWE2_Projekt
 
                 foreach(int ID in PicIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE ID_Bild = @ID_Bild", connection);
+                    command = new SqlCommand("SELECT * FROM Bilder WHERE ID_Bild = @ID_Bild", connection);
                     command.Parameters.AddWithValue("@ID_Bild", ID);
+
+                    int picID = 0;
+                    string Title = "";
+                    int Photographer = 0;
+                    int EXIF = 0;
+                    int IPTC = 0;
+
+
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
                         while (rd.Read())
                         {
                             if (!rd.IsDBNull(0))
                             {
-                                if (!Pictures.Contains(rd.GetString(0)))
-                                {
-                                    Pictures.Add(rd.GetString(0));
-                                }
+                                picID = rd.GetInt32(0);
                             }
+                            if (!rd.IsDBNull(1))
+                            {
+                                Title = rd.GetString(1);
+                            }
+                            if (!rd.IsDBNull(2))
+                            {
+                                Photographer = rd.GetInt32(2);
+                            }
+                            if (!rd.IsDBNull(3))
+                            {
+                                EXIF = rd.GetInt32(3);
+                            }
+                            if (!rd.IsDBNull(4))
+                            {
+                                IPTC = rd.GetInt32(4);
+                            }
+
+                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
+                            Pictures.Add(auxModel);
                         }
                     }
                 }
 
                 foreach (int ID in PhotographerIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_FotografIn_ID = @fk_FotografIn_ID", connection);
+                    command = new SqlCommand("SELECT * FROM Bilder WHERE fk_FotografIn_ID = @fk_FotografIn_ID", connection);
                     command.Parameters.AddWithValue("@fk_FotografIn_ID", ID);
+
+                    int picID = 0;
+                    string Title = "";
+                    int Photographer = 0;
+                    int EXIF = 0;
+                    int IPTC = 0;
+
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
                         while (rd.Read())
                         {
                             if (!rd.IsDBNull(0))
                             {
-                                if (!Pictures.Contains(rd.GetString(0)))
-                                {
-                                    Pictures.Add(rd.GetString(0));
-                                }
+                                picID = rd.GetInt32(0);
                             }
+                            if (!rd.IsDBNull(1))
+                            {
+                                Title = rd.GetString(1);
+                            }
+                            if (!rd.IsDBNull(2))
+                            {
+                                Photographer = rd.GetInt32(2);
+                            }
+                            if (!rd.IsDBNull(3))
+                            {
+                                EXIF = rd.GetInt32(3);
+                            }
+                            if (!rd.IsDBNull(4))
+                            {
+                                IPTC = rd.GetInt32(4);
+                            }
+
+                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
+                            Pictures.Add(auxModel);
                         }
                     }
                 }
 
                 foreach(int ID in EXIFIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_EXIF_ID = @fk_EXIF_ID", connection);
+                    command = new SqlCommand("SELECT * FROM Bilder WHERE fk_EXIF_ID = @fk_EXIF_ID", connection);
                     command.Parameters.AddWithValue("@fk_EXIF_ID", ID);
+
+                    int picID = 0;
+                    string Title = "";
+                    int Photographer = 0;
+                    int EXIF = 0;
+                    int IPTC = 0;
+
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
                         while (rd.Read())
                         {
                             if (!rd.IsDBNull(0))
                             {
-                                if (!Pictures.Contains(rd.GetString(0)))
-                                {
-                                    Pictures.Add(rd.GetString(0));
-                                }
+                                picID = rd.GetInt32(0);
                             }
+                            if (!rd.IsDBNull(1))
+                            {
+                                Title = rd.GetString(1);
+                            }
+                            if (!rd.IsDBNull(2))
+                            {
+                                Photographer = rd.GetInt32(2);
+                            }
+                            if (!rd.IsDBNull(3))
+                            {
+                                EXIF = rd.GetInt32(3);
+                            }
+                            if (!rd.IsDBNull(4))
+                            {
+                                IPTC = rd.GetInt32(4);
+                            }
+
+                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
+                            Pictures.Add(auxModel);
                         }
                     }
                 }
 
                 foreach(int ID in IPTCIDList)
                 {
-                    command = new SqlCommand("SELECT Titel FROM Bilder WHERE fk_ITPC_ID = @fk_ITPC_ID", connection);
+                    command = new SqlCommand("SELECT * FROM Bilder WHERE fk_ITPC_ID = @fk_ITPC_ID", connection);
                     command.Parameters.AddWithValue("@fk_ITPC_ID", ID);
+
+                    int picID = 0;
+                    string Title = "";
+                    int Photographer = 0;
+                    int EXIF = 0;
+                    int IPTC = 0;
+
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
                         while (rd.Read())
                         {
                             if (!rd.IsDBNull(0))
                             {
-                                if (!Pictures.Contains(rd.GetString(0)))
-                                {
-                                    Pictures.Add(rd.GetString(0));
-                                }
+                                picID = rd.GetInt32(0);
                             }
+                            if (!rd.IsDBNull(1))
+                            {
+                                Title = rd.GetString(1);
+                            }
+                            if (!rd.IsDBNull(2))
+                            {
+                                Photographer = rd.GetInt32(2);
+                            }
+                            if (!rd.IsDBNull(3))
+                            {
+                                EXIF = rd.GetInt32(3);
+                            }
+                            if (!rd.IsDBNull(4))
+                            {
+                                IPTC = rd.GetInt32(4);
+                            }
+
+                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
+                            Pictures.Add(auxModel);
                         }
                     }
                 }
