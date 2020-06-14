@@ -18,6 +18,7 @@ namespace SWE2_Projekt
         public List<PictureModel> PictureList = new List<PictureModel>();
         public List<IPTCModel> IPTCList = new List<IPTCModel>();
         public List<EXIFModel> EXIFList = new List<EXIFModel>();
+        public List<PhotographerModel> PhotographerList = new List<PhotographerModel>();
 
         public void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen)
         {

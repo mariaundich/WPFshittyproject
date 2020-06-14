@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SWE2_Projekt
 {
-    class BusinessLayer : IBusinessLayer
+    class BusinessLayer
     {
         public DataAccessLayer _DataAccessLayer;
         private ObservableCollection<PictureModel> _pictureModelList;
@@ -26,7 +26,7 @@ namespace SWE2_Projekt
             _selectedPicture = PictureModelList[0];
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
-            SelectedPhotographer = PhotographerModelList[0];
+            //SelectedPhotographer = PhotographerModelList[0];
         }
 
         public PictureModel SelectedPicture

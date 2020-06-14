@@ -93,10 +93,5 @@ namespace SWE2_Projekt
                 return pictureListViewModel.SelectedImage;
             }
         }*/
-
-
-
-
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using SWE2_Projekt.ViewModels;
+﻿using SWE2_Projekt.Models;
+using SWE2_Projekt.ViewModels;
 using SWE2_Projekt.Views;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,18 @@ namespace SWE2_Projekt
         {
             PhotographerListView photographerList = new PhotographerListView(((MainWindowViewModel)DataContext));
             photographerList.Show();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BerichtErstellen(object sender, RoutedEventArgs e)
+        {
+            PictureModel Picture = ((MainWindowViewModel)DataContext).pictureListViewModel.SelectedImage;
+            PDFCreator creator = new PDFCreator();
+            creator.Create(Picture);
         }
     }
 }

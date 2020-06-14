@@ -16,10 +16,8 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
 
-                <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
+                <MenuItem Header="_File" Click="MenuItem_Click">
+                    <MenuItem Header="_Bericht erstellen" Click="BerichtErstellen" />
                     <Separator />
                     <MenuItem Header="_Exit" />
                 </MenuItem>
