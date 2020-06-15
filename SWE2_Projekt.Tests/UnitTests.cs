@@ -211,5 +211,38 @@ namespace SWE2_Projekt
 
             Assert.That(allPhotographers.Count, Is.EqualTo(3));
         }
+
+        [Test]
+        public void AssignPhotographerToPicture()
+        {
+            MockDAL mock = new MockDAL();
+            DateTime date = new DateTime();
+            mock.InsertAllPictures();
+            mock.InsertAllEXIFData();
+            mock.InsertAllIPTCData();
+            mock.AddPhotographer("Bruce", "Wayne", date, "");
+
+            mock.AssignPhotographertoPicture(2, 1);
+
+            Assert.That(mock.PictureList[1].Photographer.FirstName, Is.EqualTo("Bruce"));
+        }
+
+        [Test]
+        public void DeletePhotographer()
+        {
+            MockDAL mock = new MockDAL();
+            DateTime date = new DateTime();
+            mock.InsertAllPictures();
+            mock.InsertAllEXIFData();
+            mock.InsertAllIPTCData();
+            mock.AddPhotographer("John", "Wayne", date, "");
+            mock.AddPhotographer("Bruce", "Wayne", date, "");
+            mock.AddPhotographer("Homer", "Simpson", date, "");
+            mock.AddPhotographer("Peter", "Griffin", date, "");
+
+            mock.DeletePhotographer("Homer", "Simpson");
+
+            Assert.That(mock.PhotographerList.Count, Is.EqualTo(3));
+        }
     }
 }

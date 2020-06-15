@@ -23,14 +23,12 @@ namespace SWE2_Projekt
         {
             
             _DataAccessLayer = new DataAccessLayer();
-            //_DataAccessLayer.InsertPhotographerToPicture();
+            _DataAccessLayer.InsertPhotographerToPicture();
             PictureModelList = CreatePictureModelList();
             _selectedPicture = PictureModelList[0];
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
             SelectedPhotographer = PhotographerModelList[0];
-
-            
         }
 
         public PictureModel SelectedPicture

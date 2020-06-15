@@ -1034,27 +1034,6 @@ namespace SWE2_Projekt
                 Console.WriteLine("Connected to PicDB!\n");
                 Console.WriteLine("PicID: " + PicID + " PhotographerID: " + PhotographerID + " in DAL");
 
-<<<<<<< HEAD
-                /*command = new SqlCommand("SELECT ID_Bild FROM Bilder WHERE Titel IS @Titel", connection);
-                command.Parameters.AddWithValue("@Titel", Title);
-                using (SqlDataReader rd = command.ExecuteReader())
-                {
-                    while (rd.Read())
-                    {
-                        if (!rd.IsDBNull(0))
-                        {
-                            PicID = rd.GetInt32(0);
-                        }
-                    }
-                }*/
-
-                command = new SqlCommand("UPDATE Bilder SET fk_FotografIn_ID = @fk_FotografIn_ID WHERE ID_Bild = @ID_Bild", connection);
-                command.Parameters.AddWithValue("@fk_FotografIn_ID", PhotographerID);
-                command.Parameters.AddWithValue("@ID_Bild", PicID);
-
-                command.ExecuteNonQuery();
-                
-=======
                 command = new SqlCommand("UPDATE [Bilder] SET fk_FotografIn_ID = @fk_FotografIn_ID WHERE ID_Bild = @ID_Bild", connection);
                 command.Parameters.AddWithValue("@fk_FotografIn_ID", PhotographerID);
                 command.Parameters.AddWithValue("@ID_Bild", PicID);
@@ -1062,7 +1041,6 @@ namespace SWE2_Projekt
                 int affectedRows = command.ExecuteNonQuery();
                 Console.WriteLine("Affected rows: " + affectedRows);
              
->>>>>>> e1566fba91629e045ae4d9a7a630cb0a9245f8d5
                 connection.Close();
             }
         }

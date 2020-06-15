@@ -40,7 +40,7 @@ namespace SWE2_Projekt
 
         public void AddTagToPicture(string PicTitle, string Tag)
         {
-            throw new NotImplementedException();
+            
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title)
@@ -73,13 +73,24 @@ namespace SWE2_Projekt
             return exifofPic;
         }
 
-<<<<<<< HEAD
-        public void AssignPhotographertoPicture(int PicID, int PhotographerID)
-=======
         public void AssignPhotographertoPicture(int PictureID, int PhotographerID)
->>>>>>> e1566fba91629e045ae4d9a7a630cb0a9245f8d5
         {
-            
+            PhotographerModel model = new PhotographerModel(0, "", "", "", "");
+            foreach(PhotographerModel photographer in PhotographerList)
+            {
+                if(photographer.ID == PhotographerID)
+                {
+                    model = photographer;
+                }
+            }
+
+            foreach(PictureModel pic in PictureList)
+            {
+                if(pic.ID == PictureID)
+                {
+                    pic.Photographer = model;
+                }
+            }
         }
 
         public void DeleteAllData()
@@ -103,7 +114,10 @@ namespace SWE2_Projekt
 
         public void DeletePhotographer(string Vorname, string Nachname)
         {
-            throw new NotImplementedException();
+            string full = Vorname + " " + Nachname;
+            int index = PhotographerList.FindIndex(i => i.FullName == full);
+
+            PhotographerList.RemoveAt(index);
         }
 
         public void DeletePicture(string titel)

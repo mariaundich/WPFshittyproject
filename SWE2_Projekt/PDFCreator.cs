@@ -28,7 +28,8 @@ namespace SWE2_Projekt
             string EXIF_Date = "Erstelldatum: " + Picture.EXIF.Date;
             string EXIF_Place = "Ort: " + Picture.EXIF.Place;
             string EXIF_Country = "Land: " + Picture.EXIF.Country;
-            string INFO = IPTC_title + "\n" + IPTC_Creator + "\n" + IPTC_Description + "\n" + EXIF_Camera + "\n" + EXIF_Resolution + "\n" + EXIF_Date + "\n" + EXIF_Place + "\n" + EXIF_Country;
+            string Photographer = "Fotograf: " + Picture.Photographer.FullName;
+            string INFO = IPTC_title + "\n" + IPTC_Creator + "\n" + IPTC_Description + "\n" + EXIF_Camera + "\n" + EXIF_Resolution + "\n" + EXIF_Date + "\n" + EXIF_Place + "\n" + EXIF_Country + "\n" + Photographer; 
 
             using (PdfDocument document = new PdfDocument())
             {
@@ -45,7 +46,6 @@ namespace SWE2_Projekt
 
                 string title = "Bericht von " + Picture.Title;
                 XImage image = XImage.FromFile(file);
-
 
                 gfx.DrawRectangle(
                         new XLinearGradientBrush(
