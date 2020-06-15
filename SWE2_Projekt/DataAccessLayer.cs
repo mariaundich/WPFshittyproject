@@ -459,7 +459,7 @@ namespace SWE2_Projekt
                 }
                 connection.Close();
             }
-            Console.WriteLine("Tag 1: " + Tags[0]);
+            //Console.WriteLine("Tag 1: " + Tags[0]);
             return Tags;
         }
 
@@ -1198,13 +1198,18 @@ namespace SWE2_Projekt
                     {
                         if (!rd.IsDBNull(1) || !rd.IsDBNull(2))
                         {
+
+
                             FullName = rd.GetString(1) + ' ';
-                            FullName = rd.GetString(2);
-                            FullName.ToLower();
+                            FullName += rd.GetString(2);
+                            FullName = FullName.ToLower();
+
+                            Console.WriteLine("FullName= " + FullName);
 
                             if (FullName.Contains(value))
                             {
                                 PhotographerIDList.Add(rd.GetInt32(0));
+                                Console.WriteLine("Match found with: " + FullName);
                             }
                         }
 
