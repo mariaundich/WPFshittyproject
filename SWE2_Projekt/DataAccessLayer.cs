@@ -7,6 +7,7 @@ using System.Data.SqlTypes;
 using MetadataExtractor;
 using SWE2_Projekt.Models;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace SWE2_Projekt
 {
@@ -146,7 +147,7 @@ namespace SWE2_Projekt
                             IPTC = rd.GetInt32(4);
                         }
 
-                        PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
+                        PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC, null);
                         PictureModelList.Add(auxModel);
                     }
                 }
@@ -412,6 +413,52 @@ namespace SWE2_Projekt
                 connection.Close();
             }
             return EXIF;
+        }
+        public ObservableCollection<string> GetTagsByPictureID(int PictureID)
+        {
+            List<int> TagIDs = new List<int>();
+            ObservableCollection<string> Tags = new ObservableCollection<string>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT fk_Tag_ID FROM Bild_Tag WHERE fk_Bild_ID = @id", connection);
+                command.Parameters.AddWithValue("@id", PictureID);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            TagIDs.Add(rd.GetInt32(0));
+                        } 
+                    }
+                }
+
+                foreach (int TagID in TagIDs)
+                {
+                    command = new SqlCommand("SELECT Bezeichnung FROM Tags WHERE ID_Tag = @id_tag", connection);
+                    command.Parameters.AddWithValue("@id_tag", TagID);
+
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            if (!rd.IsDBNull(0))
+                            {
+                                Tags.Add(rd.GetString(0));
+                            }
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            Console.WriteLine("Tag 1: " + Tags[0]);
+            return Tags;
         }
 
         public List<IPTCModel> ReturnAllIPTCModels()
@@ -1288,8 +1335,15 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+
+                            ObservableCollection<string> Tags = GetTagsByPictureID(picID);
+
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC, Tags);
+                                Pictures.Add(auxModel);
+                            }
+
                         }
                     }
                 }
@@ -1330,8 +1384,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC, null);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }
@@ -1372,8 +1429,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC, null);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }
@@ -1414,8 +1474,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC, null);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }

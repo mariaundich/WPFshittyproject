@@ -1,4 +1,5 @@
-﻿using SWE2_Projekt.Models;
+﻿using MetadataExtractor;
+using SWE2_Projekt.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,6 +74,20 @@ namespace SWE2_Projekt.ViewModels
                 return _picture.PicturePath;
             }
 
+        }
+
+        public string Tags
+        {
+            get
+            {
+                string auxTags = "";
+                foreach(string Tag in _picture.Tags)
+                {
+                    auxTags += (Tag + ", ");
+                }
+                auxTags = auxTags.Remove(auxTags.Length - 2);
+                return auxTags;
+            }
         }
     }
 }

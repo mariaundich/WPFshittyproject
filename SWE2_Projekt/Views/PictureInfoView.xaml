@@ -29,7 +29,7 @@
                                       SelectedItem="{Binding Path=pictureInfoViewModel.SelectedPhotographerInInfo, Mode=OneWay}"/>-->
                             <TextBox Grid.Row="3" Text="{Binding pictureViewModel.PhotographerFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
                             <TextBlock Grid.Row="4" FontWeight="Bold">Tags</TextBlock>
-                            <TextBlock Grid.Row="5"> Tag Tag Tag Tag Tag Tag Tag Tag Tag</TextBlock>
+                            <TextBlock Grid.Row="5" Text="{Binding pictureViewModel.Tags}"> </TextBlock>
                             <Button Grid.Row="6" Name ="PhotographerSaveButton" Content="Save" Margin="1" Click="General_Savebutton_Click"/>
                             
                         </Grid>

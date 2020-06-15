@@ -82,6 +82,9 @@ namespace SWE2_Projekt
                 PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
                 pictureModel.Photographer = auxPhotographerModel;
 
+                ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);
+                pictureModel.Tags = auxTags;
+
                 auxPictureModelList.Add(pictureModel);
             }
             Console.Write("\n\n There are " + auxPictureModelList.Count + " pictures in the list");
@@ -151,8 +154,14 @@ namespace SWE2_Projekt
                 EXIFModel auxEXIFModel = _DataAccessLayer.GetEXIFInfoByID(pictureModel.EXIF_ID);
                 pictureModel.EXIF = auxEXIFModel;
 
+                PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
+                pictureModel.Photographer = auxPhotographerModel;
+
+                ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);
+                pictureModel.Tags = auxTags;
+
                 results.Add(pictureModel);
-            }
+            }        
 
             return results;
         }
@@ -174,6 +183,12 @@ namespace SWE2_Projekt
             PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(PhotographerID);
 
             return auxPhotographerModel;
+        }
+
+        public ObservableCollection<string> GetTagsByPictureID(int PictureID)
+        {
+            ObservableCollection<string> Tags = _DataAccessLayer.GetTagsByPictureID(PictureID);
+            return Tags;
         }
     }
 }

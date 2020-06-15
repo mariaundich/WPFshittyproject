@@ -241,22 +241,22 @@ namespace SWE2_Projekt
             PictureModel pic;
             PictureList.Clear();
 
-            pic = new PictureModel(1, "amazingTitle", 0, 0, 0);
+            pic = new PictureModel(1, "amazingTitle", 0, 0, 0, null);
             PictureList.Add(pic);
 
-            pic = new PictureModel(2, "anothertitle", 0, 0, 0);
+            pic = new PictureModel(2, "anothertitle", 0, 0, 0, null);
             PictureList.Add(pic);
 
-            pic = new PictureModel(3, "CoolPicture", 0, 0, 0);
+            pic = new PictureModel(3, "CoolPicture", 0, 0, 0, null);
             PictureList.Add(pic);
 
-            pic = new PictureModel(4, "subtleTitle", 0, 0, 0);
+            pic = new PictureModel(4, "subtleTitle", 0, 0, 0, null);
             PictureList.Add(pic);
 
-            pic = new PictureModel(5, "IAmBatman", 0, 0, 0);
+            pic = new PictureModel(5, "IAmBatman", 0, 0, 0, null);
             PictureList.Add(pic);
 
-            pic = new PictureModel(6, "AwYissATitle", 0, 0, 0);
+            pic = new PictureModel(6, "AwYissATitle", 0, 0, 0, null);
             PictureList.Add(pic);
         }
 
