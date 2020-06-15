@@ -29,7 +29,7 @@ namespace SWE2_Projekt
         {
             _businessLayer = new BusinessLayer();
 
-           /* _businessLayer.AddTagToPicture("astro-cat.png", "Katze");
+            /*_businessLayer.AddTagToPicture("astro-cat.png", "Katze");
             _businessLayer.AddTagToPicture("astro-cat.png", "Emoji");
             _businessLayer.AddTagToPicture("astro-cat.png", "Astronaut");
             _businessLayer.AddTagToPicture("basilhat.jpg", "Katze");
