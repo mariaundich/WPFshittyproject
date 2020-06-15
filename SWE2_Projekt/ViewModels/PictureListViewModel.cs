@@ -92,11 +92,10 @@ namespace SWE2_Projekt.ViewModels
                         _pictureModelList.RemoveAt(i);
                     }
 
-                    if (searchResults.Count > 1)
+                    if (searchResults.Count > 0)
                     {
-                        for (var i = 1; i < searchResults.Count; i++)
+                        for (var i = 0; i < searchResults.Count; i++)
                         {
-
                             _pictureModelList.Add(searchResults[i]);
                         }
                     }
