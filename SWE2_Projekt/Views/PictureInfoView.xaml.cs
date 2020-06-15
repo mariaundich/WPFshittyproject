@@ -26,7 +26,7 @@ namespace SWE2_Projekt.Views
             //this.DataContext = new PictureInfoViewModel();     
         }
 
-        private void Savebutton_Click(object sender, RoutedEventArgs e)
+        private void IPTC_Savebutton_Click(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
             string NewCreator = CreatorField.Text;
@@ -41,6 +41,33 @@ namespace SWE2_Projekt.Views
             data.Add(NewCreator);
             data.Add(NewDescription);
             _businessLayer.EditIPTC(id, data);
+
+        }
+
+        private void General_Savebutton_Click(object sender, RoutedEventArgs e)
+        {
+            int PictureID = ((MainWindowViewModel)DataContext).pictureViewModel.Picture.ID;
+            int PhotographerID = -1;
+
+            foreach (var Photographer in ((MainWindowViewModel)DataContext).pictureInfoViewModel.PhotographerModelList)
+            {
+                if(Photographer.FullName == PhotographerField.Text)
+                {
+                    PhotographerID = Photographer.ID;
+                }
+            }
+
+            if(PhotographerID != -1)
+            {
+                Console.WriteLine("Deine Eingabe wurde akzeptiert.");
+                PhotographerModel newPhotographer = _businessLayer.AssignPhotographerToPictureAndReturnPhotographerModel(PictureID, PhotographerID);
+                Console.WriteLine("PicID: " + PictureID + " FotografinID: " + PhotographerID);
+                ((MainWindowViewModel)DataContext).pictureViewModel.Picture.Photographer = newPhotographer;
+            }
+            else
+            {
+                MessageBox.Show("Das ist kein gültiger Name einer FotografIn", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
         }
     }

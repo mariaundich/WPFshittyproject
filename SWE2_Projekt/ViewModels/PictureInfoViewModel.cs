@@ -12,11 +12,16 @@ namespace SWE2_Projekt.ViewModels
         private IPTCModel _iptcModel;
         private EXIFModel _exifModel;
         private BusinessLayer _businessLayer = new BusinessLayer();
+        private ObservableCollection<PhotographerModel> _photographerModelList;
+        private PhotographerModel _selectedPhotographerInInfo;
 
         public PictureInfoViewModel()
         {
             IPTCModel = _businessLayer.SelectedPicture.IPTC;
             EXIFModel = _businessLayer.SelectedPicture.EXIF;
+            PhotographerModelList = _businessLayer.PhotographerModelList;
+            SelectedPhotographerInInfo = _businessLayer.SelectedPicture.Photographer;
+            //Console.WriteLine("SelectedPhotographerInInfo: " + SelectedPhotographerInInfo);
         }
 
         public EXIFModel EXIFModel
@@ -29,6 +34,18 @@ namespace SWE2_Projekt.ViewModels
         {
             get { return _iptcModel; }
             set { _iptcModel = value;  }
+        }
+
+        public ObservableCollection<PhotographerModel> PhotographerModelList
+        {
+            get { return _photographerModelList; }
+            set { _photographerModelList = value; }
+        }
+
+       public PhotographerModel SelectedPhotographerInInfo
+        {
+            get { return _selectedPhotographerInInfo; }
+            set { _selectedPhotographerInInfo = value; }
         }
 
         public string Title
@@ -70,5 +87,7 @@ namespace SWE2_Projekt.ViewModels
         {
             get { return _exifModel.Country; }
         }
+
+
     }
 }

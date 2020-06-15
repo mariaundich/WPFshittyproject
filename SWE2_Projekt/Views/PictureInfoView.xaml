@@ -10,6 +10,30 @@
         <Border Background="White">
             <Grid>
                 <TabControl>
+                    <TabItem Header="Allgemein" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="70" Height="20" VerticalAlignment="Top">
+                        <Grid Margin = "5,5,5,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" FontWeight="Bold">Titel</TextBlock>
+                            <TextBlock Grid.Row="1" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                            <TextBlock Grid.Row="2" FontWeight="Bold">FotografIn</TextBlock>
+                            <!--<ComboBox Grid.Row ="3" ItemsSource="{Binding Path=pictureInfoViewModel.PhotographerModelList}" 
+                                      DisplayMemberPath="FullName"
+                                      SelectedItem="{Binding Path=pictureInfoViewModel.SelectedPhotographerInInfo, Mode=OneWay}"/>-->
+                            <TextBox Grid.Row="3" Text="{Binding pictureViewModel.PhotographerFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
+                            <TextBlock Grid.Row="4" FontWeight="Bold">Tags</TextBlock>
+                            <TextBlock Grid.Row="5" Text="{Binding pictureViewModel.Tags}"> </TextBlock>
+                            <Button Grid.Row="6" Name ="PhotographerSaveButton" Content="Save" Margin="1" Click="General_Savebutton_Click"/>
+                            
+                        </Grid>
+                    </TabItem>
                     <TabItem Header="IPTC" Margin="-2,-2,-2,0">
                         <Grid Margin = "5,5,5,5">
                             <Grid.RowDefinitions>
@@ -32,15 +56,15 @@
                             <TextBox Grid.Row="3" Text ="{Binding Path=pictureInfoViewModel.Creator,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CreatorField" Margin="1"/>
                             <TextBlock Grid.Row="4" Margin="1">Beschreibung</TextBlock>
                             <TextBox Grid.Row="5" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" Margin="1" TextWrapping="Wrap" />
-                            <Button Grid.Row="6" Name ="SaveButton" Content="Save" Margin="1" Click="Savebutton_Click"/>
+                            <Button Grid.Row="6" Name ="IPTCSaveButton" Content="Save" Margin="1" Click="IPTC_Savebutton_Click"/>
 
                         </Grid>
                     </TabItem>
 
                     <TabItem Header="EXIF" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="38" Height="20" VerticalAlignment="Top">
-                        
+
                         <Grid Margin="5,5,5,5">
-                            
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
@@ -69,7 +93,7 @@
                             Grid.Row="1"
                             BorderBrush="Black" Margin="0, -4, 0, -4">
                             </Label>
-                            
+
                             <Label Content= "Auflösung"
                             FontWeight="Bold"
                             Grid.Column="0"
@@ -123,9 +147,8 @@
                             </Label>
 
                         </Grid>
-
-
                     </TabItem>
+                    
                 </TabControl>
             </Grid>
         </Border>

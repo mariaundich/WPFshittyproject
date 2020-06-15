@@ -1,4 +1,5 @@
-﻿using SWE2_Projekt.Models;
+﻿using MetadataExtractor;
+using SWE2_Projekt.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,6 +52,21 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
+        public PhotographerModel Photographer
+        {
+            get { return _picture.Photographer; }
+        }
+
+        public int Photographer_ID
+        {
+            get { return _picture.Photographer_ID; }
+        }
+
+        public string PhotographerFullName
+        {
+            get { return _picture.Photographer.FullName; }
+        }
+
         public string PicturePath
         {
             get
@@ -58,6 +74,20 @@ namespace SWE2_Projekt.ViewModels
                 return _picture.PicturePath;
             }
 
+        }
+
+        public string Tags
+        {
+            get
+            {
+                string auxTags = "";
+                foreach(string Tag in _picture.Tags)
+                {
+                    auxTags += (Tag + ", ");
+                }
+                auxTags = auxTags.Remove(auxTags.Length - 2);
+                return auxTags;
+            }
         }
     }
 }
