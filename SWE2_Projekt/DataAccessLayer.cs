@@ -1191,8 +1191,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }
@@ -1233,8 +1236,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }
@@ -1275,8 +1281,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }
@@ -1317,8 +1326,11 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
-                            Pictures.Add(auxModel);
+                            if (!Pictures.Any(i => i.Title == Title))
+                            {
+                                PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC);
+                                Pictures.Add(auxModel);
+                            }
                         }
                     }
                 }

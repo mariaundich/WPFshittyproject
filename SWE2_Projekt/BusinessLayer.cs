@@ -145,7 +145,7 @@ namespace SWE2_Projekt
                 pictureModel.EXIF = auxEXIFModel;
 
                 results.Add(pictureModel);
-            }
+            }        
 
             return results;
         }
