@@ -13,50 +13,49 @@
                     <TabItem Header="Allgemein" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="70" Height="20" VerticalAlignment="Top">
                         <Grid Margin = "5,5,5,5">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" FontWeight="Bold">Titel</TextBlock>
-                            <TextBlock Grid.Row="1" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                            <TextBlock Grid.Row="2" FontWeight="Bold">FotografIn</TextBlock>
-                            <!--<ComboBox Grid.Row ="3" ItemsSource="{Binding Path=pictureInfoViewModel.PhotographerModelList}" 
-                                      DisplayMemberPath="FullName"
-                                      SelectedItem="{Binding Path=pictureInfoViewModel.SelectedPhotographerInInfo, Mode=OneWay}"/>-->
-                            <TextBox Grid.Row="3" Text="{Binding pictureViewModel.PhotographerFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
-                            <TextBlock Grid.Row="4" FontWeight="Bold">Tags</TextBlock>
-                            <TextBlock Grid.Row="5" Text="{Binding pictureViewModel.Tags}"> </TextBlock>
-                            <Button Grid.Row="6" Name ="PhotographerSaveButton" Content="Save" Margin="1" Click="General_Savebutton_Click"/>
+                            <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
+                            <TextBlock Grid.Row="1" Margin="0,2,0,2" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                            <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">FotografIn</TextBlock>
+                            <TextBox Grid.Row="3" Margin="0,2,0,2" Text="{Binding pictureViewModel.PhotographerFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
+                            <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Tags</TextBlock>
+                            <TextBox Grid.Row="5" Margin="0,2,0,2" Text="{Binding pictureViewModel.Tags, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TagsField"> </TextBox>
+                            <Button Grid.Row="7" Margin="0,2,10,2" Width ="60" Height="25" HorizontalAlignment="Right" Name ="PhotographerSaveButton" Content="Save"  Click="General_Savebutton_Click"/>
                             
                         </Grid>
                     </TabItem>
                     <TabItem Header="IPTC" Margin="-2,-2,-2,0">
                         <Grid Margin = "5,5,5,5">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Margin="1">Titel</TextBlock>
+                            <TextBlock Grid.Row="0" FontWeight="Bold" Margin="1">Titel</TextBlock>
                             <TextBox Grid.Row="1" Text ="{Binding Path=pictureInfoViewModel.Title,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "TitleField" Margin="1"/>
-                            <TextBlock Grid.Row="2" Margin="1">Urheber</TextBlock>
+                            <TextBlock Grid.Row="2" FontWeight="Bold" Margin="1">Urheber</TextBlock>
                             <TextBox Grid.Row="3" Text ="{Binding Path=pictureInfoViewModel.Creator,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CreatorField" Margin="1"/>
-                            <TextBlock Grid.Row="4" Margin="1">Beschreibung</TextBlock>
+                            <TextBlock Grid.Row="4" FontWeight="Bold" Margin="1">Beschreibung</TextBlock>
                             <TextBox Grid.Row="5" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" Margin="1" TextWrapping="Wrap" />
-                            <Button Grid.Row="6" Name ="IPTCSaveButton" Content="Save" Margin="1" Click="IPTC_Savebutton_Click"/>
+                            <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" HorizontalAlignment="Right" Content="Save"  Click="IPTC_Savebutton_Click"/>
 
                         </Grid>
                     </TabItem>
@@ -66,16 +65,16 @@
                         <Grid Margin="5,5,5,5">
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <!--<TextBlock Grid.Row="0" FontWeight="Bold">Kameramodell</TextBlock>

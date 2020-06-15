@@ -38,7 +38,7 @@ namespace SWE2_Projekt
             i++;
         }
 
-        public void AddTagToPicture(string PicTitle, string Tag)
+        public void AddTagToPicture(int PicID, string Tag)
         {
             
         }

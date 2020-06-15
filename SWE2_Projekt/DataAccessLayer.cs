@@ -193,6 +193,7 @@ namespace SWE2_Projekt
                         if (!rd.IsDBNull(3))
                         {
                             Birthday = Convert.ToString(rd.GetDateTime(3));
+                            Birthday = Birthday.Remove(10);
                         }
                         if (!rd.IsDBNull(4))
                         {
@@ -294,6 +295,7 @@ namespace SWE2_Projekt
                         if (!rd.IsDBNull(3))
                         {
                             Birthday = Convert.ToString(rd.GetDateTime(3));
+                            Birthday = Birthday.Remove(10);
                         }
                         if (!rd.IsDBNull(4))
                         {
@@ -839,10 +841,9 @@ namespace SWE2_Projekt
             }
         }
 
-        public void AddTagToPicture(string PicTitle, string Tag)
+        public void AddTagToPicture(int picID , string Tag)
         {
             int tagID = -1;
-            int picID = -1;
             int count = 0;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
@@ -850,20 +851,6 @@ namespace SWE2_Projekt
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
-
-                command = new SqlCommand("SELECT ID_Bild FROM Bilder WHERE Titel = @titel", connection);
-                command.Parameters.AddWithValue("@titel", PicTitle);
-
-                using (SqlDataReader rd = command.ExecuteReader())
-                {
-                    while (rd.Read())
-                    {
-                        if (!rd.IsDBNull(0))
-                        {
-                            picID = rd.GetInt32(0);
-                        }
-                    }
-                }
 
                 command = new SqlCommand("SELECT COUNT(Bezeichnung) FROM Tags WHERE Bezeichnung = @bezeichnung", connection);
                 command.Parameters.AddWithValue("@bezeichnung", Tag);
@@ -913,10 +900,26 @@ namespace SWE2_Projekt
                     }
                 }
 
-
                 command = new SqlCommand("INSERT INTO Bild_Tag (fk_Bild_ID, fk_Tag_ID) VALUES (@fk_Bild_ID, @fk_Tag_ID)", connection);
                 command.Parameters.AddWithValue("@fk_Bild_ID", picID);
                 command.Parameters.AddWithValue("@fk_Tag_ID", tagID);
+
+                command.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }
+
+        public void RemoveTagsByPictureID(int pictureID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("DELETE FROM Bild_Tag WHERE fk_Bild_ID = @fk_Bild_ID", connection);
+                command.Parameters.AddWithValue("@fk_Bild_ID", pictureID);
 
                 command.ExecuteNonQuery();
 

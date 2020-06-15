@@ -62,6 +62,7 @@ namespace SWE2_Projekt.Models
         {
             get { return _birthday; }
             set { _birthday = value;
+                Console.WriteLine("Geburtstag im Model: " + _birthday);
                 NotifyPropertyChanged(nameof(Birthday));
             }
         }

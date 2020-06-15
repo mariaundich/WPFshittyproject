@@ -41,7 +41,7 @@ namespace SWE2_Projekt
 
         void EditIPTC(int ID, List<string> Data);
 
-        void AddTagToPicture(string PicTitle, string Tag);
+        void AddTagToPicture(int PicID, string Tag);
 
         void DeleteTagofPicture(string PicTitle, string TagTitle);
 
