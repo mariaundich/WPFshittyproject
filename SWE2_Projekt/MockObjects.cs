@@ -25,7 +25,7 @@ namespace SWE2_Projekt
             throw new NotImplementedException();
         }
 
-        public void AddTagToPicture(string PicTitle, string Tag)
+        public void AddTagToPicture(int PicID, string Tag)
         {
             throw new NotImplementedException();
         }

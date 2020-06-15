@@ -134,7 +134,9 @@ namespace SWE2_Projekt.Models
         public ObservableCollection<string> Tags
         {
             get { return _tags; }
-            set { _tags = value; }
+            set { _tags = value;
+                NotifyPropertyChanged(nameof(Tags));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,6 +1,7 @@
 ﻿using SWE2_Projekt.Models;
 using SWE2_Projekt.ViewModels;using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -68,6 +69,20 @@ namespace SWE2_Projekt.Views
             {
                 MessageBox.Show("Das ist kein gültiger Name einer FotografIn", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
+            string[] newTags;
+            string TagsInput = TagsField.Text;
+            newTags = TagsInput.Split(", ");
+
+            ObservableCollection<string> auxTags = new ObservableCollection<string>();
+            foreach (var Tag in newTags)
+            {
+                auxTags.Add(Tag);
+            }
+            ((MainWindowViewModel)DataContext).pictureViewModel.Picture.Tags = auxTags;
+
+
+            _businessLayer.EditTags(PictureID, newTags);
 
         }
     }

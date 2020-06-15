@@ -1,4 +1,5 @@
-﻿using SWE2_Projekt.Models;
+﻿using MetadataExtractor;
+using SWE2_Projekt.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -80,6 +81,7 @@ namespace SWE2_Projekt
                 pictureModel.EXIF = auxEXIFModel;
 
                 PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
+                Console.WriteLine("Geburtstag in BL: "+auxPhotographerModel.Birthday);
                 pictureModel.Photographer = auxPhotographerModel;
 
                 ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);
@@ -166,9 +168,9 @@ namespace SWE2_Projekt
             return results;
         }
 
-        public void AddTagToPicture(string title, string tag)
+        public void AddTagToPicture(int PicID, string tag)
         {
-            _DataAccessLayer.AddTagToPicture(title, tag);
+            _DataAccessLayer.AddTagToPicture(PicID, tag);
         }
 
         public Dictionary<string, int> returnAllTagsWithCount()
@@ -189,6 +191,15 @@ namespace SWE2_Projekt
         {
             ObservableCollection<string> Tags = _DataAccessLayer.GetTagsByPictureID(PictureID);
             return Tags;
+        }
+
+        public void EditTags(int PictureID, string[] Tags)
+        {
+            _DataAccessLayer.RemoveTagsByPictureID(PictureID);
+            foreach(var Tag in Tags)
+            {
+                _DataAccessLayer.AddTagToPicture(PictureID, Tag);
+            }
         }
     }
 }

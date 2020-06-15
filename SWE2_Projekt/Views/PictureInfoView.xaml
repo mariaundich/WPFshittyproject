@@ -19,18 +19,16 @@
                                 <RowDefinition Height="30"></RowDefinition>
                                 <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" FontWeight="Bold">Titel</TextBlock>
                             <TextBlock Grid.Row="1" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                             <TextBlock Grid.Row="2" FontWeight="Bold">FotografIn</TextBlock>
-                            <!--<ComboBox Grid.Row ="3" ItemsSource="{Binding Path=pictureInfoViewModel.PhotographerModelList}" 
-                                      DisplayMemberPath="FullName"
-                                      SelectedItem="{Binding Path=pictureInfoViewModel.SelectedPhotographerInInfo, Mode=OneWay}"/>-->
                             <TextBox Grid.Row="3" Text="{Binding pictureViewModel.PhotographerFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
                             <TextBlock Grid.Row="4" FontWeight="Bold">Tags</TextBlock>
-                            <TextBlock Grid.Row="5" Text="{Binding pictureViewModel.Tags}"> </TextBlock>
-                            <Button Grid.Row="6" Name ="PhotographerSaveButton" Content="Save" Margin="1" Click="General_Savebutton_Click"/>
+                            <TextBox Grid.Row="5" Text="{Binding pictureViewModel.Tags, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TagsField"> </TextBox>
+                            <Button Grid.Row="7" Width ="60" Height="25" HorizontalAlignment="Right" Name ="PhotographerSaveButton" Content="Save"  Click="General_Savebutton_Click"/>
                             
                         </Grid>
                     </TabItem>
@@ -43,6 +41,7 @@
                                 <RowDefinition Height="30"></RowDefinition>
                                 <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
                                 <RowDefinition Height="30"></RowDefinition>
                             </Grid.RowDefinitions>
 
@@ -50,13 +49,13 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Margin="1">Titel</TextBlock>
+                            <TextBlock Grid.Row="0" FontWeight="Bold" Margin="1">Titel</TextBlock>
                             <TextBox Grid.Row="1" Text ="{Binding Path=pictureInfoViewModel.Title,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "TitleField" Margin="1"/>
-                            <TextBlock Grid.Row="2" Margin="1">Urheber</TextBlock>
+                            <TextBlock Grid.Row="2" FontWeight="Bold" Margin="1">Urheber</TextBlock>
                             <TextBox Grid.Row="3" Text ="{Binding Path=pictureInfoViewModel.Creator,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CreatorField" Margin="1"/>
-                            <TextBlock Grid.Row="4" Margin="1">Beschreibung</TextBlock>
+                            <TextBlock Grid.Row="4" FontWeight="Bold" Margin="1">Beschreibung</TextBlock>
                             <TextBox Grid.Row="5" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" Margin="1" TextWrapping="Wrap" />
-                            <Button Grid.Row="6" Name ="IPTCSaveButton" Content="Save" Margin="1" Click="IPTC_Savebutton_Click"/>
+                            <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" HorizontalAlignment="Right" Content="Save"  Click="IPTC_Savebutton_Click"/>
 
                         </Grid>
                     </TabItem>
