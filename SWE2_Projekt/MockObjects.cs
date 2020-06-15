@@ -19,10 +19,23 @@ namespace SWE2_Projekt
         public List<IPTCModel> IPTCList = new List<IPTCModel>();
         public List<EXIFModel> EXIFList = new List<EXIFModel>();
         public List<PhotographerModel> PhotographerList = new List<PhotographerModel>();
+        int i = 0;
+
+        public MockDAL()
+        {
+            i = 1;
+            PhotographerList.Clear();
+            PictureList.Clear();
+            IPTCList.Clear();
+            EXIFList.Clear();
+        }
 
         public void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen)
         {
-            throw new NotImplementedException();
+            string geb = Geburtsdatum.ToString();
+            PhotographerModel photographer = new PhotographerModel(i, Vorname, Nachname, geb, Notizen);
+            PhotographerList.Add(photographer);
+            i++;
         }
 
         public void AddTagToPicture(string PicTitle, string Tag)
@@ -62,7 +75,7 @@ namespace SWE2_Projekt
 
         public void AssignPhotographertoPicture(int PicID, int PhotographerID)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void DeleteAllData()
@@ -146,7 +159,23 @@ namespace SWE2_Projekt
 
         public Dictionary<int, List<string>> GetAllPhotographers()
         {
-            throw new NotImplementedException();
+            Dictionary<int, List<string>> results = new Dictionary<int, List<string>>();
+            List<string> helper = new List<string>();
+            int id = -1;
+
+            foreach(PhotographerModel photographer in PhotographerList)
+            {
+                id = photographer.ID;
+                helper.Add(photographer.FirstName);
+                helper.Add(photographer.LastName);
+                helper.Add(photographer.Birthday);
+                helper.Add(photographer.Notes);
+
+                results.Add(id, helper);
+                helper.Clear();
+            }
+
+            return results;
         }
 
         public Dictionary<string, int> getAllTagsWithPicCount()

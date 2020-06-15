@@ -183,5 +183,33 @@ namespace SWE2_Projekt
 
             Assert.That(mock.IPTCList[2].Title, Is.EqualTo("AmazingPicture"));
         }
+
+        [Test]
+        public void AddPhotographer()
+        {
+            MockDAL mock = new MockDAL();
+            DateTime date = new DateTime();
+            mock.AddPhotographer("Bruce", "Wayne", date, "");
+
+            Assert.That(mock.PhotographerList.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetAllPhotographersData()
+        {
+            MockDAL mock = new MockDAL();
+            DateTime date = new DateTime();
+            Dictionary<int, List<string>> allPhotographers = new Dictionary<int, List<string>>();
+            mock.InsertAllPictures();
+            mock.InsertAllEXIFData();
+            mock.InsertAllIPTCData();
+            mock.AddPhotographer("Bruce", "Wayne", date, "");
+            mock.AddPhotographer("Homer", "Simpson", date, "");
+            mock.AddPhotographer("Peter", "Griffin", date, "");
+
+            allPhotographers = mock.GetAllPhotographers();
+
+            Assert.That(allPhotographers.Count, Is.EqualTo(3));
+        }
     }
 }
