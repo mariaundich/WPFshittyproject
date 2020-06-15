@@ -31,7 +31,7 @@ namespace SWE2_Projekt
 
         void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen);
 
-        void EditPhotagrapher(int ID, List<string> Data);
+        void EditPhotographer(int ID, List<string> Data);
 
         void DeletePhotographer(string Vorname, string Nachname);
 

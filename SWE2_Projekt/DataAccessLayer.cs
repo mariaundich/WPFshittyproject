@@ -547,7 +547,7 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("INSERT INTO PhotografInnen(Vorname, Nachname, Geburtsdatum, Notiz) VALUES(@Vorname, @Nachname, @Geburtsdatum, @Notiz)", connection);
+                command = new SqlCommand("INSERT INTO FotografInnen(Vorname, Nachname, Geburtsdatum, Notiz) VALUES(@Vorname, @Nachname, @Geburtsdatum, @Notiz)", connection);
                 command.Parameters.AddWithValue("@Vorname", Vorname);
                 command.Parameters.AddWithValue("@Nachname", Nachname);
                 command.Parameters.AddWithValue("@Geburtsdatum", Geburtsdatum);
@@ -558,7 +558,7 @@ namespace SWE2_Projekt
             }
         }
 
-        public void EditPhotagrapher(int ID, List<string> Data)
+        public void EditPhotographer(int ID, List<string> Data)
         {
             string[] data = Data.ToArray();
             using (SqlConnection connection = new SqlConnection(_connectionstring))
@@ -567,7 +567,7 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("INSERT INTO FotografInnen (Vorname, Nachname, Geburtsdatum, Notiz) VALUES (@Vorname, @Nachname, @Geburtsdatum, @Notiz) WHERE ID_FotografIn IS @ID_FotografIn", connection);
+                command = new SqlCommand("UPDATE FotografInnen SET Vorname=@Vorname, Nachname=@Nachname, Geburtsdatum=@Geburtsdatum, Notiz=@Notiz WHERE ID_FotografIn = @ID_FotografIn", connection);
                 command.Parameters.AddWithValue("@Vorname", data[0]);
                 command.Parameters.AddWithValue("@Nachname", data[1]);
                 command.Parameters.AddWithValue("@Geburtsdatum", Convert.ToDateTime(data[2]));

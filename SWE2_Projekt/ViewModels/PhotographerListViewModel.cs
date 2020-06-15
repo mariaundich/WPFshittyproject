@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -52,6 +53,26 @@ namespace SWE2_Projekt.ViewModels
                     OnPropertyChanged(nameof(SelectedPhotographer));
                 }
             }
+        }
+
+        public void EditPhotographer(int id, List<string> data)
+        {
+            if (data[1] != "" &&
+                DateTime.Compare(DateTime.Today, Convert.ToDateTime(data[2])) > 0)
+            {
+                SelectedPhotographer.FirstName = data[0];
+                SelectedPhotographer.LastName = data[1];
+                SelectedPhotographer.Birthday = data[2];
+                SelectedPhotographer.Notes = data[3];
+
+                _businessLayer.EditPhotographer(id, data);
+            }
+            else
+            {
+                MessageBox.Show("Ein Nachname wird benötigt und der Geburtstag muss vor dem heutigen Datum liegen!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
+
         }
     }
 }

@@ -97,6 +97,11 @@ namespace SWE2_Projekt
             _DataAccessLayer.EditIPTC(id, data);
         }
 
+        public void EditPhotographer(int id, List<string> data)
+        {
+            _DataAccessLayer.EditPhotographer(id, data);
+        }
+
         public List<PictureModel> AllPictureModels()
         {
             PictureList = new List<PictureModel>();

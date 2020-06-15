@@ -139,7 +139,7 @@ namespace SWE2_Projekt
             IPTCList[ID - 1].Description = Data[2];
         }
 
-        public void EditPhotagrapher(int ID, List<string> Data)
+        public void EditPhotographer(int ID, List<string> Data)
         {
             throw new NotImplementedException();
         }

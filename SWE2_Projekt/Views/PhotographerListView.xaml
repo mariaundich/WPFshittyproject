@@ -48,31 +48,65 @@
         </GridSplitter>
 
         <Border Background="White" Grid.Column="2" BorderBrush="Black" Margin="20,20,20,20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-            
-                <TextBlock Grid.Row="0" FontWeight="Bold">Vorname</TextBlock>
-                <TextBlock Grid.Row="1" Text="{Binding photographerListViewModel.SelectedPhotographer.FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            <TabControl>
+                <TabItem Header="Anzeigen" Margin="-2,-2,-2,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="2" FontWeight="Bold">Nachname</TextBlock>
-                <TextBlock Grid.Row="3" Text="{Binding photographerListViewModel.SelectedPhotographer.LastName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                        <TextBlock Grid.Row="0" FontWeight="Bold">Vorname</TextBlock>
+                        <TextBlock Grid.Row="1" Text="{Binding photographerListViewModel.SelectedPhotographer.FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
 
-                <TextBlock Grid.Row="4" FontWeight="Bold">Geburtstag</TextBlock>
-                <TextBlock Grid.Row="5" Text="{Binding photographerListViewModel.SelectedPhotographer.Birthday, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                        <TextBlock Grid.Row="2" FontWeight="Bold">Nachname</TextBlock>
+                        <TextBlock Grid.Row="3" Text="{Binding photographerListViewModel.SelectedPhotographer.LastName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
 
-                <TextBlock Grid.Row="6" FontWeight="Bold">Notiz</TextBlock>
-                <TextBlock Grid.Row="7" Text="{Binding photographerListViewModel.SelectedPhotographer.Notes, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                        <TextBlock Grid.Row="4" FontWeight="Bold">Geburtstag</TextBlock>
+                        <TextBlock Grid.Row="5" Text="{Binding photographerListViewModel.SelectedPhotographer.Birthday, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
 
-            </Grid>
+                        <TextBlock Grid.Row="6" FontWeight="Bold">Notiz</TextBlock>
+                        <TextBlock Grid.Row="7" Text="{Binding photographerListViewModel.SelectedPhotographer.Notes, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Bearbeiten" Margin="-2,-2,-2,0">
+                    <Grid Margin = "5,5,5,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Margin="1">Vorname</TextBlock>
+                        <TextBox Grid.Row="1" Text ="{Binding Path=photographerListViewModel.SelectedPhotographer.FirstName,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "FirstNameField" Margin="1"/>
+                        <TextBlock Grid.Row="2" Margin="1">Nachname</TextBlock>
+                        <TextBox Grid.Row="3" Text ="{Binding Path=photographerListViewModel.SelectedPhotographer.LastName,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "LastNameField" Margin="1"/>
+                        <TextBlock Grid.Row="4" Margin="1">Geburtstag</TextBlock>
+                        <TextBox Grid.Row="5" Text ="{Binding Path=photographerListViewModel.SelectedPhotographer.Birthday,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="BirthdayField" Margin="1"/>
+                        <TextBlock Grid.Row="6" Margin="1">Notiz</TextBlock>
+                        <TextBox Grid.Row="7" Text ="{Binding Path=photographerListViewModel.SelectedPhotographer.Notes,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="NotesField" Margin="1" TextWrapping="Wrap" />
+
+                        <Button Grid.Row="8" Name ="SaveButton" Content="Save" Margin="1" Click="Savebutton_Click"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Border>
     </Grid>
 </Window>
