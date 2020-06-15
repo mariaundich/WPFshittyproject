@@ -259,6 +259,53 @@ namespace SWE2_Projekt
             return auxEXIFModel;
         }
 
+        public PhotographerModel GetPhotographerByID(int id)
+        {
+            string FirstName = "";
+            string LastName = "";
+            string Birthday = "";
+            string Notes = "";
+
+            PhotographerModel auxPhotographerModel = null;
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT * FROM FotografInnen WHERE ID_FotografIn = @id", connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        // skipping rd.GetInt32(0) because that's the ID which we already have stored
+                        if (!rd.IsDBNull(1))
+                        {
+                            FirstName = rd.GetString(1);
+                        }
+                        if (!rd.IsDBNull(2))
+                        {
+                            LastName = rd.GetString(2);
+                        }
+                        if (!rd.IsDBNull(3))
+                        {
+                            Birthday = Convert.ToString(rd.GetDateTime(3));
+                        }
+                        if (!rd.IsDBNull(4))
+                        {
+                            Notes = rd.GetString(4);
+                        }
+                        auxPhotographerModel = new PhotographerModel(id, FirstName, LastName, Birthday, Notes);
+                    }
+                }
+                connection.Close();
+            }
+            return auxPhotographerModel;
+        }
+
         public IPTCModel GetIPTCInfoByID(int id)
         {
             string Title = "";
@@ -467,6 +514,57 @@ namespace SWE2_Projekt
 
                     command.ExecuteNonQuery();
                     idx += 1;
+                }
+                connection.Close();
+            }
+        }
+
+        public void InsertPhotographerToPicture()
+        {
+            List<int> PictureId = new List<int>();
+            List<int> PhotographerID = new List<int>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                Console.WriteLine("Opening PicDB Connection!");
+                connection.Open();
+                Console.WriteLine("Connected to PicDB!\n");
+
+                command = new SqlCommand("SELECT ID_Bild FROM Bilder", connection);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            PictureId.Add(rd.GetInt32(0));
+                        }
+                    }
+                }
+
+                command = new SqlCommand("SELECT ID_FotografIn FROM FotografInnen", connection);
+
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            PhotographerID.Add(rd.GetInt32(0));
+                        }
+                    }
+                }
+               // Console.WriteLine("Bilder: " + PictureId.Count() + " FotografInnen: " + PhotographerID.Count());
+
+                for(int i=0;i<PictureId.Count();i++)
+                {
+                  //  Console.WriteLine("i: " + i);
+                    command = new SqlCommand("UPDATE [Bilder] SET fk_FotografIn_ID = @fk_Photographer_ID WHERE ID_Bild = @ID_Bild", connection);
+                    command.Parameters.AddWithValue("@fk_Photographer_ID", PhotographerID[i % PhotographerID.Count()]);
+                    command.Parameters.AddWithValue("@ID_Bild", PictureId[i]);
+
+                    command.ExecuteNonQuery();
                 }
                 connection.Close();
             }
@@ -698,7 +796,6 @@ namespace SWE2_Projekt
         {
             int tagID = -1;
             int picID = -1;
-            SqlCommand com;
             bool exists = true;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
@@ -706,39 +803,6 @@ namespace SWE2_Projekt
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
-
-                command = new SqlCommand("SELECT ID_Tag FROM Tags WHERE Bezeichnung = @bezeichnung", connection);
-                command.Parameters.AddWithValue("@bezeichnung", Tag);
-
-                using (SqlDataReader rd = command.ExecuteReader())
-                {
-                    while (rd.Read())
-                    {
-                        if (!rd.IsDBNull(0))
-                        {
-                            tagID = rd.GetInt32(0);
-                        } else
-                        {
-                            exists = false;
-                        }
-                    }
-                }
-
-                if (!exists)
-                {
-                    com = new SqlCommand("INSERT INTO Tags (Bezeichnung) VALUES (@bezeichnung)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
-                    com.Parameters.AddWithValue("@bezeichnung", Tag);
-                    using (SqlDataReader r = com.ExecuteReader())
-                    {
-                        while (r.Read())
-                        {
-                            if (!r.IsDBNull(0))
-                            {
-                                tagID = r.GetInt32(0);
-                            }
-                        }
-                    }
-                }
 
                 command = new SqlCommand("SELECT ID_Bild FROM Bilder WHERE Titel = @titel", connection);
                 command.Parameters.AddWithValue("@titel", PicTitle);
@@ -750,9 +814,66 @@ namespace SWE2_Projekt
                         if (!rd.IsDBNull(0))
                         {
                             picID = rd.GetInt32(0);
+                            Console.WriteLine("Got ID from Picture\n");
                         }
                     }
                 }
+
+                command = new SqlCommand("SELECT COUNT(Bezeichnung) FROM Tags WHERE Bezeichnung = @bezeichnung", connection);
+                command.Parameters.AddWithValue("@bezeichnung", Tag);
+                int count = 0;
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            count = rd.GetInt32(0);
+                            Console.WriteLine(count);
+                        }
+                    }
+                }
+
+                if (count == 0)
+                {
+                    Console.WriteLine("tag doesnt exist");
+
+                    command = new SqlCommand("INSERT INTO Tags (Bezeichnung) VALUES (@bezeichnung)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
+                    command.Parameters.AddWithValue("@bezeichnung", Tag);
+
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            if (!rd.IsDBNull(0))
+                            {
+                                tagID = rd.GetInt32(0);
+                                Console.WriteLine(tagID);
+                            }
+                        }
+                    }
+                }
+
+                if (count > 0)
+                {
+                    Console.WriteLine("tag does exist");
+
+                    command = new SqlCommand("SELECT ID_Tag FROM Tags WHERE Bezeichnung = @Bezeichnung", connection);
+                    command.Parameters.AddWithValue("@Bezeichnung", Tag);
+
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            if (!rd.IsDBNull(0))
+                            {
+                                tagID = rd.GetInt32(0);
+                                Console.WriteLine(tagID);
+                            }
+                        }
+                    }
+                }
+
 
                 command = new SqlCommand("INSERT INTO Bild_Tag (fk_Bild_ID, fk_Tag_ID) VALUES (@fk_Bild_ID, @fk_Tag_ID)", connection);
                 command.Parameters.AddWithValue("@fk_Bild_ID", picID);
@@ -866,32 +987,22 @@ namespace SWE2_Projekt
             }
         }
 
-        public void AssignPhotographertoPicture(int PhotographerID, string Title)
+        public void AssignPhotographertoPicture(int PicID, int PhotographerID)
         {
-            int PicID = -1;
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
+                Console.WriteLine("PicID: " + PicID + " PhotographerID: " + PhotographerID + " in DAL");
 
-                command = new SqlCommand("SELECT ID_Bild FROM Bilder WHERE Titel IS @Titel", connection);
-                command.Parameters.AddWithValue("@Titel", Title);
-                using (SqlDataReader rd = command.ExecuteReader())
-                {
-                    while (rd.Read())
-                    {
-                        if (!rd.IsDBNull(0))
-                        {
-                            PicID = rd.GetInt32(0);
-                        }
-                    }
-                }
-
-                command = new SqlCommand("UPDATE Bilder SET fk_FotografIn_ID IS @fk_FotografIn_ID WHERE ID_Bild IS @ID_Bild", connection);
+                command = new SqlCommand("UPDATE [Bilder] SET fk_FotografIn_ID = @fk_FotografIn_ID WHERE ID_Bild = @ID_Bild", connection);
                 command.Parameters.AddWithValue("@fk_FotografIn_ID", PhotographerID);
                 command.Parameters.AddWithValue("@ID_Bild", PicID);
-                
+
+                int affectedRows = command.ExecuteNonQuery();
+                Console.WriteLine("Affected rows: " + affectedRows);
+             
                 connection.Close();
             }
         }
@@ -1177,7 +1288,7 @@ namespace SWE2_Projekt
                                 IPTC = rd.GetInt32(4);
                             }
 
-                            PictureModel auxModel = new PictureModel(ID, Title, Photographer, EXIF, IPTC);
+                            PictureModel auxModel = new PictureModel(picID, Title, Photographer, EXIF, IPTC);
                             Pictures.Add(auxModel);
                         }
                     }

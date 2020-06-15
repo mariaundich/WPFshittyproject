@@ -21,12 +21,16 @@ namespace SWE2_Projekt
 
         public BusinessLayer()
         {
+            
             _DataAccessLayer = new DataAccessLayer();
+            //_DataAccessLayer.InsertPhotographerToPicture();
             PictureModelList = CreatePictureModelList();
             _selectedPicture = PictureModelList[0];
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
             SelectedPhotographer = PhotographerModelList[0];
+
+            
         }
 
         public PictureModel SelectedPicture
@@ -74,6 +78,9 @@ namespace SWE2_Projekt
 
                 EXIFModel auxEXIFModel = _DataAccessLayer.GetEXIFInfoByID(pictureModel.EXIF_ID);
                 pictureModel.EXIF = auxEXIFModel;
+
+                PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
+                pictureModel.Photographer = auxPhotographerModel;
 
                 auxPictureModelList.Add(pictureModel);
             }
@@ -158,6 +165,15 @@ namespace SWE2_Projekt
         public Dictionary<string, int> returnAllTagsWithCount()
         {
             return _DataAccessLayer.getAllTagsWithPicCount();
+        }
+
+        public PhotographerModel AssignPhotographerToPictureAndReturnPhotographerModel(int PictureID, int PhotographerID)
+        {
+            _DataAccessLayer.AssignPhotographertoPicture(PictureID, PhotographerID);
+
+            PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(PhotographerID);
+
+            return auxPhotographerModel;
         }
     }
 }

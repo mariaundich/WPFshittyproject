@@ -51,6 +51,21 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
+        public PhotographerModel Photographer
+        {
+            get { return _picture.Photographer; }
+        }
+
+        public int Photographer_ID
+        {
+            get { return _picture.Photographer_ID; }
+        }
+
+        public string PhotographerFullName
+        {
+            get { return _picture.Photographer.FullName; }
+        }
+
         public string PicturePath
         {
             get

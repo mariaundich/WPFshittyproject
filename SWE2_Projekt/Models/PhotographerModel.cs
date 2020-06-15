@@ -11,6 +11,7 @@ namespace SWE2_Projekt.Models
         private int _id;
         private string _firstName;
         private string _lastName;
+        private string _fullName;
         private string _birthday;
         private string _notes;
 
@@ -21,6 +22,7 @@ namespace SWE2_Projekt.Models
             ID = id;
             FirstName = first;
             LastName = last;
+            FullName = first +" "+ last;
             Birthday = birthday;
             Notes = notes;
         }
@@ -45,6 +47,14 @@ namespace SWE2_Projekt.Models
             get { return _lastName; }
             set { _lastName = value;
                 NotifyPropertyChanged(nameof(LastName));
+            }
+        }
+
+        public string FullName
+        {
+            get { return _fullName; }
+            set { _fullName = value;
+                NotifyPropertyChanged(nameof(FullName));
             }
         }
 
