@@ -45,7 +45,7 @@ namespace SWE2_Projekt
 
         void DeleteTagofPicture(string PicTitle, string TagTitle);
 
-        void AssignPhotographertoPicture(int PhotographerID, string Title);
+        void AssignPhotographertoPicture(int PicID, int PhotographerID);
 
         List<string> ListPicturesOfPhotographer(string Vorname, string Nachname);
 

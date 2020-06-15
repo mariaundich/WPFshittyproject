@@ -60,7 +60,7 @@ namespace SWE2_Projekt
             return exifofPic;
         }
 
-        public void AssignPhotographertoPicture(int PhotographerID, string Title)
+        public void AssignPhotographertoPicture(int PicID, int PhotographerID)
         {
             throw new NotImplementedException();
         }
@@ -356,7 +356,6 @@ namespace SWE2_Projekt
                     }
                 }
             }
-
             return results;
         }
 
