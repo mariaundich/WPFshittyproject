@@ -244,5 +244,19 @@ namespace SWE2_Projekt
 
             Assert.That(mock.PhotographerList.Count, Is.EqualTo(3));
         }
+
+        [Test]
+        public void AddTagsToPicture()
+        {
+            MockDAL mock = new MockDAL();
+            mock.InsertAllPictures();
+            mock.InsertAllEXIFData();
+            mock.InsertAllIPTCData();
+
+            mock.AddTagToPicture(5, "Batsignal");
+
+            Assert.That(mock.Tags.Count, Is.EqualTo(1));
+            Assert.That(mock.PictureList[4].Tags[0], Is.EqualTo("Batsignal"));
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace SWE2_Projekt
         public List<IPTCModel> IPTCList = new List<IPTCModel>();
         public List<EXIFModel> EXIFList = new List<EXIFModel>();
         public List<PhotographerModel> PhotographerList = new List<PhotographerModel>();
+        public Dictionary<int, string> Tags = new Dictionary<int, string>();
         int i = 0;
 
         public MockDAL()
@@ -40,7 +41,13 @@ namespace SWE2_Projekt
 
         public void AddTagToPicture(int PicID, string Tag)
         {
-            
+            if (!Tags.ContainsValue(Tag))
+            {
+                Tags.Add(i, Tag);
+            }
+
+            int index = PictureList.FindIndex(i => i.ID == PicID);
+            PictureList[index].Tags.Add(Tag);
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title)
@@ -250,6 +257,7 @@ namespace SWE2_Projekt
 
         public void InsertAllIPTCData()
         {
+            
             IPTCModel iptc;
             IPTCList.Clear();
 
@@ -287,23 +295,24 @@ namespace SWE2_Projekt
         {
             PictureModel pic;
             PictureList.Clear();
+            ObservableCollection<string> col = new ObservableCollection<string>();
 
-            pic = new PictureModel(1, "amazingTitle", 0, 0, 0, null);
+            pic = new PictureModel(1, "amazingTitle", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(2, "anothertitle", 0, 0, 0, null);
+            pic = new PictureModel(2, "anothertitle", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(3, "CoolPicture", 0, 0, 0, null);
+            pic = new PictureModel(3, "CoolPicture", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(4, "subtleTitle", 0, 0, 0, null);
+            pic = new PictureModel(4, "subtleTitle", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(5, "IAmBatman", 0, 0, 0, null);
+            pic = new PictureModel(5, "IAmBatman", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(6, "AwYissATitle", 0, 0, 0, null);
+            pic = new PictureModel(6, "AwYissATitle", 0, 0, 0, col);
             PictureList.Add(pic);
         }
 
