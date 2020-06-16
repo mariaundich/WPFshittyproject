@@ -47,6 +47,7 @@ namespace SWE2_Projekt
 
         void AssignPhotographertoPicture(int PictureID, int PhotographerID);
 
+
         List<string> ListPicturesOfPhotographer(string Vorname, string Nachname);
 
         List<string> SearchForPicturesWithTag(string Tag);

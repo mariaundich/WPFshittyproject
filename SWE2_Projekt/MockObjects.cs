@@ -19,15 +19,35 @@ namespace SWE2_Projekt
         public List<IPTCModel> IPTCList = new List<IPTCModel>();
         public List<EXIFModel> EXIFList = new List<EXIFModel>();
         public List<PhotographerModel> PhotographerList = new List<PhotographerModel>();
+        public Dictionary<int, string> Tags = new Dictionary<int, string>();
+        int i = 0;
+
+        public MockDAL()
+        {
+            i = 1;
+            PhotographerList.Clear();
+            PictureList.Clear();
+            IPTCList.Clear();
+            EXIFList.Clear();
+        }
 
         public void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen)
         {
-            throw new NotImplementedException();
+            string geb = Geburtsdatum.ToString();
+            PhotographerModel photographer = new PhotographerModel(i, Vorname, Nachname, geb, Notizen);
+            PhotographerList.Add(photographer);
+            i++;
         }
 
         public void AddTagToPicture(int PicID, string Tag)
         {
-            throw new NotImplementedException();
+            if (!Tags.ContainsValue(Tag))
+            {
+                Tags.Add(i, Tag);
+            }
+
+            int index = PictureList.FindIndex(i => i.ID == PicID);
+            PictureList[index].Tags.Add(Tag);
         }
 
         public Dictionary<int, List<string>> AllEXIFInfoFromOnePicture(string title)
@@ -62,7 +82,22 @@ namespace SWE2_Projekt
 
         public void AssignPhotographertoPicture(int PictureID, int PhotographerID)
         {
-            throw new NotImplementedException();
+            PhotographerModel model = new PhotographerModel(0, "", "", "", "");
+            foreach(PhotographerModel photographer in PhotographerList)
+            {
+                if(photographer.ID == PhotographerID)
+                {
+                    model = photographer;
+                }
+            }
+
+            foreach(PictureModel pic in PictureList)
+            {
+                if(pic.ID == PictureID)
+                {
+                    pic.Photographer = model;
+                }
+            }
         }
 
         public void DeleteAllData()
@@ -86,7 +121,10 @@ namespace SWE2_Projekt
 
         public void DeletePhotographer(string Vorname, string Nachname)
         {
-            throw new NotImplementedException();
+            string full = Vorname + " " + Nachname;
+            int index = PhotographerList.FindIndex(i => i.FullName == full);
+
+            PhotographerList.RemoveAt(index);
         }
 
         public void DeletePicture(string titel)
@@ -146,7 +184,23 @@ namespace SWE2_Projekt
 
         public Dictionary<int, List<string>> GetAllPhotographers()
         {
-            throw new NotImplementedException();
+            Dictionary<int, List<string>> results = new Dictionary<int, List<string>>();
+            List<string> helper = new List<string>();
+            int id = -1;
+
+            foreach(PhotographerModel photographer in PhotographerList)
+            {
+                id = photographer.ID;
+                helper.Add(photographer.FirstName);
+                helper.Add(photographer.LastName);
+                helper.Add(photographer.Birthday);
+                helper.Add(photographer.Notes);
+
+                results.Add(id, helper);
+                helper.Clear();
+            }
+
+            return results;
         }
 
         public Dictionary<string, int> getAllTagsWithPicCount()
@@ -203,6 +257,7 @@ namespace SWE2_Projekt
 
         public void InsertAllIPTCData()
         {
+            
             IPTCModel iptc;
             IPTCList.Clear();
 
@@ -240,23 +295,24 @@ namespace SWE2_Projekt
         {
             PictureModel pic;
             PictureList.Clear();
+            ObservableCollection<string> col = new ObservableCollection<string>();
 
-            pic = new PictureModel(1, "amazingTitle", 0, 0, 0, null);
+            pic = new PictureModel(1, "amazingTitle", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(2, "anothertitle", 0, 0, 0, null);
+            pic = new PictureModel(2, "anothertitle", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(3, "CoolPicture", 0, 0, 0, null);
+            pic = new PictureModel(3, "CoolPicture", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(4, "subtleTitle", 0, 0, 0, null);
+            pic = new PictureModel(4, "subtleTitle", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(5, "IAmBatman", 0, 0, 0, null);
+            pic = new PictureModel(5, "IAmBatman", 0, 0, 0, col);
             PictureList.Add(pic);
 
-            pic = new PictureModel(6, "AwYissATitle", 0, 0, 0, null);
+            pic = new PictureModel(6, "AwYissATitle", 0, 0, 0, col);
             PictureList.Add(pic);
         }
 
@@ -356,7 +412,6 @@ namespace SWE2_Projekt
                     }
                 }
             }
-
             return results;
         }
 

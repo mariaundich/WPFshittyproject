@@ -34,6 +34,7 @@ namespace SWE2_Projekt.Models
 
             string auxPath = "../../../images/" + Title;
             PicturePath = Path.GetFullPath(auxPath); 
+
         }
 
         public int ID

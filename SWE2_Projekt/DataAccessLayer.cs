@@ -844,6 +844,7 @@ namespace SWE2_Projekt
         public void AddTagToPicture(int picID , string Tag)
         {
             int tagID = -1;
+            int count = 0;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
@@ -853,7 +854,7 @@ namespace SWE2_Projekt
 
                 command = new SqlCommand("SELECT COUNT(Bezeichnung) FROM Tags WHERE Bezeichnung = @bezeichnung", connection);
                 command.Parameters.AddWithValue("@bezeichnung", Tag);
-                int count = 0;
+
                 using (SqlDataReader rd = command.ExecuteReader())
                 {
                     while (rd.Read())
@@ -861,15 +862,12 @@ namespace SWE2_Projekt
                         if (!rd.IsDBNull(0))
                         {
                             count = rd.GetInt32(0);
-                            Console.WriteLine(count);
                         }
                     }
                 }
 
                 if (count == 0)
                 {
-                    Console.WriteLine("tag doesnt exist");
-
                     command = new SqlCommand("INSERT INTO Tags (Bezeichnung) VALUES (@bezeichnung)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
                     command.Parameters.AddWithValue("@bezeichnung", Tag);
 
@@ -880,7 +878,6 @@ namespace SWE2_Projekt
                             if (!rd.IsDBNull(0))
                             {
                                 tagID = rd.GetInt32(0);
-                                Console.WriteLine(tagID);
                             }
                         }
                     }
@@ -888,8 +885,6 @@ namespace SWE2_Projekt
 
                 if (count > 0)
                 {
-                    Console.WriteLine("tag does exist");
-
                     command = new SqlCommand("SELECT ID_Tag FROM Tags WHERE Bezeichnung = @Bezeichnung", connection);
                     command.Parameters.AddWithValue("@Bezeichnung", Tag);
 
@@ -900,7 +895,6 @@ namespace SWE2_Projekt
                             if (!rd.IsDBNull(0))
                             {
                                 tagID = rd.GetInt32(0);
-                                Console.WriteLine(tagID);
                             }
                         }
                     }
@@ -984,7 +978,6 @@ namespace SWE2_Projekt
                     {
                         allTags.Add(grp.Key, grp.Count());
                     }
-                    //Console.WriteLine("{0} {1}", grp.Key, grp.Count());
                 }
             }
             return allTags;
