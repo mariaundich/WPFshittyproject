@@ -39,6 +39,11 @@ namespace SWE2_Projekt
 
         }
 
+        private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void Searchbutton_Click(object sender, RoutedEventArgs e)
         {
             string search = SearchField.Text.ToLower();
@@ -46,8 +51,11 @@ namespace SWE2_Projekt
             ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
 
-        private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
+        private void RefreshDB(object sender, RoutedEventArgs e)
         {
+
+            ((MainWindowViewModel)DataContext)._businessLayer.RefreshPictureData();
+            ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList("");
 
         }
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SWE2_Projekt
 {
-    class BusinessLayer
+    public class BusinessLayer
     {
         public DataAccessLayer _DataAccessLayer;
         private ObservableCollection<PictureModel> _pictureModelList;
@@ -45,10 +45,7 @@ namespace SWE2_Projekt
 
         public void RefreshPictureData()
         {
-            _DataAccessLayer.DeleteAllData();
-            _DataAccessLayer.InsertAllPictures();
-            _DataAccessLayer.InsertAllEXIFData();
-            _DataAccessLayer.InsertAllIPTCData();
+            _DataAccessLayer.RefreshPictures();
         }
 
         public ObservableCollection<PictureModel> PictureModelList

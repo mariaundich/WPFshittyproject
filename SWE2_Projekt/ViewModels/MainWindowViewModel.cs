@@ -19,7 +19,7 @@ namespace SWE2_Projekt
         private PictureViewModel _pictureViewModel;
         private PhotographerListViewModel _photographerListViewModel;
 
-        private BusinessLayer _businessLayer;
+        public BusinessLayer _businessLayer;
 
 
         ICommand _editIPTC;
