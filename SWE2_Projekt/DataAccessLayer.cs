@@ -104,6 +104,36 @@ namespace SWE2_Projekt
             }
         }
 
+        public void RefreshPictures()
+        {
+
+           using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                connection.Open();
+
+                command = new SqlCommand("DELETE FROM Bild_Tag", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM Bilder", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM ITPC", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM EXIF", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM Tags", connection);
+                command.ExecuteNonQuery();
+
+            }
+
+            InsertAllPictures();
+            InsertAllEXIFData();
+            InsertAllIPTCData();
+            InsertPhotographerToPicture();
+        }
+
         public List<PictureModel> ReturnAllPictureModels()
         {
             PictureModelList = new List<PictureModel>();

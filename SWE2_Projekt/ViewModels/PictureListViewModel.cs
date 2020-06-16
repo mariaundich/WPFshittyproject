@@ -51,26 +51,30 @@ namespace SWE2_Projekt.ViewModels
        public void UpdateImageList(string search)
         {
 
-            /*
-             If the search button was pressed while the search field is empty, show all images.
-             The selected image remains the same and is placed to the front of the list.
-             */
+            
+            // If the search button was pressed while the search field is empty, show all images.
+             
 
             if (search.Length == 0)
             {
-                foreach (var entry in _pictureModelList.ToList())
+
+                var allPictureModels = _businessLayer.CreatePictureModelList();
+
+                _pictureModelList.Add(allPictureModels.First());
+                allPictureModels.Remove(allPictureModels.First());
+
+                SelectedImage = _pictureModelList.Last();
+
+                for (var i = _pictureModelList.Count - 2; i >= 0; i--)
                 {
-                    if (entry != SelectedImage)
-                    {
-                        _pictureModelList.Remove(entry);
-                    }
+                    _pictureModelList.RemoveAt(i);
                 }
 
-                foreach (var entry in _businessLayer.CreatePictureModelList())
-                {                    
-                    if (entry.Title != SelectedImage.Title)
+                if (allPictureModels.Count > 0)
+                {
+                    for (var i = 0; i < allPictureModels.Count; i++)
                     {
-                        _pictureModelList.Add(entry);
+                        _pictureModelList.Add(allPictureModels[i]);
                     }
                 }
             }

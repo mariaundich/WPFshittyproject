@@ -121,7 +121,11 @@ namespace SWE2_Projekt.ViewModels
             {
                 auxTags += (Tag + ", ");
             }
-            auxTags = auxTags.Remove(auxTags.Length - 2);
+
+            if (auxTags.Length > 2)
+            {
+                auxTags = auxTags.Remove(auxTags.Length - 2);
+            }
             return auxTags;
         }
     }

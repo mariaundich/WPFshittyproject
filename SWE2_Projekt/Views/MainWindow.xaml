@@ -19,6 +19,7 @@
                 <MenuItem Header="_File" Click="MenuItem_Click">
                     <MenuItem Header="_Bericht für aktuelles Bild erstellen" Click="BerichtErstellen" />
                     <MenuItem Header="_Tag-Bericht erstellen" Click="TagBerichtErstellen" />
+                    <MenuItem Header="_Datenbank neu laden" Click="RefreshDB" />
                 </MenuItem>
 
                 <MenuItem Header="_Edit">
