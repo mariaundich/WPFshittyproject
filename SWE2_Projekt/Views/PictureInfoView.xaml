@@ -10,142 +10,238 @@
         <Border Background="White">
             <Grid>
                 <TabControl>
-                    <TabItem Header="Allgemein" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="70" Height="20" VerticalAlignment="Top">
-                        <Grid Margin = "5,5,5,5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
-                            <TextBlock Grid.Row="1" Margin="0,2,0,2" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                            <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">FotografIn</TextBlock>
-                            <TextBox Grid.Row="3" Margin="0,2,0,2" Text="{Binding pictureViewModel.PhotographerFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
-                            <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Tags</TextBlock>
-                            <TextBox Grid.Row="5" Margin="0,2,0,2" Text="{Binding pictureViewModel.Tags, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TagsField"> </TextBox>
-                            <Button Grid.Row="7" Margin="0,2,10,2" Width ="60" Height="25" HorizontalAlignment="Right" Name ="PhotographerSaveButton" Content="Save"  Click="General_Savebutton_Click"/>
+                    <TabItem Header="Allgemein" Margin="-2,-2,-2,0" >
+                        <TabControl TabStripPlacement="Right">
+                            <TabItem Header="Anzeigen">
+                                <Grid Margin = "8,8,8,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
+                                    <TextBlock Grid.Row="1" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureViewModel.Title,  UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">FotografIn</TextBlock>
+                                    <TextBlock Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureViewModel.PhotographerFullName,  UpdateSourceTrigger=PropertyChanged}"  />
+                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Tags</TextBlock>
+                                    <TextBlock Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureViewModel.TagString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+                                </Grid>
+                            </TabItem>
                             
-                        </Grid>
+                            <TabItem Header="Bearbeiten">
+                                <Grid Margin = "8,8,8,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
+                                    <TextBlock Grid.Row="1" Margin="0,2,0,2" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">FotografIn</TextBlock>
+                                    <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text="{Binding pictureViewModel.Photographer.FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
+                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Tags</TextBlock>
+                                    <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text="{Binding pictureViewModel.TagString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TagsField" TextWrapping="Wrap"></TextBox>
+                                    <Button Grid.Row="7" Margin="0,2,10,2" Width ="60" Height="25" HorizontalAlignment="Right" Name ="PhotographerSaveButton" Content="Save"  Click="General_Savebutton_Click"/>
+
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+
+
                     </TabItem>
-                    <TabItem Header="IPTC" Margin="-2,-2,-2,0">
-                        <Grid Margin = "5,5,5,5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                            </Grid.RowDefinitions>
+                    <TabItem Header="IPTC" Margin="-2,-2,-2,0" >
+                         <TabControl TabStripPlacement="Right">
+                            <TabItem Header="Anzeigen">
+                                <Grid Margin = "8,8,8,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" FontWeight="Bold" Margin="1">Titel</TextBlock>
-                            <TextBox Grid.Row="1" Text ="{Binding Path=pictureInfoViewModel.Title,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "TitleField" Margin="1"/>
-                            <TextBlock Grid.Row="2" FontWeight="Bold" Margin="1">Urheber</TextBlock>
-                            <TextBox Grid.Row="3" Text ="{Binding Path=pictureInfoViewModel.Creator,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CreatorField" Margin="1"/>
-                            <TextBlock Grid.Row="4" FontWeight="Bold" Margin="1">Beschreibung</TextBlock>
-                            <TextBox Grid.Row="5" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" Margin="1" TextWrapping="Wrap" />
-                            <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" HorizontalAlignment="Right" Content="Save"  Click="IPTC_Savebutton_Click"/>
+                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
+                                    <TextBlock Grid.Row="1" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Title,  UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">Urheber</TextBlock>
+                                    <TextBlock Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Creator,  UpdateSourceTrigger=PropertyChanged}"  />
+                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Beschreibung</TextBlock>
+                                    <TextBlock Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Description, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+                                </Grid>
+                            </TabItem> 
+                           <TabItem Header="Bearbeiten">
+                                <Grid Margin = "8,8,8,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
 
-                        </Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
+                                    <TextBox Grid.Row="1" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Title,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "TitleField"/>
+                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">Urheber</TextBlock>
+                                    <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Creator,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CreatorField" />
+                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Beschreibung</TextBlock>
+                                    <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" TextWrapping="Wrap" />
+                                    <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Save"  Click="IPTC_Savebutton_Click"/>
+
+                                </Grid>
+                              </TabItem> 
+                        </TabControl>
                     </TabItem>
 
-                    <TabItem Header="EXIF" HorizontalAlignment="Right" Margin="0,-2,-2,0" Width="38" Height="20" VerticalAlignment="Top">
+                    <TabItem Header="EXIF"  Margin="-2,-2,-2,0" >
+                        <TabControl TabStripPlacement="Right">
+                            <TabItem Header="Anzeigen">
+                                <Grid Margin="8,8,8,8">
 
-                        <Grid Margin="5,5,5,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <!--<TextBlock Grid.Row="0" FontWeight="Bold">Kameramodell</TextBlock>
+                                    <!--<TextBlock Grid.Row="0" FontWeight="Bold">Kameramodell</TextBlock>
                             <TextBlock Grid.Row="1" Text="{Binding pictureInfoViewModel.Camera, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                             -->
-                            <Label Content= "Kameramodell"
+                                    <TextBlock Text= "Kameramodell"
                             FontWeight="Bold"
                             Grid.Column="0"
                             Grid.Row="0"
-                            BorderBrush="Black" Margin="0, -4, 0, -10">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Camera, UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBlock Text= "{Binding pictureInfoViewModel.Camera, UpdateSourceTrigger=PropertyChanged}"
                             Grid.Column="0"
                             Grid.Row="1"
-                            BorderBrush="Black" Margin="0, -4, 0, -4">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "Auflösung"
+                                    <TextBlock Text= "Auflösung"
                             FontWeight="Bold"
                             Grid.Column="0"
                             Grid.Row="2"
-                            BorderBrush="Black" Margin="0, -4, 0, -10">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Resolution, UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBlock Text= "{Binding pictureInfoViewModel.Resolution, UpdateSourceTrigger=PropertyChanged}"
                             Grid.Column="0"
                             Grid.Row="3"
-                            BorderBrush="Black" Margin="0, -4, 0, -4">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "Datum"
+                                    <TextBlock Text= "Datum"
                             FontWeight="Bold"
                             Grid.Column="0"
                             Grid.Row="4"
-                            BorderBrush="Black" Margin="0, -4, 0, -10">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Date, UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBlock Text= "{Binding pictureInfoViewModel.Date, UpdateSourceTrigger=PropertyChanged}"
                             Grid.Column="0"
                             Grid.Row="5"
-                            BorderBrush="Black" Margin="0, -4, 0, -4">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "Ort"
+                                    <TextBlock Text= "Ort"
                             FontWeight="Bold"
                             Grid.Column="0"
                             Grid.Row="6"
-                            BorderBrush="Black" Margin="0, -4, 0, -10">
-                            </Label>
+                             Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Place, UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBlock Text= "{Binding pictureInfoViewModel.Place, UpdateSourceTrigger=PropertyChanged}"
                             Grid.Column="0"
                             Grid.Row="7"
-                            BorderBrush="Black" Margin="0, -4, 0, -4">
-                            </Label>
+                            Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "Land"
+                                    <TextBlock Text= "Land"
                             FontWeight="Bold"
                             Grid.Column="0"
                             Grid.Row="8"
-                            BorderBrush="Black" Margin="0, -4, 0, -10">
-                            </Label>
+                             Margin="0,2,0,2">
+                                    </TextBlock>
 
-                            <Label Content= "{Binding pictureInfoViewModel.Country, UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBlock Text= "{Binding pictureInfoViewModel.Country, UpdateSourceTrigger=PropertyChanged}"
                             Grid.Column="0"
                             Grid.Row="9"
-                            BorderBrush="Black" Margin="0, -4, 0, -4">
-                            </Label>
+                             Margin="0,2,0,2">
+                                    </TextBlock>
 
-                        </Grid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Bearbeiten">
+                                <Grid Margin = "8,8,8,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Kameramodell</TextBlock>
+                                    <TextBox Grid.Row="1" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Camera,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CameraField"/>
+                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">Auflösung</TextBlock>
+                                    <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Resolution,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "ResolutionField" />
+                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Datum</TextBlock>
+                                    <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Date,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DateField" TextWrapping="Wrap" />
+                                    <TextBlock Grid.Row="6" FontWeight="Bold" Margin="0,2,0,2">Ort</TextBlock>
+                                    <TextBox Grid.Row="7" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Place,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PlaceField" TextWrapping="Wrap" />
+                                    <TextBlock Grid.Row="8" FontWeight="Bold" Margin="0,2,0,2">Land</TextBlock>
+                                    <TextBox Grid.Row="9" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Country,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="CountryField" TextWrapping="Wrap" />
+
+                                    <Button Grid.Row="10" Name ="EXIFSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Save"  Click="EXIF_Savebutton_Click"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
                     </TabItem>
                     
                 </TabControl>

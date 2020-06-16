@@ -2,6 +2,7 @@
 using SWE2_Projekt.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -14,12 +15,14 @@ namespace SWE2_Projekt.ViewModels
         private PictureModel _picture;
         private IPTCModel _iptc;
         private EXIFModel _exif;
+        private string _tagString;
 
         public PictureViewModel()
         {
             Picture = _businessLayer.SelectedPicture;
             IPTC = Picture.IPTC;
             EXIF = Picture.EXIF;
+            TagString = MakeTagString();
         }
 
         public PictureModel Picture
@@ -50,11 +53,21 @@ namespace SWE2_Projekt.ViewModels
             {
                 return _picture.Title;
             }
+            set
+            {
+                _picture.Title = value;
+                OnPropertyChanged(nameof(Title));
+            }
         }
 
         public PhotographerModel Photographer
         {
             get { return _picture.Photographer; }
+            set
+            {
+                _picture.Photographer = value;
+                OnPropertyChanged(nameof(Photographer));
+            }
         }
 
         public int Photographer_ID
@@ -65,6 +78,11 @@ namespace SWE2_Projekt.ViewModels
         public string PhotographerFullName
         {
             get { return _picture.Photographer.FullName; }
+            set
+            {
+                _picture.Photographer.FullName = value;
+                OnPropertyChanged(nameof(PhotographerFullName));
+            }
         }
 
         public string PicturePath
@@ -76,18 +94,35 @@ namespace SWE2_Projekt.ViewModels
 
         }
 
-        public string Tags
+        public ObservableCollection<string> Tags
         {
-            get
+            get { return _picture.Tags; }
+            set
             {
-                string auxTags = "";
-                foreach(string Tag in _picture.Tags)
-                {
-                    auxTags += (Tag + ", ");
-                }
-                auxTags = auxTags.Remove(auxTags.Length - 2);
-                return auxTags;
+                _picture.Tags = value;
+                TagString = MakeTagString();
+                OnPropertyChanged(nameof(Tags));
             }
+        }
+
+        public string TagString
+        {
+            get { return _tagString; }
+            set {
+                _tagString = value;
+                OnPropertyChanged(nameof(TagString));
+            }
+        }
+
+        public string MakeTagString()
+        {
+            string auxTags = "";
+            foreach (string Tag in Tags)
+            {
+                auxTags += (Tag + ", ");
+            }
+            auxTags = auxTags.Remove(auxTags.Length - 2);
+            return auxTags;
         }
     }
 }

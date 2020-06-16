@@ -806,7 +806,7 @@ namespace SWE2_Projekt
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("INSERT INTO EXIF (Kameramodell, Auflösung, Datum, Ort, Land) VALUES (@Kameramodell, @Auflösung, @Datum, @Ort, @Land) WHERE ID_EXIF IS @ID_EXIF", connection);
+                command = new SqlCommand("UPDATE EXIF SET Kameramodell = @Kameramodell, Auflösung=@Auflösung, Datum=@Datum, Ort=@Ort, Land=@Land  WHERE ID_EXIF = @ID_EXIF", connection);
                 command.Parameters.AddWithValue("@Kameramodell", data[0]);
                 command.Parameters.AddWithValue("@Auflösung", data[1]);
                 command.Parameters.AddWithValue("@Datum", Convert.ToDateTime(data[2]));
@@ -844,7 +844,6 @@ namespace SWE2_Projekt
         public void AddTagToPicture(int picID , string Tag)
         {
             int tagID = -1;
-            bool exists = true;
 
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {

@@ -15,14 +15,14 @@ namespace SWE2_Projekt.ViewModels
 {
     public class PhotographerListViewModel: ViewModel, INotifyPropertyChanged
     {
-        private PhotographerModel _photographer;
+        private PhotographerModel _selectedPhotographer;
         private ObservableCollection<PhotographerModel> _photographerModelList;
         private BusinessLayer _businessLayer = new BusinessLayer();
 
         public PhotographerListViewModel()
         {
             PhotographerModelList = _businessLayer.PhotographerModelList;
-            Photographer = _businessLayer.SelectedPhotographer;
+            SelectedPhotographer = _businessLayer.SelectedPhotographer;
             //Console.WriteLine(SelectedPhotographer.FirstName);
         }
 
@@ -32,23 +32,18 @@ namespace SWE2_Projekt.ViewModels
             set { _photographerModelList = value; }
         }
 
-        public PhotographerModel Photographer
-        {
-            get { return _photographer; }
-            set { _photographer = value; }
-        }
 
         public PhotographerModel SelectedPhotographer
         {
             get
             {
-                return _photographer;
+                return _selectedPhotographer;
             }
             set
             {
-                if (_photographer != value)
+                if (_selectedPhotographer != value)
                 {
-                    _photographer = value;
+                    _selectedPhotographer = value;
                     //Console.WriteLine(SelectedPhotographer.FirstName);
                     OnPropertyChanged(nameof(SelectedPhotographer));
                 }

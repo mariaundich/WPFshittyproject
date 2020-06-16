@@ -26,7 +26,6 @@ namespace SWE2_Projekt
             _DataAccessLayer = new DataAccessLayer();
             //_DataAccessLayer.InsertPhotographerToPicture();
             PictureModelList = CreatePictureModelList();
-            _selectedPicture = PictureModelList[0];
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
             SelectedPhotographer = PhotographerModelList[0];
@@ -102,6 +101,11 @@ namespace SWE2_Projekt
                 auxPhotographerModelList.Add(photographer);
             }
             return auxPhotographerModelList;
+        }
+
+        public void EditEXIF(int id, List<string> data)
+        {
+            _DataAccessLayer.EditEXIF(id, data);
         }
 
         public void EditIPTC(int id, List<string> data)

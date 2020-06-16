@@ -18,6 +18,7 @@ namespace SWE2_Projekt.ViewModels
         public PictureInfoViewModel()
         {
             IPTCModel = _businessLayer.SelectedPicture.IPTC;
+            Console.WriteLine("Im PictureInfoViewModel Konstruktor - Creator ist " + IPTCModel.Creator);
             EXIFModel = _businessLayer.SelectedPicture.EXIF;
             PhotographerModelList = _businessLayer.PhotographerModelList;
             SelectedPhotographerInInfo = _businessLayer.SelectedPicture.Photographer;
@@ -51,41 +52,81 @@ namespace SWE2_Projekt.ViewModels
         public string Title
         {
             get { return _iptcModel.Title; }
+            set 
+            { 
+                _iptcModel.Title = value;
+                OnPropertyChanged(nameof(Title));
+            }
         }
 
         public string Creator
         {
             get { return _iptcModel.Creator; }
+            set
+            {
+                _iptcModel.Creator = value;
+                OnPropertyChanged(nameof(Creator));
+            }
         }
 
         public string Description
         {
-            get { return _iptcModel.Description; } 
+            get { return _iptcModel.Description; }
+            set
+            {
+                _iptcModel.Description = value;
+                OnPropertyChanged(nameof(Description));
+            }
         }
 
         public string Camera
         {
             get { return _exifModel.Camera; }
+            set
+            {
+                _exifModel.Camera = value;
+                OnPropertyChanged(nameof(Camera));
+            }
         }
 
         public string Resolution
         {
             get { return _exifModel.Resolution; }
+            set
+            {
+                _exifModel.Resolution = value;
+                OnPropertyChanged(nameof(Resolution));
+            }
         }
 
         public string Date
         {
             get { return _exifModel.Date; }
+            set
+            {
+                _exifModel.Date = value;
+                OnPropertyChanged(nameof(Date));
+            }
         }
 
         public string Place
         {
             get { return _exifModel.Place; }
+            set
+            {
+                _exifModel.Place = value;
+                OnPropertyChanged(nameof(Place));
+            }
         }
 
         public string Country
         {
             get { return _exifModel.Country; }
+            set
+            {
+                _exifModel.Camera = value;
+                OnPropertyChanged(nameof(Camera));
+            }
         }
 
 

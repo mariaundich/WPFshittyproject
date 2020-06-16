@@ -16,6 +16,7 @@
                       x:FieldModifier="public"
                       ItemsSource="{Binding pictureListViewModel.PictureModelList}"
                       SelectedItem="{Binding pictureListViewModel.SelectedImage}"
+                      SelectedIndex ="0"
                       >
 
                 <ListView.ItemsPanel>

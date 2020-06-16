@@ -21,7 +21,6 @@ namespace SWE2_Projekt
 
         private BusinessLayer _businessLayer;
 
-        public PictureModel SelectedPicture;
 
         ICommand _editIPTC;
 
@@ -54,8 +53,6 @@ namespace SWE2_Projekt
             _businessLayer.AddTagToPicture("stunt-cat.png", "Stunt");
             _businessLayer.AddTagToPicture("stunt-cat.png", "Cape");*/
 
-            SelectedPicture = _businessLayer.SelectedPicture;
-
             pictureInfoViewModel = new PictureInfoViewModel();
 
             pictureViewModel = new PictureViewModel();
@@ -70,6 +67,7 @@ namespace SWE2_Projekt
                 {
                     case nameof(PictureListViewModel.SelectedImage):
                         pictureViewModel.Picture = pictureListViewModel.SelectedImage;
+                        pictureViewModel.TagString = pictureViewModel.MakeTagString();
                         OnPropertyChanged(nameof(pictureViewModel));
                         pictureInfoViewModel.IPTCModel = pictureListViewModel.SelectedImage.IPTC;
                         pictureInfoViewModel.EXIFModel = pictureListViewModel.SelectedImage.EXIF;

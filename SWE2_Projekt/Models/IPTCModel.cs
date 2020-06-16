@@ -46,7 +46,9 @@ namespace SWE2_Projekt.Models
         public string Creator
         {
             get { return _creator; }
-            set { _creator = value;  }
+            set { _creator = value;
+                NotifyPropertyChanged(nameof(Creator));
+            }
         }
 
         public string Description

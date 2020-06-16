@@ -57,6 +57,7 @@ namespace SWE2_Projekt.Models
             set
             {
                 _title = value;
+                NotifyPropertyChanged(nameof(Title));
             }
         }
 

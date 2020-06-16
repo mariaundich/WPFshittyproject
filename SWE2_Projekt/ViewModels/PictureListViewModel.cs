@@ -16,7 +16,7 @@ namespace SWE2_Projekt.ViewModels
 {
     public class PictureListViewModel : ViewModel, INotifyPropertyChanged
     {
-        private PictureModel _pictureModel;
+        private PictureModel _selectedImage;
         private ObservableCollection<PictureModel> _pictureModelList;
         private BusinessLayer _businessLayer = new BusinessLayer();
 
@@ -36,13 +36,13 @@ namespace SWE2_Projekt.ViewModels
         {
             get
             {
-                return _pictureModel;
+                return _selectedImage;
             }
             set
             {
-                if (_pictureModel != value)
+                if (_selectedImage != value)
                 {
-                    _pictureModel = value;
+                    _selectedImage = value;
                     OnPropertyChanged(nameof(SelectedImage));
                 }
             }
