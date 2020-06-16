@@ -19,8 +19,6 @@
                 <MenuItem Header="_File" Click="MenuItem_Click">
                     <MenuItem Header="_Bericht für aktuelles Bild erstellen" Click="BerichtErstellen" />
                     <MenuItem Header="_Tag-Bericht erstellen" Click="TagBerichtErstellen" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
                 </MenuItem>
 
                 <MenuItem Header="_Edit">

@@ -36,7 +36,7 @@
                                     <TextBlock Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureViewModel.TagString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
                                 </Grid>
                             </TabItem>
-                            
+
                             <TabItem Header="Bearbeiten">
                                 <Grid Margin = "8,8,8,8">
                                     <Grid.RowDefinitions>
@@ -64,7 +64,7 @@
 
                     </TabItem>
                     <TabItem Header="IPTC" Margin="-2,-2,-2,0" >
-                         <TabControl TabStripPlacement="Right">
+                        <TabControl TabStripPlacement="Right">
                             <TabItem Header="Anzeigen">
                                 <Grid Margin = "8,8,8,8">
                                     <Grid.RowDefinitions>
@@ -88,8 +88,8 @@
                                     <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Beschreibung</TextBlock>
                                     <TextBlock Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Description, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
                                 </Grid>
-                            </TabItem> 
-                           <TabItem Header="Bearbeiten">
+                            </TabItem>
+                            <TabItem Header="Bearbeiten">
                                 <Grid Margin = "8,8,8,8">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"></RowDefinition>
@@ -115,7 +115,7 @@
                                     <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Save"  Click="IPTC_Savebutton_Click"/>
 
                                 </Grid>
-                              </TabItem> 
+                            </TabItem>
                         </TabControl>
                     </TabItem>
 
@@ -224,26 +224,27 @@
                                     </Grid.RowDefinitions>
 
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="32*"></ColumnDefinition>
+                                        <ColumnDefinition Width="669*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Kameramodell</TextBlock>
-                                    <TextBox Grid.Row="1" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Camera,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CameraField"/>
-                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">Auflösung</TextBlock>
-                                    <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Resolution,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "ResolutionField" />
-                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Datum</TextBlock>
-                                    <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Date,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DateField" TextWrapping="Wrap" />
-                                    <TextBlock Grid.Row="6" FontWeight="Bold" Margin="0,2,0,2">Ort</TextBlock>
-                                    <TextBox Grid.Row="7" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Place,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PlaceField" TextWrapping="Wrap" />
-                                    <TextBlock Grid.Row="8" FontWeight="Bold" Margin="0,2,0,2">Land</TextBlock>
-                                    <TextBox Grid.Row="9" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Country,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="CountryField" TextWrapping="Wrap" />
+                                    <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2" Grid.ColumnSpan="2">Kameramodell</TextBlock>
+                                    <TextBox Grid.Row="1" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Camera,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CameraField" Grid.ColumnSpan="2"/>
+                                    <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2" Grid.ColumnSpan="2">Auflösung</TextBlock>
+                                    <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Resolution,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "ResolutionField" Grid.ColumnSpan="2" />
+                                    <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2" Grid.ColumnSpan="2">Datum</TextBlock>
+                                    <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Date,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DateField" TextWrapping="Wrap" Grid.ColumnSpan="2" />
+                                    <TextBlock Grid.Row="6" FontWeight="Bold" Margin="0,2,0,2" Grid.ColumnSpan="2">Ort</TextBlock>
+                                    <TextBox Grid.Row="7" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Place,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PlaceField" TextWrapping="Wrap" Grid.ColumnSpan="2" />
+                                    <TextBlock Grid.Row="8" FontWeight="Bold" Margin="0,2,0,2" Grid.ColumnSpan="2">Land</TextBlock>
+                                    <TextBox Grid.Row="9" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Country,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="CountryField" TextWrapping="Wrap" Grid.ColumnSpan="2" />
 
-                                    <Button Grid.Row="10" Name ="EXIFSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Save"  Click="EXIF_Savebutton_Click"/>
+                                    <Button Grid.Row="10" Name ="EXIFSaveButton" Width ="60" Height="25" Margin="599,2,0,2" HorizontalAlignment="Left" Content="Save"  Click="EXIF_Savebutton_Click" Grid.Column="1"/>
                                 </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
-                    
+
                 </TabControl>
             </Grid>
         </Border>
