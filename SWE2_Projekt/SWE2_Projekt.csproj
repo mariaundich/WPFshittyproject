@@ -4,8 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon />
+    <ApplicationIcon></ApplicationIcon>
     <StartupObject />
+    <Win32Resource />
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="PDF_Reports\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>
