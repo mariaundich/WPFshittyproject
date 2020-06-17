@@ -34,12 +34,8 @@
                     <MenuItem Header="_FotografInnen" Click="FotografInnenPopup"/>
                 </MenuItem>
 
-                <MenuItem Header="_Help" HorizontalAlignment="Right">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
+                <MenuItem Header="_Help" HorizontalAlignment="Right" Click="MenuItem_Click">
+                    <MenuItem Header="_Bedienungshinweis öffnen" Click="HowToPopup"/>
                 </MenuItem>
             </Menu>
 

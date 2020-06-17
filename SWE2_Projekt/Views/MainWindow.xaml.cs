@@ -94,5 +94,12 @@ namespace SWE2_Projekt
                 MessageBox.Show("Bericht wurde erstellt und gespeichert.", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void HowToPopup(object sender, RoutedEventArgs e)
+        {
+            string text = "Du kannst die Informationen, die dir rechts neben den Bildern angesezigt werden, bearbeiten. Du kannst zum Beispiel den zugeordneten Fotografen ändern oder die Tags eines Bildes bearbeiten.";
+            HowTo window = new HowTo(text);
+            window.Show();
+        }
     }
 }
