@@ -48,11 +48,13 @@
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" FontWeight="Bold" Margin="0,2,0,2">Titel</TextBlock>
-                                    <TextBlock Grid.Row="1" Margin="0,2,0,2" Text="{Binding pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                    <TextBlock Grid.Row="1" Margin="0,2,0,2" Text="{Binding Path=pictureViewModel.Title, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                                     <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0,2,0,2">FotografIn</TextBlock>
-                                    <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text="{Binding pictureViewModel.Photographer.FullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBox>
+                                    <!-- <TextBlock Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text="{Binding pictureViewModel.SelectedPhotographerName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="PhotographerField"></TextBlock> -->
+                                    <ComboBox Grid.Row="3" Name="PhotographerField" ItemsSource="{Binding photographerListViewModel.PhotographerModelList}" DisplayMemberPath="FullName" SelectedValue="{Binding pictureViewModel.SelectedPhotographerName, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="FullName" IsSynchronizedWithCurrentItem="True"/>
                                     <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Tags</TextBlock>
                                     <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text="{Binding pictureViewModel.TagString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="TagsField" TextWrapping="Wrap"></TextBox>
                                     <Button Grid.Row="7" Margin="0,2,10,2" Width ="60" Height="25" HorizontalAlignment="Right" Name ="PhotographerSaveButton" Content="Save"  Click="General_Savebutton_Click"/>
@@ -112,7 +114,7 @@
                                     <TextBox Grid.Row="3" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Creator,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}" Name = "CreatorField" />
                                     <TextBlock Grid.Row="4" FontWeight="Bold" Margin="0,2,0,2">Beschreibung</TextBlock>
                                     <TextBox Grid.Row="5" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Description,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="DescriptionField" TextWrapping="Wrap" />
-                                    <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Save"  Click="IPTC_Savebutton_Click"/>
+                                    <Button Grid.Row="7" Name ="IPTCSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Speichern"  Click="IPTC_Savebutton_Click"/>
 
                                 </Grid>
                             </TabItem>
@@ -239,7 +241,7 @@
                                     <TextBlock Grid.Row="8" FontWeight="Bold" Margin="0,2,0,2" Grid.ColumnSpan="2">Land</TextBlock>
                                     <TextBox Grid.Row="9" Margin="0,2,0,2" Padding="0,2,0,2" Text ="{Binding Path=pictureInfoViewModel.Country,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="CountryField" TextWrapping="Wrap" Grid.ColumnSpan="2" />
 
-                                    <Button Grid.Row="10" Name ="EXIFSaveButton" Width ="60" Height="25" Margin="599,2,0,2" HorizontalAlignment="Left" Content="Save"  Click="EXIF_Savebutton_Click" Grid.Column="1"/>
+                                    <Button Grid.Row="10" Name ="EXIFSaveButton" Width ="60" Height="25" Margin="0,2,10,2" HorizontalAlignment="Right" Content="Speichern"  Click="EXIF_Savebutton_Click" Grid.Column="1"/>
                                 </Grid>
                             </TabItem>
                         </TabControl>

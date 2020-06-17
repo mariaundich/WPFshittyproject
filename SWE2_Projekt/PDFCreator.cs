@@ -55,9 +55,16 @@ namespace SWE2_Projekt
                             XLinearGradientMode.ForwardDiagonal),
                         rect);
                 gfx.DrawString(title, font_header, XBrushes.Black, rect, XStringFormats.TopCenter);
-                DrawImage(gfx, page, file);
 
-                rect = new XRect(0, image.PixelHeight, page.Width, 400);
+                double ratio = image.Width / image.Height;
+
+                double newHeight = 200;
+
+                double newWidth = 200 * ratio;
+
+                gfx.DrawImage(image, page.Width / 2 - newWidth / 2, 50, newWidth, newHeight);
+
+                rect = new XRect(0, newHeight + 60, page.Width, 400);
                 gfx.DrawRectangle(XBrushes.White, rect);
                 tf.Alignment = XParagraphAlignment.Center;
                 tf.DrawString(INFO, font_text, XBrushes.Black, rect, XStringFormats.TopLeft);
@@ -135,12 +142,6 @@ namespace SWE2_Projekt
                 document.Save(CompletePath);
             }
             return true;
-        }
-
-        private void DrawImage(XGraphics gfx, PdfPage page, string file)
-        {
-            XImage image = XImage.FromFile(file);
-            gfx.DrawImage(image, image.PixelWidth, 70);
         }
     }
 }

@@ -48,13 +48,50 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
-       public void UpdateImageList(string search)
+        public void RefreshImageList()
         {
 
-            
+            var allPictureModels = _businessLayer.CreatePictureModelList();
+            var updatedCurrentPictureModels = new ObservableCollection<PictureModel>();
+
+            foreach (var pic in _pictureModelList)
+            {
+                foreach (var newPic in allPictureModels)
+                {
+                    if (newPic.Title == pic.Title)
+                    {
+                        updatedCurrentPictureModels.Add(newPic);
+                        break;
+                    }
+                }
+            }
+
+            int lastIndex = _pictureModelList.Count - 1;
+
+            foreach (var pic in updatedCurrentPictureModels)
+            {
+                _pictureModelList.Add(pic);
+            }
+
+            for (int i = lastIndex; i < _pictureModelList.Count - 1; i++)
+            {
+                if (_pictureModelList[i].Title == SelectedImage.Title)
+                {
+                    SelectedImage = _pictureModelList[i];
+                }
+            }
+
+            for (var i = lastIndex; i >= 0; i--)
+            {
+                _pictureModelList.RemoveAt(i);
+            }
+
+        }
+
+       public void UpdateImageList(string search)
+        {
             // If the search button was pressed while the search field is empty, show all images.
              
-
             if (search.Length == 0)
             {
 
@@ -111,40 +148,6 @@ namespace SWE2_Projekt.ViewModels
                 }
             }
         }
-
-        /*public List<IPTCModel> IPTCModelList
-        {
-            set
-            {
-                _iptcModelList = _businessLayer.AllIPTCModels();
-            }
-        }*/
-
-        /*public ObservableCollection<PictureViewModel> PictureViewModelList
-        {
-            set
-            {
-                if (_pictureViewModelList == null)
-                {
-                    _pictureViewModelList = new ObservableCollection<PictureViewModel>();
-                    foreach (var pictureModel in _businessLayer.AllPictureModels())
-                    {
-                        IPTCModel auxIPTCModel = null;
-                        foreach (var iptcModel in _iptcModelList)
-                        {
-                            if(iptcModel.ID == pictureModel.IPTC)
-                            {
-                                auxIPTCModel = iptcModel;
-                                break;
-                            }
-                        }
-                        _pictureViewModelList.Add(new PictureViewModel(pictureModel, auxIPTCModel));
-                    }
-
-                }
-            }
-            get { return _pictureViewModelList; }
-        }*/
 
     }
 }

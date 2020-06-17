@@ -68,7 +68,9 @@ namespace SWE2_Projekt
                     case nameof(PictureListViewModel.SelectedImage):
                         pictureViewModel.Picture = pictureListViewModel.SelectedImage;
                         pictureViewModel.TagString = pictureViewModel.MakeTagString();
+                        pictureViewModel.SelectedPhotographerName = pictureViewModel.Picture.Photographer.FullName;
                         OnPropertyChanged(nameof(pictureViewModel));
+
                         pictureInfoViewModel.IPTCModel = pictureListViewModel.SelectedImage.IPTC;
                         pictureInfoViewModel.EXIFModel = pictureListViewModel.SelectedImage.EXIF;
                         OnPropertyChanged(nameof(pictureInfoViewModel));

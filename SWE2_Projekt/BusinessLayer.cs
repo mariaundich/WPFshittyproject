@@ -24,7 +24,6 @@ namespace SWE2_Projekt
         {
             
             _DataAccessLayer = new DataAccessLayer();
-            _DataAccessLayer.InsertPhotographerToPicture();
             PictureModelList = CreatePictureModelList();
             PhotographerModelList = CreatePhotographerModelList();
             SelectedPicture = PictureModelList[0];
@@ -75,7 +74,7 @@ namespace SWE2_Projekt
                 pictureModel.EXIF = auxEXIFModel;
 
                 PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
-                Console.WriteLine("Geburtstag in BL: "+auxPhotographerModel.Birthday);
+                Console.WriteLine("Name aus dem BL: " + auxPhotographerModel.FullName);
                 pictureModel.Photographer = auxPhotographerModel;
 
                 ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);
