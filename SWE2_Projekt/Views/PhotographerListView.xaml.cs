@@ -42,8 +42,7 @@ namespace SWE2_Projekt.Views
             int id = ((MainWindowViewModel)DataContext).photographerListViewModel.SelectedPhotographer.ID;
 
             ((MainWindowViewModel)DataContext).photographerListViewModel.EditPhotographer(id, data);
-
-            MessageBox.Show("Die Daten wurden bearbeitet.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            ((MainWindowViewModel)DataContext).pictureListViewModel.RefreshImageList();
         }
     }
 }

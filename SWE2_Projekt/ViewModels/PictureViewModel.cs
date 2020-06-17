@@ -16,10 +16,12 @@ namespace SWE2_Projekt.ViewModels
         private IPTCModel _iptc;
         private EXIFModel _exif;
         private string _tagString;
+        private string _selectedPhotographerName;
 
         public PictureViewModel()
         {
             Picture = _businessLayer.SelectedPicture;
+            _selectedPhotographerName = _picture.Photographer.FullName;
             IPTC = Picture.IPTC;
             EXIF = Picture.EXIF;
             TagString = MakeTagString();
@@ -82,6 +84,16 @@ namespace SWE2_Projekt.ViewModels
             {
                 _picture.Photographer.FullName = value;
                 OnPropertyChanged(nameof(PhotographerFullName));
+            }
+        }
+
+        public string SelectedPhotographerName
+        {
+            get { return _selectedPhotographerName ?? ""; }
+            set
+            {
+                _selectedPhotographerName = value;
+                OnPropertyChanged(nameof(SelectedPhotographerName));
             }
         }
 
