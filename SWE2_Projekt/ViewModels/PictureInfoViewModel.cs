@@ -40,7 +40,9 @@ namespace SWE2_Projekt.ViewModels
         public ObservableCollection<PhotographerModel> PhotographerModelList
         {
             get { return _photographerModelList; }
-            set { _photographerModelList = value; }
+            set { _photographerModelList = value;
+                OnPropertyChanged(nameof(PhotographerModelList));
+                }
         }
 
        public PhotographerModel SelectedPhotographerInInfo

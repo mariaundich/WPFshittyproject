@@ -1,4 +1,5 @@
-﻿using SWE2_Projekt.ViewModels;
+﻿using SWE2_Projekt.Models;
+using SWE2_Projekt.ViewModels;
 using SWE2_Projekt.Views;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,27 @@ namespace SWE2_Projekt.Views
 
             ((MainWindowViewModel)DataContext).photographerListViewModel.EditPhotographer(id, data);
             ((MainWindowViewModel)DataContext).pictureListViewModel.RefreshImageList();
+            MessageBox.Show("Die Daten wurden bearbeitet.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            string AddFirstName = AddFirstNameField.Text;
+            string AddLastName = AddLastNameField.Text;
+            string AddBirthday = AddBirthdayField.Text;
+            string AddNotes = AddNotesField.Text;
+
+            data.Add(AddFirstName);
+            data.Add(AddLastName);
+            data.Add(AddBirthday);
+            data.Add(AddNotes);
+
+            bool SuccessfullyAdded = ((MainWindowViewModel)DataContext).photographerListViewModel.AddPhotographer(data);
+            if (SuccessfullyAdded)
+            {
+                MessageBox.Show("Die FotografIn wurde hinzugefügt.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

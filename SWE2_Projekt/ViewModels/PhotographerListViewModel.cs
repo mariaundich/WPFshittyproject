@@ -28,7 +28,9 @@ namespace SWE2_Projekt.ViewModels
         public ObservableCollection<PhotographerModel> PhotographerModelList
         {
             get { return _photographerModelList; }
-            set { _photographerModelList = value; }
+            set { _photographerModelList = value;
+                OnPropertyChanged(nameof(PhotographerModelList));
+            }
         }
 
 
@@ -66,8 +68,27 @@ namespace SWE2_Projekt.ViewModels
             {
                 MessageBox.Show("Ein Nachname wird benötigt und der Geburtstag muss vor dem heutigen Datum liegen!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            
+        }
 
+        public bool AddPhotographer(List<string> data)
+        {
+            bool WasAdded = false; 
+            if (data[1] != "" &&
+                DateTime.Compare(DateTime.Today, Convert.ToDateTime(data[2])) > 0)
+            {
+                Console.WriteLine("In the adding condition");
+                PhotographerModel newPhotographerModel = _businessLayer.AddAndReturnPhotographer(data);
+                //Console.WriteLine("ID of the new Photographer: " + newPhotographerModel.ID);
+                _photographerModelList.Add(newPhotographerModel);
+                
+                WasAdded = true;
+            }
+            else
+            {
+                MessageBox.Show("Ein Nachname wird benötigt und der Geburtstag muss vor dem heutigen Datum liegen!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            return WasAdded;
         }
     }
 }

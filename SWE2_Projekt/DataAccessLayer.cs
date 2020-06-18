@@ -737,23 +737,47 @@ namespace SWE2_Projekt
             }
         }
 
-        public void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen)
+        public PhotographerModel AddAndReturnPhotographer(string Vorname, string Nachname, string Geburtsdatum, string Notizen)
         {
+            int NewPhotographerID = -1;
+            PhotographerModel NewPhotographerModel = null;
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
                 Console.WriteLine("Opening PicDB Connection!");
                 connection.Open();
                 Console.WriteLine("Connected to PicDB!\n");
 
-                command = new SqlCommand("INSERT INTO FotografInnen(Vorname, Nachname, Geburtsdatum, Notiz) VALUES(@Vorname, @Nachname, @Geburtsdatum, @Notiz)", connection);
+                command = new SqlCommand("INSERT INTO FotografInnen(Vorname, Nachname, Geburtsdatum, Notiz) VALUES(@Vorname, @Nachname, @Geburtsdatum, @Notiz)" + "SELECT CAST(SCOPE_IDENTITY() AS INT) AS Scope_IDENTITY", connection);
                 command.Parameters.AddWithValue("@Vorname", Vorname);
                 command.Parameters.AddWithValue("@Nachname", Nachname);
-                command.Parameters.AddWithValue("@Geburtsdatum", Geburtsdatum);
+                command.Parameters.AddWithValue("@Geburtsdatum", DateTime.Parse(Geburtsdatum));
                 command.Parameters.AddWithValue("@Notiz", Notizen);
 
-                command.ExecuteNonQuery();
+                using (SqlDataReader rd = command.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (!rd.IsDBNull(0))
+                        {
+                            NewPhotographerID = rd.GetInt32(0);
+                        }
+                    }
+                }
+
                 connection.Close();
             }
+
+            if(NewPhotographerID != -1)
+            {
+                Console.WriteLine("Making the new photographer model in the DAL with ID " + NewPhotographerID);
+                NewPhotographerModel = new PhotographerModel(NewPhotographerID, Vorname, Nachname, Geburtsdatum, Notizen);
+            }
+            else
+            {
+                Console.WriteLine("The photographer couldn't be added to the database or the ID couldn't be returned correctly");
+            }
+            
+            return NewPhotographerModel;
         }
 
         public void EditPhotographer(int ID, List<string> Data)

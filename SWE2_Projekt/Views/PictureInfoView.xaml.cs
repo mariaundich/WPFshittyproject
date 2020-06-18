@@ -60,7 +60,7 @@ namespace SWE2_Projekt.Views
             {
                 Console.WriteLine("hey binch!");
 
-                foreach (var Photographer in ((MainWindowViewModel)DataContext).pictureInfoViewModel.PhotographerModelList)
+                foreach (var Photographer in ((MainWindowViewModel)DataContext).photographerListViewModel.PhotographerModelList)
                 {
                     if (Photographer.FullName == PhotographerInput)
                     {
@@ -76,10 +76,6 @@ namespace SWE2_Projekt.Views
                     ((MainWindowViewModel)DataContext).pictureViewModel.PhotographerFullName = newPhotographer.FirstName + " " + newPhotographer.LastName;
 
                     PhotographerEdited = true;
-                }
-                else
-                {
-                    MessageBox.Show("Das ist kein gültiger Name einer FotografIn", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             
@@ -115,7 +111,7 @@ namespace SWE2_Projekt.Views
             }
             else
             {
-                MessageBox.Show("Schreibe deine Änderungen in eines der Textfelder um sie zu speichern.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Bitte gib neue Daten ein, wenn du etwas bearbeiten willst.", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             
         }

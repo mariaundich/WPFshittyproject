@@ -82,6 +82,7 @@ namespace SWE2_Projekt
 
                 ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);
                 pictureModel.Tags = auxTags;
+                pictureModel.Tags = auxTags;
 
                 auxPictureModelList.Add(pictureModel);
             }
@@ -201,6 +202,13 @@ namespace SWE2_Projekt
             {
                 _DataAccessLayer.AddTagToPicture(PictureID, Tag);
             }
+        }
+
+        public PhotographerModel AddAndReturnPhotographer(List<string> data)
+        {
+            PhotographerModel newPhotographer = _DataAccessLayer.AddAndReturnPhotographer(data[0], data[1], data[2], data[3]);
+            //Console.WriteLine("newPhotographer im BL, ID: " + newPhotographer.ID);
+            return newPhotographer;
         }
     }
 }

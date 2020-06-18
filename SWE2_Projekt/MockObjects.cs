@@ -31,12 +31,13 @@ namespace SWE2_Projekt
             EXIFList.Clear();
         }
 
-        public void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen)
+        public PhotographerModel AddAndReturnPhotographer(string Vorname, string Nachname, string Geburtsdatum, string Notizen)
         {
             string geb = Geburtsdatum.ToString();
             PhotographerModel photographer = new PhotographerModel(i, Vorname, Nachname, geb, Notizen);
             PhotographerList.Add(photographer);
             i++;
+            return photographer;
         }
 
         public void AddTagToPicture(int PicID, string Tag)

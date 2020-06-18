@@ -22,7 +22,7 @@
                       ScrollViewer.PanningMode="VerticalOnly" 
                       x:Name="photographerListView" 
                       x:FieldModifier="public"
-                      ItemsSource="{Binding photographerListViewModel.PhotographerModelList}"
+                      ItemsSource="{Binding photographerListViewModel.PhotographerModelList, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding photographerListViewModel.SelectedPhotographer}"
                       >
                 <ListView.View>
@@ -105,6 +105,36 @@
                         <TextBox Grid.Row="7" Text ="{Binding Path=photographerListViewModel.SelectedPhotographer.Notes,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Name="NotesField" Margin="1" TextWrapping="Wrap" />
 
                         <Button Grid.Row="8" Name ="SaveButton" Content="Save" Margin="1" Click="Savebutton_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Hinzufügen">
+                    <Grid Margin = "5,5,5,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Margin="1">Vorname</TextBlock>
+                        <TextBox Grid.Row="1"  Name = "AddFirstNameField" Margin="1"/>
+                        <TextBlock Grid.Row="2" Margin="1">Nachname</TextBlock>
+                        <TextBox Grid.Row="3"  Name = "AddLastNameField" Margin="1"/>
+                        <TextBlock Grid.Row="4" Margin="1">Geburtstag</TextBlock>
+                        <TextBox Grid.Row="5"  Name="AddBirthdayField" Margin="1"/>
+                        <TextBlock Grid.Row="6" Margin="1">Notiz</TextBlock>
+                        <TextBox Grid.Row="7"  Name="AddNotesField" Margin="1" TextWrapping="Wrap" />
+
+                        <Button Grid.Row="8" Name ="AddButton" Content="Hinzufügen" Margin="1" Click="AddButton_Click"/>
                     </Grid>
                 </TabItem>
             </TabControl>

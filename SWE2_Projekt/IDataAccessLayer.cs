@@ -70,7 +70,7 @@ namespace SWE2_Projekt
         /// <param name="Nachname"></param>
         /// <param name="Geburtsdatum"></param>
         /// <param name="Notizen"></param>
-        void AddPhotographer(string Vorname, string Nachname, DateTime Geburtsdatum, string Notizen);
+        PhotographerModel AddAndReturnPhotographer(string Vorname, string Nachname, string Geburtsdatum, string Notizen);
 
         /// <summary>
         /// Edits a specific photographer.
