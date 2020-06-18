@@ -44,7 +44,6 @@ namespace SWE2_Projekt.Views
 
             ((MainWindowViewModel)DataContext).photographerListViewModel.EditPhotographer(id, data);
             ((MainWindowViewModel)DataContext).pictureListViewModel.RefreshImageList();
-            MessageBox.Show("Die Daten wurden bearbeitet.", "", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

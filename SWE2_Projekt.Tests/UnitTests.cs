@@ -188,8 +188,7 @@ namespace SWE2_Projekt
         public void AddPhotographer()
         {
             MockDAL mock = new MockDAL();
-            DateTime date = new DateTime();
-            mock.AddPhotographer("Bruce", "Wayne", date, "");
+            mock.AddAndReturnPhotographer("Bruce", "Wayne", "14.01.1993", "");
 
             Assert.That(mock.PhotographerList.Count, Is.EqualTo(1));
         }
@@ -198,14 +197,13 @@ namespace SWE2_Projekt
         public void GetAllPhotographersData()
         {
             MockDAL mock = new MockDAL();
-            DateTime date = new DateTime();
             Dictionary<int, List<string>> allPhotographers = new Dictionary<int, List<string>>();
             mock.InsertAllPictures();
             mock.InsertAllEXIFData();
             mock.InsertAllIPTCData();
-            mock.AddPhotographer("Bruce", "Wayne", date, "");
-            mock.AddPhotographer("Homer", "Simpson", date, "");
-            mock.AddPhotographer("Peter", "Griffin", date, "");
+            mock.AddAndReturnPhotographer("Bruce", "Wayne", "01.19.2011", "");
+            mock.AddAndReturnPhotographer("Homer", "Simpson", "01.19.2011", "");
+            mock.AddAndReturnPhotographer("Peter", "Griffin", "01.19.2011", "");
 
             allPhotographers = mock.GetAllPhotographers();
 
@@ -216,11 +214,10 @@ namespace SWE2_Projekt
         public void AssignPhotographerToPicture()
         {
             MockDAL mock = new MockDAL();
-            DateTime date = new DateTime();
             mock.InsertAllPictures();
             mock.InsertAllEXIFData();
             mock.InsertAllIPTCData();
-            mock.AddPhotographer("Bruce", "Wayne", date, "");
+            mock.AddAndReturnPhotographer("Bruce", "Wayne", "01.01.1990", "");
 
             mock.AssignPhotographertoPicture(2, 1);
 
@@ -231,14 +228,13 @@ namespace SWE2_Projekt
         public void DeletePhotographer()
         {
             MockDAL mock = new MockDAL();
-            DateTime date = new DateTime();
             mock.InsertAllPictures();
             mock.InsertAllEXIFData();
             mock.InsertAllIPTCData();
-            mock.AddPhotographer("John", "Wayne", date, "");
-            mock.AddPhotographer("Bruce", "Wayne", date, "");
-            mock.AddPhotographer("Homer", "Simpson", date, "");
-            mock.AddPhotographer("Peter", "Griffin", date, "");
+            mock.AddAndReturnPhotographer("John", "Wayne", "03.04.1981", "");
+            mock.AddAndReturnPhotographer("Bruce", "Wayne", "03.04.1981", "");
+            mock.AddAndReturnPhotographer("Homer", "Simpson", "03.04.1981", "");
+            mock.AddAndReturnPhotographer("Peter", "Griffin", "03.04.1981", "");
 
             mock.DeletePhotographer("Homer", "Simpson");
 

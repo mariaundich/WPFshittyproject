@@ -59,6 +59,7 @@ namespace SWE2_Projekt.ViewModels
                 SelectedPhotographer.LastName = data[1];
                 SelectedPhotographer.Birthday = data[2];
                 SelectedPhotographer.Notes = data[3];
+                SelectedPhotographer.FullName = data[0] + " " + data[1];
 
                 _businessLayer.EditPhotographer(id, data);
                 
@@ -76,9 +77,7 @@ namespace SWE2_Projekt.ViewModels
             if (data[1] != "" &&
                 DateTime.Compare(DateTime.Today, Convert.ToDateTime(data[2])) > 0)
             {
-                Console.WriteLine("In the adding condition");
                 PhotographerModel newPhotographerModel = _businessLayer.AddAndReturnPhotographer(data);
-                //Console.WriteLine("ID of the new Photographer: " + newPhotographerModel.ID);
                 _photographerModelList.Add(newPhotographerModel);
                 
                 WasAdded = true;

@@ -77,11 +77,9 @@ namespace SWE2_Projekt
                 pictureModel.EXIF = auxEXIFModel;
 
                 PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
-                Console.WriteLine("Name aus dem BL: " + auxPhotographerModel.FullName);
                 pictureModel.Photographer = auxPhotographerModel;
 
                 ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);
-                pictureModel.Tags = auxTags;
                 pictureModel.Tags = auxTags;
 
                 auxPictureModelList.Add(pictureModel);

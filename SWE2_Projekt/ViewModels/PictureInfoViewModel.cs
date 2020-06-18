@@ -18,11 +18,9 @@ namespace SWE2_Projekt.ViewModels
         public PictureInfoViewModel()
         {
             IPTCModel = _businessLayer.SelectedPicture.IPTC;
-            Console.WriteLine("Im PictureInfoViewModel Konstruktor - Creator ist " + IPTCModel.Creator);
             EXIFModel = _businessLayer.SelectedPicture.EXIF;
             PhotographerModelList = _businessLayer.PhotographerModelList;
             SelectedPhotographerInInfo = _businessLayer.SelectedPicture.Photographer;
-            //Console.WriteLine("SelectedPhotographerInInfo: " + SelectedPhotographerInInfo);
         }
 
         public EXIFModel EXIFModel
