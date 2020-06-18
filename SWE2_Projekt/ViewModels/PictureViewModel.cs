@@ -16,10 +16,12 @@ namespace SWE2_Projekt.ViewModels
         private IPTCModel _iptc;
         private EXIFModel _exif;
         private string _tagString;
+        private string _selectedPhotographerName;
 
         public PictureViewModel()
         {
             Picture = _businessLayer.SelectedPicture;
+            _selectedPhotographerName = _picture.Photographer.FullName;
             IPTC = Picture.IPTC;
             EXIF = Picture.EXIF;
             TagString = MakeTagString();
@@ -85,6 +87,16 @@ namespace SWE2_Projekt.ViewModels
             }
         }
 
+        public string SelectedPhotographerName
+        {
+            get { return _selectedPhotographerName ?? ""; }
+            set
+            {
+                _selectedPhotographerName = value;
+                OnPropertyChanged(nameof(SelectedPhotographerName));
+            }
+        }
+
         public string PicturePath
         {
             get
@@ -121,7 +133,11 @@ namespace SWE2_Projekt.ViewModels
             {
                 auxTags += (Tag + ", ");
             }
-            auxTags = auxTags.Remove(auxTags.Length - 2);
+
+            if (auxTags.Length > 2)
+            {
+                auxTags = auxTags.Remove(auxTags.Length - 2);
+            }
             return auxTags;
         }
     }

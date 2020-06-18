@@ -30,11 +30,14 @@ namespace SWE2_Projekt
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            //BusinessLayer BusinessLayer = new BusinessLayer();
-            //Test = BusinessLayer.AllEXIFInfoForOnePicture("hacker-cat.png");
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
@@ -46,8 +49,11 @@ namespace SWE2_Projekt
             ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList(search);
         }
 
-        private void PictureInfoView_Loaded(object sender, RoutedEventArgs e)
+        private void RefreshDB(object sender, RoutedEventArgs e)
         {
+
+            ((MainWindowViewModel)DataContext)._businessLayer.RefreshPictureData();
+            ((MainWindowViewModel)DataContext).pictureListViewModel.UpdateImageList("");
 
         }
 
@@ -85,6 +91,13 @@ namespace SWE2_Projekt
             {
                 MessageBox.Show("Bericht wurde erstellt und gespeichert.", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void HowToPopup(object sender, RoutedEventArgs e)
+        {
+            string text = "Du kannst die Informationen, die dir rechts neben den Bildern angesezigt werden, bearbeiten. Du kannst zum Beispiel den zugeordneten Fotografen ändern oder die Tags eines Bildes bearbeiten.";
+            HowTo window = new HowTo(text);
+            window.Show();
         }
     }
 }

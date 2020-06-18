@@ -23,7 +23,6 @@ namespace SWE2_Projekt.ViewModels
         {
             PhotographerModelList = _businessLayer.PhotographerModelList;
             SelectedPhotographer = _businessLayer.SelectedPhotographer;
-            //Console.WriteLine(SelectedPhotographer.FirstName);
         }
 
         public ObservableCollection<PhotographerModel> PhotographerModelList
@@ -44,7 +43,6 @@ namespace SWE2_Projekt.ViewModels
                 if (_selectedPhotographer != value)
                 {
                     _selectedPhotographer = value;
-                    //Console.WriteLine(SelectedPhotographer.FirstName);
                     OnPropertyChanged(nameof(SelectedPhotographer));
                 }
             }
@@ -61,6 +59,8 @@ namespace SWE2_Projekt.ViewModels
                 SelectedPhotographer.Notes = data[3];
 
                 _businessLayer.EditPhotographer(id, data);
+                
+                MessageBox.Show("Die Daten wurden bearbeitet.", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

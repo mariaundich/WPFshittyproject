@@ -58,6 +58,8 @@ namespace SWE2_Projekt.Views
 
             if (PhotographerInput != PhotographerFullName)
             {
+                Console.WriteLine("hey binch!");
+
                 foreach (var Photographer in ((MainWindowViewModel)DataContext).pictureInfoViewModel.PhotographerModelList)
                 {
                     if (Photographer.FullName == PhotographerInput)

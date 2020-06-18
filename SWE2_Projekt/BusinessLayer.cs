@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SWE2_Projekt
 {
-    class BusinessLayer
+    public class BusinessLayer
     {
         public DataAccessLayer _DataAccessLayer;
         private ObservableCollection<PictureModel> _pictureModelList;
@@ -47,10 +47,7 @@ namespace SWE2_Projekt
 
         public void RefreshPictureData()
         {
-            _DataAccessLayer.DeleteAllData();
-            _DataAccessLayer.InsertAllPictures();
-            _DataAccessLayer.InsertAllEXIFData();
-            _DataAccessLayer.InsertAllIPTCData();
+            _DataAccessLayer.RefreshPictures();
         }
 
         public ObservableCollection<PictureModel> PictureModelList
@@ -80,7 +77,7 @@ namespace SWE2_Projekt
                 pictureModel.EXIF = auxEXIFModel;
 
                 PhotographerModel auxPhotographerModel = _DataAccessLayer.GetPhotographerByID(pictureModel.Photographer_ID);
-                Console.WriteLine("Geburtstag in BL: "+auxPhotographerModel.Birthday);
+                Console.WriteLine("Name aus dem BL: " + auxPhotographerModel.FullName);
                 pictureModel.Photographer = auxPhotographerModel;
 
                 ObservableCollection<string> auxTags = _DataAccessLayer.GetTagsByPictureID(pictureModel.ID);

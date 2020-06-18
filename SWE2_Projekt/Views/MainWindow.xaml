@@ -19,8 +19,7 @@
                 <MenuItem Header="_File" Click="MenuItem_Click">
                     <MenuItem Header="_Bericht für aktuelles Bild erstellen" Click="BerichtErstellen" />
                     <MenuItem Header="_Tag-Bericht erstellen" Click="TagBerichtErstellen" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
+                    <MenuItem Header="_Datenbank neu laden" Click="RefreshDB" />
                 </MenuItem>
 
                 <MenuItem Header="_Edit">
@@ -35,18 +34,14 @@
                     <MenuItem Header="_FotografInnen" Click="FotografInnenPopup"/>
                 </MenuItem>
 
-                <MenuItem Header="_Help" HorizontalAlignment="Right">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
+                <MenuItem Header="_Help" HorizontalAlignment="Right" Click="MenuItem_Click">
+                    <MenuItem Header="_Bedienungshinweis öffnen" Click="HowToPopup"/>
                 </MenuItem>
             </Menu>
 
 
             <DockPanel DockPanel.Dock="Top">
-                <Button DockPanel.Dock="Right" Content="Search" Padding="3, 0, 3, 0" Click="Searchbutton_Click"></Button>
+                <Button DockPanel.Dock="Right" Content="Suchen" Padding="3, 0, 3, 0" Click="Searchbutton_Click"></Button>
                 <TextBox x:Name="SearchField" Padding="3, 1, 3, 1"></TextBox>
             </DockPanel>
 

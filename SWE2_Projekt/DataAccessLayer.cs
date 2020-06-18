@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Collections.Specialized;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
@@ -27,8 +29,26 @@ namespace SWE2_Projekt
 
         public DataAccessLayer()
         {
-            var file = File.ReadAllText(configfile, Encoding.UTF8);
-            _connectionstring = file.ToString();
+            //var file = File.ReadAllText(configfile, Encoding.UTF8);
+            //_connectionstring = file.ToString();
+            //_connectionstring = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].
+            //_connectionstring = ConfigurationSettings.AppSettings["DatabasePath"];
+            //_connectionstring = ConfigurationManager.AppSettings["DatabasePath"];
+
+            _connectionstring = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+            /*ConnectionStringSettingsCollection settings = ConfigurationManager.ConnectionStrings;
+
+            if (settings != null)
+            {
+                foreach (ConnectionStringSettings cs in settings)
+                {
+                    Console.WriteLine(cs.Name);
+                    Console.WriteLine(cs.ProviderName);
+                    Console.WriteLine(cs.ConnectionString);
+                    _connectionstring = cs.ConnectionString;
+                }
+            }*/
+
         }
 
         public void DeleteAllData()
@@ -102,6 +122,36 @@ namespace SWE2_Projekt
                 }
                 connection.Close();
             }
+        }
+
+        public void RefreshPictures()
+        {
+
+           using (SqlConnection connection = new SqlConnection(_connectionstring))
+            {
+                connection.Open();
+
+                command = new SqlCommand("DELETE FROM Bild_Tag", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM Bilder", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM ITPC", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM EXIF", connection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM Tags", connection);
+                command.ExecuteNonQuery();
+
+            }
+
+            InsertAllPictures();
+            InsertAllEXIFData();
+            InsertAllIPTCData();
+            InsertPhotographerToPicture();
         }
 
         public List<PictureModel> ReturnAllPictureModels()
@@ -573,6 +623,7 @@ namespace SWE2_Projekt
             List<int> PictureId = new List<int>();
             List<int> PhotographerID = new List<int>();
 
+            //Console.WriteLine(_connectionstring);
             using (SqlConnection connection = new SqlConnection(_connectionstring))
             {
                 Console.WriteLine("Opening PicDB Connection!");

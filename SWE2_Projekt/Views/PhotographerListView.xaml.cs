@@ -42,7 +42,7 @@ namespace SWE2_Projekt.Views
             int id = ((MainWindowViewModel)DataContext).photographerListViewModel.SelectedPhotographer.ID;
 
             ((MainWindowViewModel)DataContext).photographerListViewModel.EditPhotographer(id, data);
-
+            ((MainWindowViewModel)DataContext).pictureListViewModel.RefreshImageList();
         }
     }
 }
